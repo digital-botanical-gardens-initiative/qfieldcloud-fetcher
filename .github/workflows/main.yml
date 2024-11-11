@@ -48,4 +48,3 @@ jobs:
 
       - name: Check typing
         run: poetry run mypy
-
