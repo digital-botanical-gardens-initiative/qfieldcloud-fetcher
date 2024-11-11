@@ -23,8 +23,8 @@ run_script "fetcher"
 # Run csv generation
 run_script "csv_generator"
 
-# Run emi id extracter
-run_script "emi_id_extracter"
+# Run csv formatter
+run_script "csv_formatter"
 
 # Run create directus fields
 run_script "create_directus_fields"
