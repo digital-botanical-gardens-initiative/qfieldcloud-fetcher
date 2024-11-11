@@ -20,9 +20,8 @@ run_script() {
 # Run fetcher
 run_script "fetcher"
 
-# Uncomment the following lines to run the scripts as needed
-# Run location formatter
-# run_script "location_formatter"
+# Run csv generation
+run_script "csv_generator"
 
 # Run emi id extracter
 run_script "emi_id_extracter"

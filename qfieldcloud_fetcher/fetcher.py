@@ -18,7 +18,7 @@ in_gpkg_path= os.getenv('in_gpkg_path')
 in_jpg_path= os.getenv('in_jpg_path')
 
 #Server connection
-client = sdk.Client(url=url)
+client = sdk.Client(url=url, verify_ssl=True)
 credentials = client.login(username=username, password=password)
 
 #Stores connection token
