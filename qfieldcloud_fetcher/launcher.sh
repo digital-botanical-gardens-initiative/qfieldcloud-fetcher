@@ -34,3 +34,6 @@ run_script "db_updater"
 
 # Run directus link maker
 run_script "directus_link_maker"
+
+# Run pictures renamer
+run_script "pictures_renamer"
