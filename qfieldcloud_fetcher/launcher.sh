@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# To obtain the actual path to inat_fetcher dir
+# To obtain the actual path to qfieldcloud_fetcher dir
 p=$(dirname $(dirname $(realpath $0)))
 
-scripts_folder="/src/"
+scripts_folder="/qfieldcloud_fetcher/"
 path_to_scripts="${p}${scripts_folder}"
 
 # Function to run a script and check its return code
@@ -27,7 +27,7 @@ run_script "csv_generator"
 run_script "csv_formatter"
 
 # Run create directus fields
-run_script "create_directus_fields"
+run_script "fields_creator"
 
 # Run db updater
 run_script "db_updater"
