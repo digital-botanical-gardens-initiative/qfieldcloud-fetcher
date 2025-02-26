@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# To obtain the actual path to qfieldcloud_fetcher dir
+# To obtain the actual path to qfieldcloud-fetcher dir
 p=$(dirname $(dirname $(realpath $0)))
 
 scripts_folder="/qfieldcloud_fetcher/"
@@ -10,6 +10,8 @@ path_to_scripts="${p}${scripts_folder}"
 run_script() {
     script_name=$1
     echo "Running $script_name"
+    # Redirect all output to the log file
+    exec &>> "$LOG_FILE"
     python3 "${path_to_scripts}${script_name}.py"
     if [ $? -ne 0 ]; then
         echo "$script_name failed"

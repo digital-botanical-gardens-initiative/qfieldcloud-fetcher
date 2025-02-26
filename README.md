@@ -1,41 +1,77 @@
 # qfieldcloud-fetcher
 
-[![Release](https://img.shields.io/github/v/release/edouardbruelhart/qfieldcloud-fetcher)](https://img.shields.io/github/v/release/edouardbruelhart/qfieldcloud-fetcher)
-[![Build status](https://img.shields.io/github/actions/workflow/status/edouardbruelhart/qfieldcloud-fetcher/main.yml?branch=main)](https://github.com/edouardbruelhart/qfieldcloud-fetcher/actions/workflows/main.yml?query=branch%3Amain)
-[![codecov](https://codecov.io/gh/edouardbruelhart/qfieldcloud-fetcher/branch/main/graph/badge.svg)](https://codecov.io/gh/edouardbruelhart/qfieldcloud-fetcher)
-[![Commit activity](https://img.shields.io/github/commit-activity/m/edouardbruelhart/qfieldcloud-fetcher)](https://img.shields.io/github/commit-activity/m/edouardbruelhart/qfieldcloud-fetcher)
-[![License](https://img.shields.io/github/license/edouardbruelhart/qfieldcloud-fetcher)](https://img.shields.io/github/license/edouardbruelhart/qfieldcloud-fetcher)
+[![Release](https://img.shields.io/github/v/release/digital-botanical-gardens-initiative/qfieldcloud-fetcher)](https://img.shields.io/github/v/release/digital-botanical-gardens-initiative/qfieldcloud-fetcher)
+[![Build status](https://img.shields.io/github/actions/workflow/status/digital-botanical-gardens-initiative/qfieldcloud-fetcher/main.yml?branch=main)](https://github.com/digital-botanical-gardens-initiative/qfieldcloud-fetcher/actions/workflows/main.yml?query=branch%3Amain)
+[![codecov](https://codecov.io/gh/digital-botanical-gardens-initiative/qfieldcloud-fetcher/branch/main/graph/badge.svg)](https://codecov.io/gh/digital-botanical-gardens-initiative/qfieldcloud-fetcher)
+[![Commit activity](https://img.shields.io/github/commit-activity/m/digital-botanical-gardens-initiative/qfieldcloud-fetcher)](https://img.shields.io/github/commit-activity/m/digital-botanical-gardens-initiative/qfieldcloud-fetcher)
+[![License](https://img.shields.io/github/license/digital-botanical-gardens-initiative/qfieldcloud-fetcher)](https://img.shields.io/github/license/digital-botanical-gardens-initiative/qfieldcloud-fetcher)
 
-A python project to fetch data from EMI QFieldCloud instance and prepare pictures for iNaturalist import.
+A python project to fetch data from a QFieldCloud instance and prepare pictures for iNaturalist import.
 
-- **Github repository**: <https://github.com/edouardbruelhart/qfieldcloud-fetcher/>
-- **Documentation** <https://edouardbruelhart.github.io/qfieldcloud-fetcher/>
+- **Github repository**: <https://github.com/digital-botanical-gardens-initiative/qfieldcloud-fetcher/>
 
-## Getting started with your project
+## Prerequisites
 
-First, create a repository on GitHub with the same name as this project, and then run the following commands:
+Having a self-hosted instance of QFieldCloud or having an account on the offical instance of QFieldCloud.
 
-```bash
-git init -b main
-git add .
-git commit -m "init commit"
-git remote add origin git@github.com:edouardbruelhart/qfieldcloud-fetcher.git
-git push -u origin main
-```
+## Setup
 
-Finally, install the environment and the pre-commit hooks with
+### 1. Clone the repository to your local machine:
 
 ```bash
-make install
+git clone https://github.com/digital-botanical-gardens-initiative/qfieldcloud-fetcher.git
+cd qfieldcloud-fetcher
 ```
 
-You are now ready to start development on your project!
-The CI/CD pipeline will be triggered when you open a pull request, merge to main, or when you create a new release.
+### 2. Create a .env file in the root folder and edit it to suit your needs:
+```bash
+cp .env.example .env
+vim .env
+```
 
-To finalize the set-up for publishing to PyPI or Artifactory, see [here](https://fpgmaas.github.io/cookiecutter-poetry/features/publishing/#set-up-for-pypi).
-For activating the automatic documentation with MkDocs, see [here](https://fpgmaas.github.io/cookiecutter-poetry/features/mkdocs/#enabling-the-documentation-on-github).
-To enable the code coverage reports, see [here](https://fpgmaas.github.io/cookiecutter-poetry/features/codecov/).
+### 3. set up an environment with `poetry`:
 
----
+  ```bash
+  poetry install
+  ```
 
-Repository initiated with [fpgmaas/cookiecutter-poetry](https://github.com/fpgmaas/cookiecutter-poetry).
+  Then activate the environment:
+
+  ```bash
+  poetry shell
+  ```
+
+  and run the `main.py` script:
+
+  ```bash
+  python main.py
+  ```
+
+  If you do not have poetry, you can install it with the command:
+
+  ```bash
+  pipx install poetry
+  ```
+
+### 4. Run launcher.sh script in cronjob:
+
+- Open cronjobs file:
+
+```sh
+crontab -e
+```
+
+- Add cronjobs:
+
+For example to run the fetcher every 2 hours: 
+```sh
+0 */2 * * * /path/to/fetcher/launcher.sh
+```
+
+## Contributing
+
+If you would like to contribute to this project or report issues, please follow our contribution guidelines.
+
+## License
+
+see [LICENSE](https://github.com/digital-botanical-gardens-initiative/qfieldcloud-fetcher/blob/main/LICENSE) for details.
