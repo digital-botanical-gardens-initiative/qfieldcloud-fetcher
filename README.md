@@ -24,6 +24,7 @@ cd qfieldcloud-fetcher
 ```
 
 ### 2. Create a .env file in the root folder and edit it to suit your needs:
+
 ```bash
 cp .env.example .env
 vim .env
@@ -31,27 +32,27 @@ vim .env
 
 ### 3. set up an environment with `poetry`:
 
-  ```bash
-  poetry install
-  ```
+```bash
+poetry install
+```
 
-  Then activate the environment:
+Then activate the environment:
 
-  ```bash
-  poetry shell
-  ```
+```bash
+poetry shell
+```
 
-  and run the `main.py` script:
+and run the `main.py` script:
 
-  ```bash
-  python main.py
-  ```
+```bash
+python main.py
+```
 
-  If you do not have poetry, you can install it with the command:
+If you do not have poetry, you can install it with the command:
 
-  ```bash
-  pipx install poetry
-  ```
+```bash
+pipx install poetry
+```
 
 ### 4. Run launcher.sh script in cronjob:
 
@@ -63,7 +64,8 @@ crontab -e
 
 - Add cronjobs:
 
-For example to run the fetcher every 2 hours: 
+For example to run the fetcher every 2 hours:
+
 ```sh
 0 */2 * * * /path/to/fetcher/launcher.sh
 ```

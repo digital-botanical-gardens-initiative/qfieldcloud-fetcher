@@ -15,8 +15,11 @@ url = os.getenv("INSTANCE")
 API = os.getenv("API")
 username = os.getenv("USERNAME")
 password = os.getenv("PASSWORD")
-in_gpkg_path = os.getenv("IN_GPKG_PATH")
-in_jpg_path = os.getenv("IN_JPG_PATH")
+in_path = os.getenv("INPUT_PATH")
+
+# Construct folders paths
+in_gpkg_path = f"{in_path}/gpkg"
+in_jpg_path = f"{in_path}/pictures"
 
 # Server connection
 client = sdk.Client(url=url)

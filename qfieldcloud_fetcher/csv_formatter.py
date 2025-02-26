@@ -10,8 +10,12 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Access the environment variables
-in_csv_path = os.getenv("IN_CSV_PATH")
-out_csv_path = os.getenv("OUT_CSV_PATH")
+in_path = os.getenv("INPUT_PATH")
+out_path = os.getenv("OUTPUT_PATH")
+
+# Construct folders paths
+in_csv_path = f"{in_path}/csv"
+out_csv_path = f"{out_path}/csv"
 
 
 def convert_csv_coordinates(csv_file_path: str, output_folder: str, root_folder: str) -> None:

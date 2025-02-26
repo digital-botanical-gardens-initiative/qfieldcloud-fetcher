@@ -3,6 +3,12 @@
 # To obtain the actual path to qfieldcloud-fetcher dir
 p=$(dirname $(dirname $(realpath $0)))
 
+# .env path
+ENV_PATH="${p}/qfieldcloud-fetcher/.env"
+
+# Load the .env file
+source ${ENV_PATH}
+
 scripts_folder="/qfieldcloud_fetcher/"
 path_to_scripts="${p}${scripts_folder}"
 

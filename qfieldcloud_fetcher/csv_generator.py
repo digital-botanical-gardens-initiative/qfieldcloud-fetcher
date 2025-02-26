@@ -10,8 +10,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Access the environment variables
-in_gpkg_path = os.getenv("IN_GPKG_PATH")
-in_csv_path = os.getenv("IN_CSV_PATH")
+in_path = os.getenv("INPUT_PATH")
+
+# Construct folders paths
+in_gpkg_path = f"{in_path}/gpkg"
+in_csv_path = f"{in_path}/csv"
 
 # Input/output directories
 base_gpkg_path = str(in_gpkg_path)
