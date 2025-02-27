@@ -6,15 +6,15 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Define the Directus instance, mail and password from .env
+# Access the environment variables
 directus_instance = os.getenv("DIRECTUS_INSTANCE")
-directus_login = f"{directus_instance}/auth/login"
-
-# Define the collection name and API url
-collection_name = "Field_Data"
-directus_api = f"{directus_instance}/items/{collection_name}"
 directus_email = os.getenv("DIRECTUS_EMAIL")
 directus_password = os.getenv("DIRECTUS_PASSWORD")
+
+# Define urls
+directus_login = f"{directus_instance}/auth/login"
+collection_name = "Field_Data"
+directus_api = f"{directus_instance}/items/{collection_name}/"
 
 # Create a session object for making requests
 session = requests.Session()

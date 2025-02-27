@@ -1,24 +1,24 @@
 #!/bin/bash
 
-# To obtain the actual path to qfieldcloud-fetcher dir
+# To obtain the actual path to repo folder
 p=$(dirname $(dirname $(realpath $0)))
 
 # .env path
-ENV_PATH="${p}/qfieldcloud-fetcher/.env"
+env_path="${p}/.env"
 
 # Load the .env file
-source ${ENV_PATH}
+source "${env_path}"
 
-scripts_folder="/qfieldcloud_fetcher/"
-path_to_scripts="${p}${scripts_folder}"
+# Get scripts folder
+scripts_folder="${p}/qfieldcloud_fetcher/"
 
-# Function to run a script and check its return code
+# Run a script and check its return code
 run_script() {
     script_name=$1
     echo "Running $script_name"
     # Redirect all output to the log file
-    exec &>> "$LOG_FILE"
-    python3 "${path_to_scripts}${script_name}.py"
+    exec &>> "$LOGS_FOLDER/$script_name.log"
+    python3 "${scripts_folder}${script_name}.py"
     if [ $? -ne 0 ]; then
         echo "$script_name failed"
         exit 1
@@ -29,19 +29,19 @@ run_script() {
 run_script "fetcher"
 
 # Run csv generation
-run_script "csv_generator"
+#run_script "csv_generator"
 
 # Run csv formatter
-run_script "csv_formatter"
+#run_script "csv_formatter"
 
 # Run create directus fields
-run_script "fields_creator"
+#run_script "fields_creator"
 
 # Run db updater
-run_script "db_updater"
+#run_script "db_updater"
 
 # Run directus link maker
-run_script "directus_link_maker"
+#run_script "directus_link_maker"
 
 # Run pictures renamer
-run_script "pictures_renamer"
+#run_script "pictures_renamer"

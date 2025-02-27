@@ -16,13 +16,9 @@ in_path = os.getenv("INPUT_PATH")
 in_gpkg_path = f"{in_path}/gpkg"
 in_csv_path = f"{in_path}/csv"
 
-# Input/output directories
-base_gpkg_path = str(in_gpkg_path)
-base_csv_path = str(in_csv_path)
-
 # Loop over the subfolders in the gpkg directory
-for subfolder in os.listdir(base_gpkg_path):
-    subfolder_gpkg_path = os.path.join(base_gpkg_path, subfolder)
+for subfolder in os.listdir(in_gpkg_path):
+    subfolder_gpkg_path = os.path.join(in_gpkg_path, subfolder)
 
     # Check if subfolder_gpkg_path is a directory
     if not os.path.isdir(subfolder_gpkg_path):
@@ -45,7 +41,7 @@ for subfolder in os.listdir(base_gpkg_path):
         df = pd.concat([gdf], ignore_index=True)
 
         # Create the corresponding output directory for the gpkg file
-        output_dir = os.path.join(base_csv_path, subfolder)
+        output_dir = os.path.join(in_csv_path, subfolder)
         os.makedirs(output_dir, exist_ok=True)
 
         # Write the concatenated dataframe to a single CSV file with columns

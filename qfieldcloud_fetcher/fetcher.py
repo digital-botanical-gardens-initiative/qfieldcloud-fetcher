@@ -11,11 +11,14 @@ from qfieldcloud_sdk import sdk  # type: ignore[import-untyped]
 load_dotenv()
 
 # Access the environment variables
-url = os.getenv("INSTANCE")
-API = os.getenv("API")
-username = os.getenv("USERNAME")
-password = os.getenv("PASSWORD")
+instance = os.getenv("QFIELDCLOUD_INSTANCE")
+username = os.getenv("QFIELDCLOUD_USERNAME")
+password = os.getenv("QFIELDCLOUD_PASSWORD")
 in_path = os.getenv("INPUT_PATH")
+
+# Construct urls
+url = f"{instance}/api/v1/"
+url_files = f"{instance}/api/v1/files/"
 
 # Construct folders paths
 in_gpkg_path = f"{in_path}/gpkg"
@@ -40,7 +43,7 @@ for d in projects:
             projects_names.append(value)
 
 # Constructs the gpkg urls
-base_url = API
+base_url = url_files
 urls_gpkg_by_project = {}
 for project in projects:
     project_name = project["name"]
