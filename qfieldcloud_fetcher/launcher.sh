@@ -34,7 +34,7 @@ run_script() {
 run_script "fetcher"
 
 # Run csv generation
-#run_script "csv_generator"
+run_script "csv_generator"
 
 # Run csv formatter
 #run_script "csv_formatter"
