@@ -19,7 +19,6 @@ scripts_folder="${p}/qfieldcloud_fetcher/"
 # Run a script and check its return code
 run_script() {
     script_name=$1
-    echo "Running $script_name" # TODO: remove this after testing once
     # Redirect all output to the log file
     exec &>> "$LOGS_PATH/$script_name.log"
     echo "Running $script_name"
