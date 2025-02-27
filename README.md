@@ -6,13 +6,17 @@
 [![Commit activity](https://img.shields.io/github/commit-activity/m/digital-botanical-gardens-initiative/qfieldcloud-fetcher)](https://img.shields.io/github/commit-activity/m/digital-botanical-gardens-initiative/qfieldcloud-fetcher)
 [![License](https://img.shields.io/github/license/digital-botanical-gardens-initiative/qfieldcloud-fetcher)](https://img.shields.io/github/license/digital-botanical-gardens-initiative/qfieldcloud-fetcher)
 
-A python project to fetch data from a QFieldCloud instance and prepare pictures for iNaturalist import.
+A python project to fetch data from a QFieldCloud instance, prepare pictures for iNaturalist import and add data to NextCloud.
 
 - **Github repository**: <https://github.com/digital-botanical-gardens-initiative/qfieldcloud-fetcher/>
 
 ## Prerequisites
 
-Having a self-hosted instance of QFieldCloud or having an account on the offical instance of QFieldCloud.
+Having a self-hosted instance of QFieldCloud or having an account on the offical instance of QFieldCloud. To create a QFieldCloud self-hosted instance see https://github.com/digital-botanical-gardens-initiative/QFieldCloud/
+
+Having a self-hosted instance of Directus or having an account on the official instance of Directus. To create a Directus self-hosted instance see https://github.com/digital-botanical-gardens-initiative/Directus-prod/
+
+Having a self-hosted instance of NextCloud. To create a NextCloud self-hosted instance see https://github.com/digital-botanical-gardens-initiative/NextCloud/
 
 ## Setup
 
@@ -56,13 +60,27 @@ pipx install poetry
 
 ### 4. Run launcher.sh script in cronjob:
 
+- Add the user that will run the cronjob to NextCloud data group (Permits it to access NextCloud data folder):
+
+```sh
+sudo usermod -aG www-data your_user
+```
+
+- Create a folder in NextCloud web interface
+
+- Locate your newly created folder and allow group write access to it:
+
+```sh
+sudo chmod -R g+w /path/to/your/newly/created/folder
+```
+
 - Open cronjobs file:
 
 ```sh
 crontab -e
 ```
 
-- Add cronjobs:
+- Add cronjob:
 
 For example to run the fetcher every 2 hours:
 

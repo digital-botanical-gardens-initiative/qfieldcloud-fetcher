@@ -10,9 +10,7 @@ env_path="${p}/.env"
 source "${env_path}"
 
 # Create folders if they don't exist
-mkdir -p "${NEXTCLOUD_FOLDER}"
-mkdir -p "${INPUT_PATH}"
-mkdir -p "${OUTPUT_PATH}"
+mkdir -p "${DATA_PATH}"
 mkdir -p "${LOGS_FOLDER}"
 
 # Get scripts folder

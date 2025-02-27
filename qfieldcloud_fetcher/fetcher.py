@@ -14,15 +14,15 @@ load_dotenv()
 instance = os.getenv("QFIELDCLOUD_INSTANCE")
 username = os.getenv("QFIELDCLOUD_USERNAME")
 password = os.getenv("QFIELDCLOUD_PASSWORD")
-in_path = os.getenv("INPUT_PATH")
+data_path = os.getenv("DATA_PATH")
 
 # Construct urls
 url = f"{instance}/api/v1/"
 url_files = f"{instance}/api/v1/files/"
 
 # Construct folders paths
-in_gpkg_path = f"{in_path}/gpkg"
-in_jpg_path = f"{in_path}/pictures"
+in_gpkg_path = f"{data_path}/in/gpkg"
+in_jpg_path = f"{data_path}/in/pictures"
 
 # Server connection
 client = sdk.Client(url=url)
