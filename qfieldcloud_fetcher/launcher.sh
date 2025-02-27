@@ -9,15 +9,22 @@ env_path="${p}/.env"
 # Load the .env file
 source "${env_path}"
 
+# Create folders if they don't exist
+mkdir -p "${NEXTCLOUD_FOLDER}"
+mkdir -p "${INPUT_PATH}"
+mkdir -p "${OUTPUT_PATH}"
+mkdir -p "${LOGS_FOLDER}"
+
 # Get scripts folder
 scripts_folder="${p}/qfieldcloud_fetcher/"
 
 # Run a script and check its return code
 run_script() {
     script_name=$1
-    echo "Running $script_name"
+    echo "Running $script_name" # TODO: remove this after testing once
     # Redirect all output to the log file
     exec &>> "$LOGS_FOLDER/$script_name.log"
+    echo "Running $script_name"
     python3 "${scripts_folder}${script_name}.py"
     if [ $? -ne 0 ]; then
         echo "$script_name failed"
