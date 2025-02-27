@@ -6,14 +6,15 @@ p=$(dirname $(dirname $(realpath $0)))
 # .env path
 env_path="${p}/.env"
 
-echo "${env_path}"
-
 # Load the .env file
 source "${env_path}"
 
 # Create folders if they don't exist
 mkdir -p "${DATA_PATH}"
 mkdir -p "${LOGS_FOLDER}"
+
+echo "${DATA_PATH}"
+echo "${LOGS_FOLDER}"
 
 # Get scripts folder
 scripts_folder="${p}/qfieldcloud_fetcher/"
