@@ -10,12 +10,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Access the environment variables
-in_path = os.getenv("INPUT_PATH")
-out_path = os.getenv("OUTPUT_PATH")
+data_path = os.getenv("DATA_PATH")
 
 # Construct folders paths
-in_csv_path = f"{in_path}/csv"
-out_csv_path = f"{out_path}/csv"
+in_csv_path = f"{data_path}/in/csv"
+out_csv_path = f"{data_path}/out/csv"
 
 
 def convert_csv_coordinates(csv_file_path: str, output_folder: str, root_folder: str) -> None:
@@ -69,14 +68,10 @@ def convert_csv_coordinates(csv_file_path: str, output_folder: str, root_folder:
 
     print(f"Saved converted file to {output_file_path}")
 
-
-input_folder = str(in_csv_path)
-output_folder = str(out_csv_path)
-
 # Iterate over all CSV files in the input folder and its subdirectories
-for root, _dirs, files in os.walk(input_folder):
+for root, _dirs, files in os.walk(in_csv_path):
     for filename in files:
         if filename.endswith(".csv"):
             # Convert the CSV file and save the result in the output folder
             csv_file_path = os.path.join(root, filename)
-            convert_csv_coordinates(csv_file_path, output_folder, input_folder)
+            convert_csv_coordinates(csv_file_path, out_csv_path, in_csv_path)

@@ -36,7 +36,7 @@ run_script "fetcher"
 run_script "csv_generator"
 
 # Run csv formatter
-#run_script "csv_formatter"
+run_script "csv_formatter"
 
 # Run create directus fields
 #run_script "fields_creator"
