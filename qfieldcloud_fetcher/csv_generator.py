@@ -40,7 +40,7 @@ for subfolder in os.listdir(in_gpkg_path):
         suffix = gdf.crs
         df = pd.concat([gdf], ignore_index=True)
 
-        # Create the corresponding output directory for the gpkg file
+        # Create the corresponding output directory for the csv file
         output_dir = os.path.join(in_csv_path, subfolder)
         os.makedirs(output_dir, exist_ok=True)
 
