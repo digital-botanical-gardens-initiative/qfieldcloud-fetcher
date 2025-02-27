@@ -11,22 +11,20 @@ source "${env_path}"
 
 # Create folders if they don't exist
 mkdir -p "${DATA_PATH}"
-mkdir -p "${LOGS_FOLDER}"
+mkdir -p "${LOGS_PATH}"
 
 echo "${DATA_PATH}"
-echo "${LOGS_FOLDER}"
+echo "${LOGS_PATH}"
 
 # Get scripts folder
 scripts_folder="${p}/qfieldcloud_fetcher/"
-
-poetry shell
 
 # Run a script and check its return code
 run_script() {
     script_name=$1
     echo "Running $script_name" # TODO: remove this after testing once
     # Redirect all output to the log file
-    exec &>> "$LOGS_FOLDER/$script_name.log"
+    exec &>> "$LOGS_PATH/$script_name.log"
     echo "Running $script_name"
     poetry run python3 "${scripts_folder}${script_name}.py"
     if [ $? -ne 0 ]; then
