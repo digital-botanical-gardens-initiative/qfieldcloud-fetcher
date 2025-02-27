@@ -16,6 +16,8 @@ mkdir -p "${LOGS_FOLDER}"
 # Get scripts folder
 scripts_folder="${p}/qfieldcloud_fetcher/"
 
+poetry shell
+
 # Run a script and check its return code
 run_script() {
     script_name=$1
@@ -23,7 +25,7 @@ run_script() {
     # Redirect all output to the log file
     exec &>> "$LOGS_FOLDER/$script_name.log"
     echo "Running $script_name"
-    python3 "${scripts_folder}${script_name}.py"
+    poetry run python3 "${scripts_folder}${script_name}.py"
     if [ $? -ne 0 ]; then
         echo "$script_name failed"
         exit 1
