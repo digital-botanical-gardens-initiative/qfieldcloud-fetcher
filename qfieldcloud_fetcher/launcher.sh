@@ -13,9 +13,6 @@ source "${env_path}"
 mkdir -p "${DATA_PATH}"
 mkdir -p "${LOGS_PATH}"
 
-echo "${DATA_PATH}"
-echo "${LOGS_PATH}"
-
 # Get scripts folder
 scripts_folder="${p}/qfieldcloud_fetcher/"
 
