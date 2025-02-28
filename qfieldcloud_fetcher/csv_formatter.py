@@ -2,6 +2,7 @@
 
 import os
 
+import geopandas  # type: ignore[import-untyped]
 import pandas as pd
 import pyproj
 from dotenv import load_dotenv
@@ -51,8 +52,15 @@ def convert_csv_coordinates(csv_file_path: str, output_folder: str, root_folder:
     out_crs = pyproj.CRS("EPSG:4326")
 
     # Convert the coordinates using the pyproj library
-    transformer = pyproj.Transformer.from_crs(in_crs, out_crs)
+    transformer = pyproj.Transformer.from_crs(in_crs, out_crs, always_xy=True)
     df["latitude"], df["longitude"] = transformer.transform(df["x_coord"].values, df["y_coord"].values)
+
+    # Apply transformation to the geometry column
+    df["geometry"] = geopandas.GeoDataFrame(
+        geometry=geopandas.points_from_xy(x=df["latitude"], y=df["longitude"]), crs="EPSG:2443"
+    )
+
+    print(df.head())
 
     # Extract the CRS from the output pyproj object and replace the original CRS in the output filename
     out_crs_str = out_crs.to_string()
@@ -64,7 +72,7 @@ def convert_csv_coordinates(csv_file_path: str, output_folder: str, root_folder:
     output_file_path = os.path.join(output_folder, rel_path)
     output_file_path = os.path.join(os.path.dirname(output_file_path), output_file_name)
     os.makedirs(os.path.dirname(output_file_path), exist_ok=True)
-    df.to_csv(output_file_path, index=False)
+    # df.to_csv(output_file_path, index=False)
 
     print(f"Saved converted file to {output_file_path}")
 
