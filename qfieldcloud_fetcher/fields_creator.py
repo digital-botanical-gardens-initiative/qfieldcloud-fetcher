@@ -41,9 +41,8 @@ if response.status_code == 200:
 
     # Iterate over all CSV files in the input folder and its subdirectories
     for root, _dirs, files in os.walk(out_csv_path):
-        if files.__len__() == 0:
-            print("No files found")
         for filename in files:
+            print(f"Processing {filename} in {files} in {root}")
             # Retrieve project name
             project = root.split("/")[-1]
             # Ignore old layer without sample_id
