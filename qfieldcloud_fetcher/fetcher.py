@@ -28,15 +28,12 @@ in_jpg_path = f"{data_path}/in/pictures"
 client = sdk.Client(url=url)
 credentials = client.login(username=username, password=password)
 
-print("credentials",
-      credentials)
-
-if credentials is None:
-    print("Error: Invalid credentials")
-    exit(1) 
-
 # Stores connection token
 auth_token = credentials["token"]
+
+if not auth_token:
+    print("Error: Could not authenticate with the server")
+    exit(1)
 
 # Extracts the projects informations
 projects = client.list_projects()
@@ -87,6 +84,7 @@ for prefix, urls_list in urls_gpkg_by_project.items():
             with open(save_path, "wb") as f:
                 for chunk in response.iter_content(chunk_size=8192):
                     f.write(chunk)
+            print(f"Downloaded {url}")
         else:
             print(f"Error downloading {url}")
 
@@ -162,7 +160,7 @@ for prefix, urls_jpg_by_layer in urls_jpg_by_project.items():
                     for chunk in response.iter_content(chunk_size=8192):
                         f.write(chunk)
 
-                # Get the project ID based on project name
+                print(f"Downloaded {url}")
             else:
                 print(f"Error downloading {url}")
             project_id = None
