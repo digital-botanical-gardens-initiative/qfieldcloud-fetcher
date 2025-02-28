@@ -11,8 +11,10 @@ load_dotenv()
 directus_instance = os.getenv("DIRECTUS_INSTANCE")
 directus_email = os.getenv("DIRECTUS_USERNAME")
 directus_password = os.getenv("DIRECTUS_PASSWORD")
+data_path = os.getenv("DATA_PATH")
 
-print("test")
+# Construct folders paths
+out_csv_path = f"{data_path}/out/csv"
 
 # Define urls
 directus_login = f"{directus_instance}/auth/login"
@@ -38,7 +40,7 @@ if response.status_code == 200:
         "Content-Type": "application/json",
     }
 
-    out_csv_path = str(os.getenv("OUT_CSV_PATH"))
+    print(f"Processing CSV files in {out_csv_path}")
 
     # Iterate over all CSV files in the input folder and its subdirectories
     for root, _dirs, files in os.walk(out_csv_path):
