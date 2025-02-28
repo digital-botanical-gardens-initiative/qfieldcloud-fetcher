@@ -137,3 +137,7 @@ if response.status_code == 200:
                         print(response.text)
                         print(dir_type)
                         print(col_clean)
+
+else:
+    print("Connection failed")
+    print(response.status_code)
