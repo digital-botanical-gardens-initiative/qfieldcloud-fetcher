@@ -44,7 +44,7 @@ if response.status_code == 200:
     # Iterate over all CSV files in the input folder and its subdirectories
     for root, _dirs, files in os.walk(out_csv_path):
         for filename in files:
-            print(f"Processing {filename} in {files} in {root}")
+            print(f"Processing {filename} in {root}")
             # Retrieve project name
             project = root.split("/")[-1]
             # Ignore old layer without sample_id
@@ -106,7 +106,7 @@ if response.status_code == 200:
                         print(f"not handled type: {df_type}, longest content: {longest_content[i]}")
 
                     # If the column is a geometry, create a geometry field
-                    if df_col_name == "geojson.coordinates":
+                    if df_col_name == "geometry":
                         dir_type = "geometry.Point"
 
                     # Create patch url
