@@ -28,6 +28,13 @@ in_jpg_path = f"{data_path}/in/pictures"
 client = sdk.Client(url=url)
 credentials = client.login(username=username, password=password)
 
+print("credentials",
+      credentials)
+
+if credentials is None:
+    print("Error: Invalid credentials")
+    exit(1) 
+
 # Stores connection token
 auth_token = credentials["token"]
 
@@ -156,6 +163,8 @@ for prefix, urls_jpg_by_layer in urls_jpg_by_project.items():
                         f.write(chunk)
 
                 # Get the project ID based on project name
+            else:
+                print(f"Error downloading {url}")
             project_id = None
             for project in projects:
                 if project["name"] == prefix:
@@ -168,5 +177,3 @@ for prefix, urls_jpg_by_layer in urls_jpg_by_project.items():
                 result = client.delete_files(project_id=project_id, glob_patterns=[file_to_delete])
             else:
                 print(f"Error: Project ID not found for project {prefix}")
-        else:
-            print(f"Error downloading {url}")
