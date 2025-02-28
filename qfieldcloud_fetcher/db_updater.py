@@ -10,7 +10,7 @@ load_dotenv()
 
 # Access the environment variables
 directus_instance = os.getenv("DIRECTUS_INSTANCE")
-directus_email = os.getenv("DIRECTUS_EMAIL")
+directus_email = os.getenv("DIRECTUS_USERNAME")
 directus_password = os.getenv("DIRECTUS_PASSWORD")
 data_path = os.getenv("DATA_PATH")
 

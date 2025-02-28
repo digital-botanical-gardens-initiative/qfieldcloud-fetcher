@@ -16,15 +16,11 @@ data_path = os.getenv("DATA_PATH")
 # Construct folders paths
 out_csv_path = f"{data_path}/out/csv"
 
-# Define urls
-directus_login = f"{directus_instance}/auth/login"
-collection_name = "Field_Data"
-directus_api = f"{directus_instance}/items/{collection_name}/"
-
 # Create a session object for making requests
 session = requests.Session()
 
 # Send a POST request to the login endpoint
+directus_login = f"{directus_instance}/auth/login"
 response = session.post(directus_login, json={"email": directus_email, "password": directus_password})
 
 # Test if connection is successful
@@ -35,119 +31,78 @@ if response.status_code == 200:
     data = response.json()["data"]
     directus_token = data["access_token"]
 
-    # Construct headers with authentication token
-    headers = {
-        "Authorization": f"Bearer {directus_token}",
-        "Content-Type": "application/json",
+    # Create an empty dictionary to store the column types
+    field_types = {}
+
+    # Mapping pandas dtypes to Directus types
+    pandas_to_directus = {
+        "int64": "integer",
+        "float64": "float",
+        "object": "string",
+        "bool": "boolean",
+        "datetime64[ns]": "datetime",
+        "timedelta64[ns]": "duration",
     }
 
     # Iterate over all CSV files in the input folder and its subdirectories
     for root, _dirs, files in os.walk(out_csv_path):
         for filename in files:
-            print(f"Processing {filename} in {root}")
-            # Retrieve project name
-            project = root.split("/")[-1]
-            # Ignore old layer without sample_id
+            # Ignore old layer without sample_id and non-csv files
             if filename.endswith(".csv") and filename != "SBL_20004_2022_EPSG:4326.csv":
                 # Read each df
                 constructed_path = root + "/" + filename
                 df = pd.read_csv(constructed_path)
 
+                # Skip empty files
+                if df.empty:
+                    continue
+
                 # Add qfield project to dataframe
+                project = root.split("/")[-1]
                 df["qfield_project"] = project
 
-                # Define the threshold for text length
-                threshold = 255
+                # Iterate over all columns in the dataframe
+                for column in df.columns:
+                    # Skip columns with all null values
+                    if df[column].isnull().all():
+                        continue
 
-                # Create an empty dictionary to store the biggest values of each column
-                longest_content = {}
+                    # Replace dots with underscores
+                    column = column.replace(".", "_")
 
-                # Create an empty dictionary to store the fields to create
-                observation = {}
-
-                # Loop over the columns to create the dict
-                for col_name in df.columns:
-                    # Replace dots with underscores in field names
-                    new_col_name = col_name.replace(".", "_")
-                    # Add to the dictionary
-                    observation[new_col_name] = col_name
-
-                    # Find the longest content in the column
-                    longest = df[col_name].astype(str).apply(len).max()
-
-                    # Store the longest content for the column
-                    if str(longest) != "nan":
-                        longest_content[new_col_name] = longest
-                    else:
-                        longest_content[new_col_name] = 1
-
-                # Request directus to create the columns
-                for i in observation:
-                    col_init = str.replace(str(observation[i]), "['", "")
-                    col = str.replace(col_init, "']", "")
-                    col_clean = str.replace(col, ".", "_")
-                    df_type = str(df[col].dtype)
-                    df_col_name = str(df[col].name)
-
-                    # Replace types to match directus ones
-
-                    if df_type == "object" and longest_content[i] < threshold:
-                        dir_type = "string"
-                    elif df_type == "int64" and longest_content[i] < threshold:
-                        dir_type = "integer"
-                    elif df_type == "bool" and longest_content[i] < threshold:
-                        dir_type = "boolean"
-                    elif df_type == "float64" and longest_content[i] < threshold:
-                        dir_type = "float"
-                    elif longest_content[i] >= threshold:
-                        dir_type = "text"
-                    else:
-                        # If type is not handled by the ones already made, print it so we can integrate it easily
-                        print(f"not handled type: {df_type}, longest content: {longest_content[i]}")
-
-                    # If the column is a geometry, create a geometry field
-                    if df_col_name == "geometry":
-                        dir_type = "geometry.Point"
-
-                    # Create patch url
-                    url_patch = f"{directus_instance}/fields/{collection_name}/{col_clean}"
-
-                    # Construct directus url
-                    url = f"{directus_instance}/fields/{collection_name}"
-                    # Create a field for each csv column
-                    data = {"field": col_clean, "type": dir_type}
-
-                    print(f"Creating field {col_clean} of type {dir_type}")
-
-                    # Make directus request
-                    response = requests.post(url, json=data, headers=headers, timeout=10)
-                    # Check if adding is success
-                    if response.status_code == 200:
-                        print(f"{col_clean} field created")
-                        # If field is of type geometry.Point, add a validation to correctly display map
-                        if dir_type == "geometry.Point":
-                            validation = {"meta": {"validation": {"_and": [{col_clean: {"_intersects_bbox": None}}]}}}
-                            response = requests.patch(url_patch, json=validation, headers=headers, timeout=10)
-                            if response.status_code == 200:
-                                print(f"validation correctly added for field {col_clean}")
-                            else:
-                                print("error adding validation")
-                    # If field already exists, update it
-                    elif response.status_code == 400:
-                        response = requests.patch(url_patch, json=data, headers=headers, timeout=10)
-                        if response.status_code == 200:
-                            print(f"field {col_clean} updated")
+                    # Add types to dictionary if not already present
+                    if column not in field_types:
+                        if column.__contains__("comment"):
+                            column_type = "text"
+                        elif column.__contains__("geometry"):
+                            column_type = "geometry.Point"
                         else:
-                            print(f"error updating field {col_clean}")
-                    else:
-                        print(response.status_code)
-                        print(response.text)
-                        print(dir_type)
-                        print(col_clean)
+                            column_type = pandas_to_directus[str(df[column].dtype)]
 
-            else:
-                print(f"file {filename} ignored")
+                        field_types[column] = column_type
+
+    # Define api urls
+    collection_name = "Field_Data"
+
+    # Construct headers with authentication token
+    headers = {"Authorization": f"Bearer {directus_token}", "Content-Type": "application/json"}
+    post_url = f"{directus_instance}/fields/{collection_name}/"
+    for key, value in field_types.items():
+        field_url = f"{directus_instance}/fields/{collection_name}/{key}"
+        response = session.get(field_url)
+
+        if response.status_code == 200:
+            print(f"Field {key} already exists")
+        elif response.status_code == 403:
+            print(f"Creating field {key} with type {value}")
+            data = {"field": key, "type": value}
+            response = session.post(post_url, json=data, headers=headers)
+            if response.status_code != 200:
+                print(f"Error creating field: {response.status_code} - {response.text}")
+        else:
+            print(f"Error: {response.status_code} - {response.text}")
 
 else:
-    print("Connection failed")
-    print(response.status_code)
+    print("Connection to Directus failed")
+    print(f"Error: {response.status_code} - {response.text}")
+    exit()
