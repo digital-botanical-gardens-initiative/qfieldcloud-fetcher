@@ -29,7 +29,8 @@ response = session.post(directus_login, json={"email": directus_email, "password
 
 # Test if connection is successful
 if response.status_code == 200:
-    print("Connection successful")
+    print("Connection to Directus successful")
+
     # Stores the access token
     data = response.json()["data"]
     directus_token = data["access_token"]
@@ -39,8 +40,6 @@ if response.status_code == 200:
         "Authorization": f"Bearer {directus_token}",
         "Content-Type": "application/json",
     }
-
-    print(f"Processing CSV files in {out_csv_path}")
 
     # Iterate over all CSV files in the input folder and its subdirectories
     for root, _dirs, files in os.walk(out_csv_path):
@@ -105,6 +104,8 @@ if response.status_code == 200:
                     else:
                         # If type is not handled by the ones already made, print it so we can integrate it easily
                         print(f"not handled type: {df_type}, longest content: {longest_content[i]}")
+
+                    # If the column is a geometry, create a geometry field
                     if df_col_name == "geojson.coordinates":
                         dir_type = "geometry.Point"
 
