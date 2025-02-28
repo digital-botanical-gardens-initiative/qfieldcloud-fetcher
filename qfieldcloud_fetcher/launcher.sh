@@ -42,7 +42,7 @@ run_script "csv_formatter"
 run_script "fields_creator"
 
 # Run db updater
-run_script "db_updater"
+#run_script "db_updater"
 
 # Run directus link maker
 #run_script "directus_link_maker"
