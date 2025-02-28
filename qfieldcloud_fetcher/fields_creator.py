@@ -12,6 +12,8 @@ directus_instance = os.getenv("DIRECTUS_INSTANCE")
 directus_email = os.getenv("DIRECTUS_USERNAME")
 directus_password = os.getenv("DIRECTUS_PASSWORD")
 
+print("test")
+
 # Define urls
 directus_login = f"{directus_instance}/auth/login"
 collection_name = "Field_Data"
