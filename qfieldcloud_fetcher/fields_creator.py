@@ -114,23 +114,22 @@ if response.status_code == 200:
                     response = requests.post(url, json=data, headers=headers, timeout=10)
                     # Check if adding is success
                     if response.status_code == 200:
-                        # print(f"{col_clean} field created")
+                        print(f"{col_clean} field created")
                         # If field is of type geometry.Point, add a validation to correctly display map
                         if dir_type == "geometry.Point":
                             validation = {"meta": {"validation": {"_and": [{col_clean: {"_intersects_bbox": None}}]}}}
                             response = requests.patch(url_patch, json=validation, headers=headers, timeout=10)
-                            if response.status_code != 200:
-                                # print(f"validation correctly added for field {col_clean}")
-                                # else:
+                            if response.status_code == 200:
+                                print(f"validation correctly added for field {col_clean}")
+                            else:
                                 print("error adding validation")
-                    # else print the type and the column name
+                    # If field already exists, update it
                     elif response.status_code == 400:
                         response = requests.patch(url_patch, json=data, headers=headers, timeout=10)
-                        if response.status_code != 200:
-                            # print(f"field {col_clean} updated")
-                            # print(dir_type)
-                            # else:
-                            print(f"error creating/updating field {col_clean}")
+                        if response.status_code == 200:
+                            print(f"field {col_clean} updated")
+                        else:
+                            print(f"error updating field {col_clean}")
                     else:
                         print(response.status_code)
                         print(response.text)

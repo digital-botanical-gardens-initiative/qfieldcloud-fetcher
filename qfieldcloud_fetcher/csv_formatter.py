@@ -68,6 +68,7 @@ def convert_csv_coordinates(csv_file_path: str, output_folder: str, root_folder:
 
     print(f"Saved converted file to {output_file_path}")
 
+
 # Iterate over all CSV files in the input folder and its subdirectories
 for root, _dirs, files in os.walk(in_csv_path):
     for filename in files:
