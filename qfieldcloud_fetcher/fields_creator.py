@@ -27,6 +27,7 @@ response = session.post(directus_login, json={"email": directus_email, "password
 
 # Test if connection is successful
 if response.status_code == 200:
+    print("Connection successful")
     # Stores the access token
     data = response.json()["data"]
     directus_token = data["access_token"]
@@ -112,6 +113,8 @@ if response.status_code == 200:
                     url = f"{directus_instance}/fields/{collection_name}"
                     # Create a field for each csv column
                     data = {"field": col_clean, "type": dir_type}
+
+                    print(f"Creating field {col_clean} of type {dir_type}")
 
                     # Make directus request
                     response = requests.post(url, json=data, headers=headers, timeout=10)
