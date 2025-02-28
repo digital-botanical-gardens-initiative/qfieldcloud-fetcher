@@ -12,6 +12,10 @@ load_dotenv()
 directus_instance = os.getenv("DIRECTUS_INSTANCE")
 directus_email = os.getenv("DIRECTUS_EMAIL")
 directus_password = os.getenv("DIRECTUS_PASSWORD")
+data_path = os.getenv("DATA_PATH")
+
+# Construct folders paths
+out_csv_path = f"{data_path}/out/csv"
 
 # Define urls
 directus_login = f"{directus_instance}/auth/login"
@@ -26,6 +30,7 @@ response = session.post(directus_login, json={"email": directus_email, "password
 
 # Test if connection is successful
 if response.status_code == 200:
+    print("Connection to Directus successful")
     # Stores the access token
     data = response.json()["data"]
     directus_token = data["access_token"]
@@ -36,11 +41,10 @@ if response.status_code == 200:
         "Content-Type": "application/json",
     }
 
-    out_csv_path = str(os.getenv("OUT_CSV_PATH"))
-
     # Iterate over all CSV files in the input folder and its subdirectories
     for root, _dirs, files in os.walk(out_csv_path):
         for filename in files:
+            print(f"Processing {filename} in {root}")
             # Retrieve project name
             project = root.split("/")[-1]
 
@@ -97,3 +101,7 @@ if response.status_code == 200:
                         print(obs["sample_id"])
                         print(filename)
                         print(obs)
+
+else:
+    print("Connection to Directus failed")
+    print(response.status_code)
