@@ -39,7 +39,7 @@ run_script "csv_generator"
 run_script "csv_formatter"
 
 # Run create directus fields
-#run_script "fields_creator"
+run_script "fields_creator"
 
 # Run db updater
 #run_script "db_updater"
