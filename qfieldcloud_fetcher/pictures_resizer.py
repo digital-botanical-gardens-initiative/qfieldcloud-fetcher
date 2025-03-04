@@ -9,10 +9,10 @@ from PIL import Image
 load_dotenv()
 
 # Access the environment variables
-in_path = os.getenv("INPUT_PATH")
+data_path = os.getenv("DATA_PATH")
 
 # Construct folders paths
-in_jpg_path = f"{in_path}/pictures"
+in_jpg_path = f"{data_path}/in/pictures"
 
 
 def compress_image(filepath: str) -> None:
@@ -29,9 +29,7 @@ def compress_image(filepath: str) -> None:
         print(f"{filepath} compressed successfully.")
 
 
-input_folder = in_jpg_path
-
-for root, _dirs, files in os.walk(input_folder):
+for root, _dirs, files in os.walk(in_jpg_path):
     for filename in files:
         if filename.endswith(".jpg"):
             filepath = os.path.join(root, filename)

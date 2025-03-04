@@ -70,4 +70,4 @@ run_script "directus_link_maker"
 run_script "pictures_renamer"
 
 # Run pictures resizer
-#run_script "pictures_resizer"
+run_script "pictures_resizer"
