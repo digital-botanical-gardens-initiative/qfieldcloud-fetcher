@@ -9,7 +9,26 @@ env_path="${p}/.env"
 # Load the .env file
 source "${env_path}"
 
-# Create folders if they don't exist
+# Clean data folder to keep only up-to-date data
+rm -rf "${DATA_PATH}/*"
+
+# Clean logs folder if the used space is greater than 100MB
+SIZE_LIMIT_MB=100
+
+# Get the folder size in MB
+FOLDER_SIZE_MB=$(du -sm "$LOGS_PATH" | awk '{print $1}')
+
+# Check if the folder size exceeds the limit
+if [ "$FOLDER_SIZE_MB" -gt "$SIZE_LIMIT_MB" ]; then
+    echo "Folder size ($FOLDER_SIZE_MB MB) exceeds the limit ($SIZE_LIMIT_MB MB). Deleting contents..."
+
+    # Delete all contents of the folder
+    rm -rf "${LOGS_PATH}/*"
+
+    echo "Contents of the folder have been deleted."
+fi
+
+# Create folders
 mkdir -p "${DATA_PATH}"
 mkdir -p "${LOGS_PATH}"
 

@@ -88,6 +88,7 @@ if response.status_code == 200:
 
                     # Check if element is already added to the database
                     sample_code = obs["sample_id"]
+                    project = obs["qfield_project"]
                     directus_observation = f"{directus_api}?filter[sample_id][_eq]={sample_code}&&limit=1"
                     response_get = session.get(url=directus_observation, headers=headers)
                     if str(response_get.json()) != "{'data': []}":
@@ -98,14 +99,14 @@ if response.status_code == 200:
                         response_patch = session.patch(url=directus_patch, headers=headers, json=observation)
                         if response_patch.status_code != 200:
                             print(
-                                f"Error patching {sample_code}, project {obs["qfield_project"]}, file {filename}: {response_patch.status_code} - {response_patch.text}"
+                                f"Error patching {sample_code}, project {project}, file {filename}: {response_patch.status_code} - {response_patch.text}"
                             )
                     else:
                         # Element doesn't exist, post it
                         response_post = session.post(url=directus_api, headers=headers, json=observation)
                         if response_post.status_code != 200:
                             print(
-                                f"Error posting {sample_code}, project {obs["qfield_project"]}, file {filename}: {response_post.status_code} - {response_post.text}"
+                                f"Error posting {sample_code}, project {project}, file {filename}: {response_post.status_code} - {response_post.text}"
                             )
 else:
     print("Connection to Directus failed")
