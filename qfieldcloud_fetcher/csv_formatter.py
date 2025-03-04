@@ -64,9 +64,23 @@ def convert_csv_coordinates(csv_file_path: str, output_folder: str, root_folder:
     if "is_wild" in df.columns:
         df["is_wild"] = df["is_wild"].fillna(0).astype(int)
 
-    # Convert nan in inat_iinat_uploadmport to 1
+    # Convert nan in inat_upload to 1
     if "inat_upload" in df.columns:
         df["inat_upload"] = df["inat_upload"].fillna(1).astype(int)
+
+    # Attribute sample_id to observations
+    # Fill NA in 'sample_id' with a pattern based on 'latitude' and 'longitude'
+    if "sample_id" in df.columns:
+        df["sample_id"] = (
+            df["sample_id"]
+            .fillna(
+                "obs_"
+                + df["latitude"].astype(str).str.replace(".", "")
+                + "_"
+                + df["longitude"].astype(str).str.replace(".", "")
+            )
+            .astype(str)
+        )
 
     # Extract the CRS from the output pyproj object and replace the original CRS in the output filename
     out_crs_str = out_crs.to_string()
