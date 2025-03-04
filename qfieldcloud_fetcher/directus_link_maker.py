@@ -41,6 +41,7 @@ def get_primary_key_field(sample_code: str) -> int:
     else:
         return -1
 
+
 # Function to get parent sample containers primary keys
 def get_primary_key_container(sample_code: str) -> int:
     params = {"filter[container_id][_eq]": sample_code, "fields": "id"}
@@ -56,6 +57,7 @@ def get_primary_key_container(sample_code: str) -> int:
     else:
         return -1
 
+
 # Function to get parent dried samples data
 def get_primary_key_dried(sample_code: int) -> int:
     params = {"filter[sample_container][_eq]": str(sample_code), "fields": "id"}
@@ -70,6 +72,7 @@ def get_primary_key_dried(sample_code: int) -> int:
             return -1
     else:
         return -1
+
 
 # Test if connection is successful
 if response.status_code == 200:
@@ -98,9 +101,13 @@ if response.status_code == 200:
             id_field = get_primary_key_field(sample_id)
             id_dried = get_primary_key_dried(int(id_container))
             directus_observation_dried = f"https://emi-collection.unifr.ch/directus/items/Dried_Samples_Data/{id_dried}"
-            response_patch = session.patch(url=directus_observation_dried, headers=headers, json={"field_data": id_field})
+            response_patch = session.patch(
+                url=directus_observation_dried, headers=headers, json={"field_data": id_field}
+            )
             if response_patch.status_code != 200:
-                print(f"Error linking {sample_id}: {response_patch.status_code} - Maybe the sample has not been dried yet.")
+                print(
+                    f"Error linking {sample_id}: {response_patch.status_code} - Maybe the sample has not been dried yet."
+                )
 else:
     print("Connection to Directus failed")
     print(f"Error: {response.status_code} - {response.text}")
