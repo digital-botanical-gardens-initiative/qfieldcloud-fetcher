@@ -60,7 +60,13 @@ def convert_csv_coordinates(csv_file_path: str, output_folder: str, root_folder:
         geometry=geopandas.points_from_xy(x=df["latitude"], y=df["longitude"]), crs="EPSG:2443"
     )
 
-    print(df.head())
+    # Convert nan in is_wild to 0
+    if "is_wild" in df.columns:
+        df["is_wild"] = df["is_wild"].fillna(0).astype(int)
+
+    # Convert nan in inat_iinat_uploadmport to 1
+    if "inat_upload" in df.columns:
+        df["inat_upload"] = df["inat_upload"].fillna(1).astype(int)
 
     # Extract the CRS from the output pyproj object and replace the original CRS in the output filename
     out_crs_str = out_crs.to_string()
@@ -72,7 +78,7 @@ def convert_csv_coordinates(csv_file_path: str, output_folder: str, root_folder:
     output_file_path = os.path.join(output_folder, rel_path)
     output_file_path = os.path.join(os.path.dirname(output_file_path), output_file_name)
     os.makedirs(os.path.dirname(output_file_path), exist_ok=True)
-    # df.to_csv(output_file_path, index=False)
+    df.to_csv(output_file_path, index=False)
 
     print(f"Saved converted file to {output_file_path}")
 

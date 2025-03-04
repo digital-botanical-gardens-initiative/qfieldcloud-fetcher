@@ -68,18 +68,21 @@ if response.status_code == 200:
                         continue
 
                     # Replace dots with underscores
-                    column = column.replace(".", "_")
+                    new_column = column.replace(".", "_").replace("(", "").replace(")", "")
+                    df.rename(columns={column: new_column}, inplace=True)
 
                     # Add types to dictionary if not already present
-                    if column not in field_types:
-                        if column.__contains__("comment"):
+                    if new_column not in field_types:
+                        if new_column.__contains__("comment"):
                             column_type = "text"
-                        elif column.__contains__("geometry"):
+                        elif new_column.__contains__("geometry"):
                             column_type = "geometry.Point"
+                        elif new_column.__contains__("date"):
+                            column_type = "bigInteger"
                         else:
-                            column_type = pandas_to_directus[str(df[column].dtype)]
+                            column_type = pandas_to_directus[str(df[new_column].dtype)]
 
-                        field_types[column] = column_type
+                        field_types[new_column] = column_type
 
     # Define api urls
     collection_name = "Field_Data"
@@ -97,6 +100,15 @@ if response.status_code == 200:
             print(f"Creating field {key} with type {value}")
             data = {"field": key, "type": value}
             response = session.post(post_url, json=data, headers=headers)
+            if value == "geometry.Point":
+                # If field is of type geometry.Point, add a validation to correctly display map
+                validation = {"meta": {"validation": {"_and": [{key: {"_intersects_bbox": None}}]}}}
+                url_patch = f"{directus_instance}/fields/{collection_name}/{key}"
+                response = session.patch(url_patch, json=validation, headers=headers)
+                if response.status_code == 200:
+                    print(f"validation correctly added for field {key}")
+                else:
+                    print("error adding validation")
             if response.status_code != 200:
                 print(f"Error creating field: {response.status_code} - {response.text}")
         else:
