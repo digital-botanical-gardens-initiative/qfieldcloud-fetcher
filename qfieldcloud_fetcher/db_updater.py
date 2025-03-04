@@ -79,35 +79,41 @@ if response.status_code == 200:
                     # Update the observation dictionary with values from the current row
                     for col_name, value in obs.items():
                         if col_name == "geometry":
-                            observation["geometry"] = {
-                                "type": "Point",
-                                "coordinates": [obs["latitude"], obs["longitude"]],
-                            }
+                            if obs["latitude"] is not None and obs["longitude"] is not None:
+                                observation["geometry"] = {
+                                    "type": "Point",
+                                    "coordinates": [obs["latitude"], obs["longitude"]],
+                                }
+                            else:
+                                observation["geometry"] = None
                         else:
                             observation[col_name.replace(".", "_").replace("(", "").replace(")", "")] = value
 
                     # Check if element is already added to the database
                     sample_code = obs["sample_id"]
                     project = obs["qfield_project"]
-                    directus_observation = f"{directus_api}?filter[sample_id][_eq]={sample_code}&&limit=1"
-                    response_get = session.get(url=directus_observation, headers=headers)
-                    if str(response_get.json()) != "{'data': []}":
-                        data = response_get.json()["data"][0]
-                        id_sample = data["id"]
-                        directus_patch = f"{directus_api}/{id_sample}"
-                        # Element exists, patch it
-                        response_patch = session.patch(url=directus_patch, headers=headers, json=observation)
-                        if response_patch.status_code != 200:
-                            print(
-                                f"Error patching {sample_code}, project {project}, file {filename}: {response_patch.status_code} - {response_patch.text}"
-                            )
+                    if sample_code is not None:
+                        directus_observation = f"{directus_api}?filter[sample_id][_eq]={sample_code}&&limit=1"
+                        response_get = session.get(url=directus_observation, headers=headers)
+                        if str(response_get.json()) != "{'data': []}":
+                            data = response_get.json()["data"][0]
+                            id_sample = data["id"]
+                            directus_patch = f"{directus_api}/{id_sample}"
+                            # Element exists, patch it
+                            response_patch = session.patch(url=directus_patch, headers=headers, json=observation)
+                            if response_patch.status_code != 200:
+                                print(
+                                    f"Error patching {observation} with id {sample_code}, project {project}, file {filename}: {response_patch.status_code} - {response_patch.text}"
+                                )
+                        else:
+                            # Element doesn't exist, post it
+                            response_post = session.post(url=directus_api, headers=headers, json=observation)
+                            if response_post.status_code != 200:
+                                print(
+                                    f"Error posting observation {observation} with id {sample_code}, project {project}, file {filename}: {response_post.status_code} - {response_post.text}"
+                                )
                     else:
-                        # Element doesn't exist, post it
-                        response_post = session.post(url=directus_api, headers=headers, json=observation)
-                        if response_post.status_code != 200:
-                            print(
-                                f"Error posting {sample_code}, project {project}, file {filename}: {response_post.status_code} - {response_post.text}"
-                            )
+                        print(f"sample_id null for project {project}, file {filename}, observation {observation}")
 else:
     print("Connection to Directus failed")
     print(f"Error: {response.status_code} - {response.text}")
