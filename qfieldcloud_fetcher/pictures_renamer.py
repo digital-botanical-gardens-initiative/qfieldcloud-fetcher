@@ -9,14 +9,12 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Access the environment variables
-in_path = os.getenv("INPUT_PATH")
+data_path = os.getenv("DATA_PATH")
 
 # Construct folders paths
-in_jpg_path = f"{in_path}/pictures"
+in_jpg_path = f"{data_path}/in/pictures"
 
-root_folder = str(in_jpg_path)
-
-for root, _dirs, files in os.walk(root_folder):
+for root, _dirs, files in os.walk(in_jpg_path):
     for filename in files:
         # split the filename into base and extension
         base, ext = os.path.splitext(filename)

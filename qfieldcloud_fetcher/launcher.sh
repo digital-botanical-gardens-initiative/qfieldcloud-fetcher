@@ -67,4 +67,7 @@ run_script "db_updater"
 run_script "directus_link_maker"
 
 # Run pictures renamer
-#run_script "pictures_renamer"
+run_script "pictures_renamer"
+
+# Run pictures resizer
+#run_script "pictures_resizer"
