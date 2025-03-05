@@ -108,7 +108,7 @@ if response.status_code == 200:
                 print(
                     f"Error linking {sample_id}: {response_patch.status_code} - Maybe the sample has not been dried yet."
                 )
-    
+
     print("Linking finished")
 else:
     print("Connection to Directus failed")
