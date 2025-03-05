@@ -14,8 +14,8 @@ load_dotenv()
 data_path = os.getenv("DATA_PATH")
 
 # Construct folders paths
-in_csv_path = f"{data_path}/in/csv"
-out_csv_path = f"{data_path}/out/csv"
+in_csv_path = f"{data_path}/raw_csv"
+out_csv_path = f"{data_path}/formatted_csv"
 
 
 def convert_csv_coordinates(csv_file_path: str, output_folder: str, root_folder: str) -> None:

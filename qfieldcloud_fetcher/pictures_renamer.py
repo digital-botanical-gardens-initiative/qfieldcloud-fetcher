@@ -13,6 +13,7 @@ data_path = os.getenv("DATA_PATH")
 
 # Construct folders paths
 in_jpg_path = f"{data_path}/in/pictures"
+out_jpg_path = f"{data_path}/renamed_pictures"
 
 for root, _dirs, files in os.walk(in_jpg_path):
     for filename in files:

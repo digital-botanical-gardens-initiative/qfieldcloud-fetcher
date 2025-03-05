@@ -15,7 +15,7 @@ directus_password = os.getenv("DIRECTUS_PASSWORD")
 data_path = os.getenv("DATA_PATH")
 
 # Construct folders paths
-out_csv_path = f"{data_path}/out/csv"
+out_csv_path = f"{data_path}/formatted_csv"
 
 # Create a session object for making requests
 session = requests.Session()
@@ -114,6 +114,8 @@ if response.status_code == 200:
                                 )
                     else:
                         print(f"sample_id null for project {project}, file {filename}, observation {observation}")
+
+    print("Import finished")
 else:
     print("Connection to Directus failed")
     print(f"Error: {response.status_code} - {response.text}")

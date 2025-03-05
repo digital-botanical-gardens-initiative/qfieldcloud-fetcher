@@ -14,7 +14,7 @@ directus_password = os.getenv("DIRECTUS_PASSWORD")
 data_path = os.getenv("DATA_PATH")
 
 # Construct folders paths
-out_csv_path = f"{data_path}/out/csv"
+out_csv_path = f"{data_path}/formatted_csv"
 
 # Create a session object for making requests
 session = requests.Session()

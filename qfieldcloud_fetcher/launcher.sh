@@ -9,8 +9,10 @@ env_path="${p}/.env"
 # Load the .env file
 source "${env_path}"
 
-# Clean data folder to keep only up-to-date data
-rm -rf "${DATA_PATH}/*"
+# Clean input gpkg and csv to keep only up-to-date data
+rm -rf "${DATA_PATH}/in/gpkg"
+rm -rf "${DATA_PATH}/raw_csv"
+rm -rf "${DATA_PATH}/formatted_csv"
 
 # Clean logs folder if the used space is greater than 100MB
 SIZE_LIMIT_MB=100
@@ -67,7 +69,7 @@ run_script "db_updater"
 run_script "directus_link_maker"
 
 # Run pictures renamer
-run_script "pictures_renamer"
+#run_script "pictures_renamer"
 
 # Run pictures resizer
-run_script "pictures_resizer"
+#run_script "pictures_resizer"

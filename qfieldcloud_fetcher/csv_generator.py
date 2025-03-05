@@ -14,7 +14,7 @@ data_path = os.getenv("DATA_PATH")
 
 # Construct folders paths
 in_gpkg_path = f"{data_path}/in/gpkg"
-in_csv_path = f"{data_path}/in/csv"
+in_csv_path = f"{data_path}/raw_csv"
 
 # Loop over the subfolders in the gpkg directory
 for subfolder in os.listdir(in_gpkg_path):
