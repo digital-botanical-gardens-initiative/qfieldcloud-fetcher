@@ -12,20 +12,22 @@ load_dotenv()
 
 # Access the environment variables
 data_path = os.getenv("DATA_PATH")
+nextcloud = os.getenv("NEXTCLOUD_FOLDER")
 
 # Construct folders paths
 in_csv_path = f"{data_path}/raw_csv"
 out_csv_path = f"{data_path}/formatted_csv"
+nextcloud_path = f"{nextcloud}/csv"
 
 
-def convert_csv_coordinates(csv_file_path: str, output_folder: str, root_folder: str) -> None:
+def convert_csv_coordinates(root: str, filename: str, project: str) -> None:
     """
     Converts the coordinates in a CSV file to EPSG:4326.
     The base CRS system is inferred from the filename.
     The converted CSV file is saved in the specified output folder
     while preserving the directory structure of the input folder.
     """
-    print(f"Converting {csv_file_path}...")
+    csv_file_path = os.path.join(root, filename)
 
     # Extract the base CRS system from the filename
     file_name = os.path.splitext(os.path.basename(csv_file_path))[0]
@@ -86,21 +88,26 @@ def convert_csv_coordinates(csv_file_path: str, output_folder: str, root_folder:
     out_crs_str = out_crs.to_string()
     output_file_name = f"{file_name}_{out_crs_str}.csv"
 
-    # Save the converted coordinates to a new CSV file in the specified output folder,
-    # while preserving the directory structure of the input folder
-    rel_path = os.path.relpath(csv_file_path, start=root_folder)
-    output_file_path = os.path.join(output_folder, rel_path)
-    output_file_path = os.path.join(os.path.dirname(output_file_path), output_file_name)
-    os.makedirs(os.path.dirname(output_file_path), exist_ok=True)
-    df.to_csv(output_file_path, index=False)
+    # Save the converted coordinates to a new CSV file in the specified output folder
+    output_file_path = os.path.join(out_csv_path, project, output_file_name)
 
-    print(f"Saved converted file to {output_file_path}")
+    # Add csv to formatted folder
+    os.makedirs(os.path.join(out_csv_path, project), exist_ok=True)
+    df.to_csv(output_file_path, index=False)
+    print(f"{filename} successfully converted")
+
+    # Add csv to NextCloud
+    nextcloud_csv_path = os.path.join(nextcloud_path, project)
+    os.makedirs(nextcloud_csv_path, exist_ok=True)
+    df.to_csv(os.path.join(nextcloud_csv_path, output_file_name), index=False)
+    print(f"{output_file_name} added to NextCloud")
 
 
 # Iterate over all CSV files in the input folder and its subdirectories
 for root, _dirs, files in os.walk(in_csv_path):
     for filename in files:
         if filename.endswith(".csv"):
+            # Get project
+            project = os.path.basename(root)
             # Convert the CSV file and save the result in the output folder
-            csv_file_path = os.path.join(root, filename)
-            convert_csv_coordinates(csv_file_path, out_csv_path, in_csv_path)
+            convert_csv_coordinates(root, filename, project)
