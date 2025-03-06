@@ -119,10 +119,10 @@ for root, _dirs, files in os.walk(in_jpg_path):
             os.makedirs(nextcloud_jpg_path, exist_ok=True)
             shutil.move(picture_path, os.path.join(nextcloud_jpg_path, file))
             print(f"{file} added to NextCloud")
-
-            # Run the command to scan Nextcloud files, so that they are showed into Nextcloud
-            scan_path = "/var/www/nextcloud"
-            scan_command = "www-data php occ files:scan --all"
-            subprocess.run(scan_command, shell=True, cwd=scan_path)  # noqa: S602
         else:
             print(f"Skipping {file} as it is not a picture.")
+
+# Run the command to scan Nextcloud files, so that they are showed into Nextcloud
+scan_path = "/var/www/nextcloud"
+scan_command = "www-data php occ files:scan --all"
+subprocess.run(scan_command, shell=True, cwd=scan_path)  # noqa: S602
