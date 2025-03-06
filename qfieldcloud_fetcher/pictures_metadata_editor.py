@@ -124,5 +124,5 @@ for root, _dirs, files in os.walk(in_jpg_path):
 
 # Run the command to scan Nextcloud files, so that they are showed into Nextcloud
 scan_path = "/var/www/nextcloud"
-scan_command = "www-data php occ files:scan --all"
+scan_command = "php occ files:scan --all"
 subprocess.run(scan_command, shell=True, cwd=scan_path)  # noqa: S602
