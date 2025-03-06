@@ -144,6 +144,7 @@ for prefix, urls_jpg_by_layer in urls_jpg_by_project.items():
 
             # Create the directory path for the downloaded file
             save_dir = path_jpg[prefix][dir_name]
+            print(save_dir)
 
             # Create the full path for the downloaded file
             save_path = os.path.join(save_dir, file_name)
