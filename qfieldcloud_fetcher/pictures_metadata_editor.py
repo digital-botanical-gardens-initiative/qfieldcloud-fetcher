@@ -15,12 +15,13 @@ load_dotenv()
 
 # Access the environment variables
 data_path = os.getenv("DATA_PATH")
-nextcloud_path = os.getenv("NEXTCLOUD_FOLDER")
+nextcloud = os.getenv("NEXTCLOUD_FOLDER")
 
 # Construct folders paths
 in_jpg_path = f"{data_path}/renamed_compressed_pictures"
 out_csv_path = f"{data_path}/formatted_csv"
 inat_jpg_path = f"{data_path}/inat_pictures"
+nextcloud_path = f"{nextcloud}/pictures"
 
 # Request to directus to obtain projects codes
 collection_url = "https://emi-collection.unifr.ch/directus/items/Projects"
@@ -121,8 +122,3 @@ for root, _dirs, files in os.walk(in_jpg_path):
             print(f"{file} added to NextCloud")
         else:
             print(f"Skipping {file} as it is not a picture.")
-
-# Run the command to scan Nextcloud files, so that they are showed into Nextcloud
-scan_path = "/var/www/nextcloud"
-scan_command = "php occ files:scan --all"
-subprocess.run(scan_command, shell=True, cwd=scan_path)  # noqa: S602
