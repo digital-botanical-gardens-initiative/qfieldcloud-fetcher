@@ -57,11 +57,11 @@
 [QuickTime, Track1, Image] 20 - Y Resolution: 72
 [QuickTime, Track1, Image] 41 - Bit Depth: 24
 [QuickTime, Track1, Image] JPEG - JPEG Info: (Binary data 4 bytes)
-[QuickTime, Track1, Image] free - Unknown free: 
+[QuickTime, Track1, Image] free - Unknown free:
 [QuickTime, Track1, Video] stts - Video Frame Rate: 1
 [QuickTime, Track1, Video] stsc - Sample To Chunk: (Binary data 20 bytes)
 [QuickTime, Track1, Video] stsz - Sample Sizes: (Binary data 12 bytes)
-[QuickTime, Track1, Video] free - Unknown free: 
+[QuickTime, Track1, Video] free - Unknown free:
 [QuickTime, Track1, Video] co64 - Chunk Offset 64: (Binary data 16 bytes)
 [QuickTime, Track1, Video] SampleTime - Sample Time: 0 s
 [QuickTime, Track1, Video] SampleDuration - Sample Duration: 1.00 s
@@ -91,11 +91,11 @@
 [QuickTime, Track2, Image] 18 - X Resolution: 72
 [QuickTime, Track2, Image] 20 - Y Resolution: 72
 [QuickTime, Track2, Image] 41 - Bit Depth: 24
-[QuickTime, Track2, Image] free - Unknown free: 
+[QuickTime, Track2, Image] free - Unknown free:
 [QuickTime, Track2, Video] stts - Video Frame Rate: 1
 [QuickTime, Track2, Video] stsc - Sample To Chunk: (Binary data 20 bytes)
 [QuickTime, Track2, Video] stsz - Sample Sizes: (Binary data 12 bytes)
-[QuickTime, Track2, Video] free - Unknown free: 
+[QuickTime, Track2, Video] free - Unknown free:
 [QuickTime, Track2, Video] co64 - Chunk Offset 64: (Binary data 16 bytes)
 [QuickTime, Track3, Video] 0 - Track Header Version: 0
 [QuickTime, Track3, Time] 1 - Track Create Date: 2018:02:21 07:08:56-05:00
@@ -122,11 +122,11 @@
 [QuickTime, Track3, Image] 18 - X Resolution: 72
 [QuickTime, Track3, Image] 20 - Y Resolution: 72
 [QuickTime, Track3, Image] 41 - Bit Depth: 24
-[QuickTime, Track3, Image] free - Unknown free: 
+[QuickTime, Track3, Image] free - Unknown free:
 [QuickTime, Track3, Video] stts - Video Frame Rate: 1
 [QuickTime, Track3, Video] stsc - Sample To Chunk: (Binary data 20 bytes)
 [QuickTime, Track3, Video] stsz - Sample Sizes: (Binary data 12 bytes)
-[QuickTime, Track3, Video] free - Unknown free: 
+[QuickTime, Track3, Video] free - Unknown free:
 [QuickTime, Track3, Video] co64 - Chunk Offset 64: (Binary data 16 bytes)
 [QuickTime, Track4, Video] 0 - Track Header Version: 0
 [QuickTime, Track4, Time] 1 - Track Create Date: 2018:02:21 07:08:56-05:00
@@ -148,7 +148,7 @@
 [QuickTime, Track4, Video] stts - Time To Sample Table: (Binary data 16 bytes)
 [QuickTime, Track4, Video] stsc - Sample To Chunk: (Binary data 20 bytes)
 [QuickTime, Track4, Video] stsz - Sample Sizes: (Binary data 12 bytes)
-[QuickTime, Track4, Video] free - Unknown free: 
+[QuickTime, Track4, Video] free - Unknown free:
 [QuickTime, Track4, Video] co64 - Chunk Offset 64: (Binary data 16 bytes)
 [QuickTime, Track4, Video] SampleTime - Sample Time: 0 s
 [QuickTime, Track4, Video] SampleDuration - Sample Duration: 1.00 s
@@ -161,7 +161,7 @@
 [MakerNotes, Canon, Video] CCDT - Unknown CCDT: (Binary data 16 bytes)
 [MakerNotes, Canon, Video] CCDT - Unknown CCDT: (Binary data 16 bytes)
 [MakerNotes, Canon, Video] CTBO - Unknown CTBO: (Binary data 84 bytes)
-[MakerNotes, Canon, Video] free - Unknown free: 
+[MakerNotes, Canon, Video] free - Unknown free:
 [MakerNotes, Canon, Camera] 1 - Macro Mode: Normal
 [MakerNotes, Canon, Camera] 2 - Self Timer: Off
 [MakerNotes, Canon, Camera] 3 - Quality: RAW
@@ -220,7 +220,7 @@
 [MakerNotes, Canon, Image] 28 - ND Filter: n/a
 [MakerNotes, Canon, Image] 6 - Canon Image Type: Canon EOS M50
 [MakerNotes, Canon, Camera] 7 - Canon Firmware Version: Firmware Version 1.0.0
-[MakerNotes, Canon, Camera] 9 - Owner Name: 
+[MakerNotes, Canon, Camera] 9 - Owner Name:
 [MakerNotes, Canon, Camera] 16 - Canon Model ID: EOS M50 / Kiss M
 [MakerNotes, Canon, Camera] 19 - Thumbnail Image Valid Area: 0 159 6 113
 [MakerNotes, Canon, Camera] 25 - Canon 0x0019: 1
@@ -306,9 +306,9 @@
 [MakerNotes, Canon, Image] 12 - Black Mask Bottom Border: 0
 [MakerNotes, Canon, Camera] 16392 - Picture Style User Def: Auto; Auto; Auto
 [MakerNotes, Canon, Camera] 16393 - Picture Style PC: None; None; None
-[MakerNotes, Canon, Camera] 16400 - Custom Picture Style File Name: 
+[MakerNotes, Canon, Camera] 16400 - Custom Picture Style File Name:
 [MakerNotes, Canon, Camera] 16401 - Canon 0x4011: [...]
-[MakerNotes, Canon, Camera] 16402 - Canon 0x4012: 
+[MakerNotes, Canon, Camera] 16402 - Canon 0x4012:
 [MakerNotes, Canon, Camera] 1 - AF Micro Adj Mode: Disable
 [MakerNotes, Canon, Camera] 2 - AF Micro Adj Value: 0
 [MakerNotes, Canon, Camera] 5 - Peripheral Lighting Setting: On
@@ -563,8 +563,8 @@
 [EXIF, IFD0, Image] 283 - Y Resolution: 72
 [EXIF, IFD0, Image] 296 - Resolution Unit: inches
 [EXIF, IFD0, Time] 306 - Modify Date: 2018:02:21 12:08:56
-[EXIF, IFD0, Author] 315 - Artist: 
-[EXIF, IFD0, Author] 33432 - Copyright: 
+[EXIF, IFD0, Author] 315 - Artist:
+[EXIF, IFD0, Author] 33432 - Copyright:
 [EXIF, ExifIFD, Image] 33434 - Exposure Time: 1/80
 [EXIF, ExifIFD, Image] 33437 - F Number: 3.5
 [EXIF, ExifIFD, Camera] 34850 - Exposure Program: Aperture-priority AE
@@ -584,7 +584,7 @@
 [EXIF, ExifIFD, Camera] 37383 - Metering Mode: Multi-segment
 [EXIF, ExifIFD, Camera] 37385 - Flash: No Flash
 [EXIF, ExifIFD, Camera] 37386 - Focal Length: 15.0 mm
-[EXIF, ExifIFD, Image] 37510 - User Comment: 
+[EXIF, ExifIFD, Image] 37510 - User Comment:
 [EXIF, ExifIFD, Time] 37520 - Sub Sec Time: 21
 [EXIF, ExifIFD, Time] 37521 - Sub Sec Time Original: 21
 [EXIF, ExifIFD, Time] 37522 - Sub Sec Time Digitized: 21
@@ -599,7 +599,7 @@
 [EXIF, ExifIFD, Camera] 41986 - Exposure Mode: Auto
 [EXIF, ExifIFD, Camera] 41987 - White Balance: Auto
 [EXIF, ExifIFD, Camera] 41990 - Scene Capture Type: Standard
-[EXIF, ExifIFD, Image] 42032 - Owner Name: 
+[EXIF, ExifIFD, Image] 42032 - Owner Name:
 [EXIF, ExifIFD, Image] 42033 - Serial Number: 613040000565
 [EXIF, ExifIFD, Image] 42034 - Lens Info: 15-45mm f/0
 [EXIF, ExifIFD, Image] 42036 - Lens Model: EF-M15-45mm f/3.5-6.3 IS STM

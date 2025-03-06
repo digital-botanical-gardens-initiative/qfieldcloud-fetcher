@@ -104,9 +104,9 @@
 [MakerNotes, CIFF, Image] 2 - Aperture Value: #.#
 [MakerNotes, CIFF, Camera] 6151 - Target Distance Setting: ###_mm
 [MakerNotes, CIFF, Camera] 6164 - Measured EV: ##.##
-[MakerNotes, CIFF, Camera] 2053 - Canon File Description: 
+[MakerNotes, CIFF, Camera] 2053 - Canon File Description:
 [MakerNotes, CIFF, Camera] 2069 - Canon Image Type: AUT:Full_automatic_mode
-[MakerNotes, CIFF, Camera] 2064 - Owner Name: 
+[MakerNotes, CIFF, Camera] 2064 - Owner Name:
 [MakerNotes, CIFF, Camera] 0 - Make: Canon
 [MakerNotes, CIFF, Camera] 6 - Camera Model Name: Canon_PowerShot_A#
 [MakerNotes, CIFF, Camera] 4124 - Base ISO: ###
@@ -164,7 +164,7 @@
 [ICC_Profile, ICC-header, Image] 40 - Primary Platform: Apple_Computer_Inc.
 [ICC_Profile, ICC-header, Image] 44 - CMM Flags: Not_Embedded,_Independent
 [ICC_Profile, ICC-header, Image] 48 - Device Manufacturer: none
-[ICC_Profile, ICC-header, Image] 52 - Device Model: 
+[ICC_Profile, ICC-header, Image] 52 - Device Model:
 [ICC_Profile, ICC-header, Image] 56 - Device Attributes: Reflective,_Glossy,_Positive,_Color
 [ICC_Profile, ICC-header, Image] 64 - Rendering Intent: Perceptual
 [ICC_Profile, ICC-header, Image] 68 - Connection Space Illuminant: #.####_#_#.#####
@@ -352,7 +352,7 @@
 [Photoshop, Photoshop, Image] 1049 - Global Altitude: ##
 [Photoshop, Photoshop, Author] 1034 - Copyright Flag: False
 [Photoshop, Photoshop, Author] 1035 - URL: https://exiftool.org/____________________
-[Photoshop, Photoshop, Image] 1054 - URL List: 
+[Photoshop, Photoshop, Image] 1054 - URL List:
 [Photoshop, Photoshop, Other] 20 - Slices Group Name: IPTC
 [Photoshop, Photoshop, Other] 24 - Num Slices: #
 [Photoshop, Photoshop, Image] 4 - Has Real Merged Data: Yes
@@ -369,7 +369,7 @@
 [APP15, GraphConv, Image] Q - Quality: ##
 [Trailer, Vivo, Image] JSONInfo - JSON Info: {"com.android.camera.joint.fullview.orientation":#,"com.android.camera.hdr":#####,"com.android.camera.fisheye":-#,"com.android.camera.joint.conshoot":#,"com.android.camera.moduleid":"photo","com.android.camera.joint.motioncapture":#,"version":####,"com.android.camera.joint.fullview":false}
 [MIE, MIE-Doc, Author] Copyright - Copyright: ©_####_Phil_Harvey
-[MIE, MIE-Main, Other] zmie - Trailer Signature: 
+[MIE, MIE-Main, Other] zmie - Trailer Signature:
 [PhotoMechanic, PhotoMechanic, Image] 221 - Tagged: Yes
 [PhotoMechanic, PhotoMechanic, Image] 222 - Color Class: #_(Typical_alt)
 [PhotoMechanic, PhotoMechanic, Image] 216 - Rotation: ###

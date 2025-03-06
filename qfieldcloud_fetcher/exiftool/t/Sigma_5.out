@@ -39,11 +39,11 @@
 [SigmaRaw, SigmaRaw, Camera] AFMODE - Focus Mode: AF-S
 [SigmaRaw, SigmaRaw, Camera] AP_DESC - Aperture Displayed: 2.8
 [SigmaRaw, SigmaRaw, Image] APERTURE - F Number: 2.8
-[SigmaRaw, SigmaRaw, Camera] BRACKET - Bracket Shot:  
+[SigmaRaw, SigmaRaw, Camera] BRACKET - Bracket Shot:
 [SigmaRaw, SigmaRaw, Camera] BURST - Burst Shot: 0
 [SigmaRaw, SigmaRaw, Camera] CAMMANUF - Make: SIGMA
 [SigmaRaw, SigmaRaw, Camera] CAMMODEL - Model: SIGMA DP2
-[SigmaRaw, SigmaRaw, Camera] CAMNAME - Camera Name:  
+[SigmaRaw, SigmaRaw, Camera] CAMNAME - Camera Name:
 [SigmaRaw, SigmaRaw, Camera] CAMSERIAL - Serial Number: 1008382
 [SigmaRaw, SigmaRaw, Camera] DRIVE - Drive Mode: Single Shot
 [SigmaRaw, SigmaRaw, Image] EXPCOMP - Exposure Compensation: 0
@@ -54,7 +54,7 @@
 [SigmaRaw, SigmaRaw, Camera] FLENGTH - Focal Length: 24.2 mm
 [SigmaRaw, SigmaRaw, Camera] FLEQ35MM - Focal Length In 35mm Format: 41.0 mm
 [SigmaRaw, SigmaRaw, Camera] FOCUS - Focus: Auto-focus Locked
-[SigmaRaw, SigmaRaw, Camera] IMAGEBOARDID - Image Board ID:  
+[SigmaRaw, SigmaRaw, Camera] IMAGEBOARDID - Image Board ID:
 [SigmaRaw, SigmaRaw, Camera] IMAGERTEMP - Sensor Temperature: 20 C
 [SigmaRaw, SigmaRaw, Camera] ISO - ISO: 100
 [SigmaRaw, SigmaRaw, Camera] LENSARANGE - Lens Aperture Range: 2.8 to 14
@@ -62,7 +62,7 @@
 [SigmaRaw, SigmaRaw, Camera] LENSMODEL - Lens Type: Unknown ( )
 [SigmaRaw, SigmaRaw, Camera] PMODE - Exposure Program: Program
 [SigmaRaw, SigmaRaw, Camera] RESOLUTION - Quality: High
-[SigmaRaw, SigmaRaw, Camera] SENSORID - Sensor ID:  
+[SigmaRaw, SigmaRaw, Camera] SENSORID - Sensor ID:
 [SigmaRaw, SigmaRaw, Camera] SH_DESC - Shutter Speed Displayed: 1/10
 [SigmaRaw, SigmaRaw, Image] SHUTTER - Exposure Time: 1/10
 [SigmaRaw, SigmaRaw, Time] TIME - Date/Time Original: 2009:11:28 13:05:20
@@ -93,7 +93,7 @@
 [EXIF, ExifIFD, Camera] 37384 - Light Source: Unknown
 [EXIF, ExifIFD, Camera] 37385 - Flash: No Flash
 [EXIF, ExifIFD, Camera] 37386 - Focal Length: 24.2 mm
-[EXIF, ExifIFD, Image] 37510 - User Comment: 
+[EXIF, ExifIFD, Image] 37510 - User Comment:
 [EXIF, ExifIFD, Image] 40960 - Flashpix Version: 0100
 [EXIF, ExifIFD, Image] 40961 - Color Space: sRGB
 [EXIF, ExifIFD, Image] 40962 - Exif Image Width: 2640
@@ -136,21 +136,21 @@
 [MakerNotes, Sigma, Camera] 17 - Sharpness: 0
 [MakerNotes, Sigma, Camera] 18 - X3 Fill Light: 0
 [MakerNotes, Sigma, Camera] 20 - Color Adjustment: 0 0 0
-[MakerNotes, Sigma, Camera] 21 - Adjustment Mode: 
+[MakerNotes, Sigma, Camera] 21 - Adjustment Mode:
 [MakerNotes, Sigma, Camera] 22 - Quality: BASIC
 [MakerNotes, Sigma, Camera] 23 - Firmware: 1.03.0.000
-[MakerNotes, Sigma, Camera] 24 - Software:  
-[MakerNotes, Sigma, Camera] 25 - Auto Bracket:  
+[MakerNotes, Sigma, Camera] 24 - Software:
+[MakerNotes, Sigma, Camera] 25 - Auto Bracket:
 [MakerNotes, Sigma, Camera] 26 - Preview Image Start: 2708
 [MakerNotes, Sigma, Camera] 27 - Preview Image Length: 26
 [MakerNotes, Sigma, Camera] 28 - Preview Image Size: 640x480
 [MakerNotes, Sigma, Camera] 29 - Maker Note Version: 0100
 [MakerNotes, Sigma, Camera] 30 - Sigma 0x001e: 4
 [MakerNotes, Sigma, Camera] 31 - AF Point: Center
-[MakerNotes, Sigma, Camera] 32 - Sigma 0x0020: 
-[MakerNotes, Sigma, Camera] 33 - Sigma 0x0021: 
+[MakerNotes, Sigma, Camera] 32 - Sigma 0x0020:
+[MakerNotes, Sigma, Camera] 33 - Sigma 0x0021:
 [MakerNotes, Sigma, Camera] 34 - File Format: X3F-S
-[MakerNotes, Sigma, Camera] 35 - Sigma 0x0023:  
+[MakerNotes, Sigma, Camera] 35 - Sigma 0x0023:
 [MakerNotes, Sigma, Camera] 36 - Calibration: C72_CalibrationSoft Version 1.00;RunID:C72Cal-001;Runtime:2009-05-29-14:15:38
 [MakerNotes, Sigma, Camera] 37 - Sigma 0x0025: 0.90
 [MakerNotes, Sigma, Camera] 38 - Sigma 0x0026: 0
@@ -169,9 +169,9 @@
 [MakerNotes, Sigma, Camera] 51 - Exposure Time 2: 1/10
 [MakerNotes, Sigma, Camera] 52 - Burst Shot: 0
 [MakerNotes, Sigma, Camera] 53 - Exposure Compensation: 0
-[MakerNotes, Sigma, Camera] 54 - Sigma 0x0036:  
-[MakerNotes, Sigma, Camera] 55 - Sigma 0x0037:  
-[MakerNotes, Sigma, Camera] 56 - Sigma 0x0038:  
+[MakerNotes, Sigma, Camera] 54 - Sigma 0x0036:
+[MakerNotes, Sigma, Camera] 55 - Sigma 0x0037:
+[MakerNotes, Sigma, Camera] 56 - Sigma 0x0038:
 [MakerNotes, Sigma, Camera] 57 - Sensor Temperature: 20 C
 [MakerNotes, Sigma, Camera] 58 - Flash Exposure Comp: 0
 [MakerNotes, Sigma, Camera] 59 - Firmware: 1.03.0.000

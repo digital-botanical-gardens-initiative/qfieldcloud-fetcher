@@ -16,7 +16,7 @@
 [File, File, Image] BitsPerSample - Bits Per Sample: 8
 [File, File, Image] ColorComponents - Color Components: 3
 [File, File, Image] YCbCrSubSampling - Y Cb Cr Sub Sampling: YCbCr4:2:0 (2 2)
-[EXIF, IFD0, Image] 270 - Image Description:                                                                
+[EXIF, IFD0, Image] 270 - Image Description:
 [EXIF, IFD0, Camera] 271 - Make: RICOH
 [EXIF, IFD0, Camera] 272 - Camera Model Name: Caplio Pro G3
 [EXIF, IFD0, Image] 274 - Orientation: Horizontal (normal)
@@ -62,7 +62,7 @@
 [EXIF, GPS, Location] 5 - GPS Altitude Ref: Above Sea Level
 [EXIF, GPS, Location] 6 - GPS Altitude: 117 m
 [EXIF, GPS, Time] 7 - GPS Time Stamp: 10:47:24
-[EXIF, GPS, Location] 8 - GPS Satellites: 24,23,20,17,13,11,04                           
+[EXIF, GPS, Location] 8 - GPS Satellites: 24,23,20,17,13,11,04
 [EXIF, GPS, Location] 9 - GPS Status: Measurement Active
 [EXIF, GPS, Location] 10 - GPS Measure Mode: 3-Dimensional Measurement
 [EXIF, GPS, Location] 11 - GPS Dilution Of Precision: 2.6
@@ -72,7 +72,7 @@
 [EXIF, GPS, Location] 15 - GPS Track: 20
 [EXIF, GPS, Location] 16 - GPS Img Direction Ref: True North
 [EXIF, GPS, Location] 17 - GPS Img Direction: 20
-[EXIF, GPS, Location] 18 - GPS Map Datum: WGS-84                         
+[EXIF, GPS, Location] 18 - GPS Map Datum: WGS-84
 [EXIF, GPS, Location] 23 - GPS Dest Bearing Ref: Unknown ()
 [EXIF, GPS, Location] 24 - GPS Dest Bearing: undef
 [EXIF, GPS, Location] 25 - GPS Dest Distance Ref: Unknown ()
@@ -93,8 +93,8 @@
 [MakerNotes, Ricoh, Image] 2 - Ricoh Image Height: 1536
 [MakerNotes, Ricoh, Time] 6 - Ricoh Date: 2006:05:26 11:48:48
 [MakerNotes, Ricoh, Camera] 4099 - Sharpness: Sharp
-[MakerNotes, Ricoh, Time] 4 - Manufacture Date 1: 2005:06:06          
-[MakerNotes, Ricoh, Time] 5 - Manufacture Date 2: 2003:08:19          
+[MakerNotes, Ricoh, Time] 4 - Manufacture Date 1: 2005:06:06
+[MakerNotes, Ricoh, Time] 5 - Manufacture Date 2: 2003:08:19
 [PrintIM, PrintIM, Printing] PrintIMVersion - PrintIM Version: 0250
 [APP5, RMETA, Image] Sign type - Sign Type: Information
 [APP5, RMETA, Image] Location - Location: Roundabout

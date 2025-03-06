@@ -89,20 +89,20 @@
 [XML, XML, Image] Rotation - Rotation: 0
 [XML, XML, Image] LensId - Lens Id: 1
 [XML, XML, Image] Shadow - Shadow: 0.000000;0.000000;0.000000;0.000000
-[XML, XML, Image] GCurve - G Curve: 
+[XML, XML, Image] GCurve - G Curve:
 [XML, XML, Image] WhiteBalance - White Balance: 1.391000;1.000000;1.474000
 [XML, XML, Image] Exposure - Exposure: 0
 [XML, XML, Image] LensOpticCenter - Lens Optic Center: 0.000000|0.000000
 [XML, XML, Image] Vignetting - Vignetting: 0.000000|0|0|1
 [XML, XML, Image] USMRadius - USM Radius: 1
 [XML, XML, Image] ShadowRecovery - Shadow Recovery: 0
-[XML, XML, Image] GCurveB - G Curve B: 
+[XML, XML, Image] GCurveB - G Curve B:
 [XML, XML, Image] LensTilt - Lens Tilt: 0
 [XML, XML, Image] USMThreshold - USM Threshold: 1
 [XML, XML, Image] FilmCurve - Film Curve: PhaseOneP65+-Film Standard.fcrv
 [XML, XML, Image] CNRAmount - CNR Amount: 34
 [XML, XML, Image] LensShift - Lens Shift: 0
-[XML, XML, Image] GCurveG - G Curve G: 
+[XML, XML, Image] GCurveG - G Curve G:
 [XML, XML, Image] ICCProfile - ICC Profile: PhaseOneP65+-Flash.icm
 [XML, XML, Image] Contrast - Contrast: 0
 [XML, XML, Image] BRAmount - BR Amount: 0
@@ -123,7 +123,7 @@
 [XML, XML, Image] TargetEnable - Target Enable: 1
 [XML, XML, Image] Moire - Moire: 0.000000;8
 [XML, XML, Image] Saturation - Saturation: 0
-[XML, XML, Image] GCurveR - G Curve R: 
+[XML, XML, Image] GCurveR - G Curve R:
 [XML, XML, Image] ColorCorrections - Color Corrections: (Binary data 887 bytes)
 [XML, XML, Image] PurpleFringing - Purple Fringing: 0
 [XML, XML, Image] TargetHighlight - Target Highlight: 1.000000;1.000000;1.000000;1.000000

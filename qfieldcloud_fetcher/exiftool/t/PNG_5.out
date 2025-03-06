@@ -3,8 +3,8 @@ Sorry, XMP-x:XMPToolkit is unsafe for writing
   Writing new tags after deleting groups: XMP XMP-*
 Writing XMP-dc:Creator
 Rewriting t/images/PNG.png...
-  Editing tags in: PNG XMP 
-  Creating tags in: PNG XMP 
+  Editing tags in: PNG XMP
+  Creating tags in: PNG XMP
   FileType = PNG
   FileTypeExtension = PNG
   MIMEType = image/png

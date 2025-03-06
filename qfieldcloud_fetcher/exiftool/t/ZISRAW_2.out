@@ -16,10 +16,10 @@
 [XML, XML, Unknown] HardwareSettingMicroscopeId - Microscope Id: Microscope
 [XML, XML, Unknown] HardwareSettingMicroscopeName - Microscope Name: Axio Observer.Z1
 [XML, XML, Unknown] HardwareSettingMicroscopeUniqueName - Microscope Unique Name: AquilaZ.Stand
-[XML, XML, Unknown] HardwareSettingMicroscopeModel - Microscope Model: 
+[XML, XML, Unknown] HardwareSettingMicroscopeModel - Microscope Model:
 [XML, XML, Unknown] HardwareSettingMicroscopeIsAvailable - Microscope Is Available: true
 [XML, XML, Unknown] HardwareSettingMicroscopeIsBroken - Microscope Is Broken: false
-[XML, XML, Unknown] HardwareSettingMicroscopeIsBrokenReason - Microscope Is Broken Reason: 
+[XML, XML, Unknown] HardwareSettingMicroscopeIsBrokenReason - Microscope Is Broken Reason:
 [XML, XML, Unknown] HardwareSettingMicroscopeMotorization - Microscope Motorization: Motorized
 [XML, XML, Unknown] HardwareSettingMicroscopeIsLightSource - Microscope Is Light Source: false
 [XML, XML, Unknown] HardwareSettingMicroscopeIsLightSink - Microscope Is Light Sink: false
@@ -28,10 +28,10 @@
 [XML, XML, Unknown] HardwareSettingEyePieceId - Eye Piece Id: MTBEyePiece
 [XML, XML, Unknown] HardwareSettingEyePieceName - Eye Piece Name: 10x Eyepiece SF23
 [XML, XML, Unknown] HardwareSettingEyePieceUniqueName - Eye Piece Unique Name: Eyepiece.10x_23
-[XML, XML, Unknown] HardwareSettingEyePieceModel - Eye Piece Model: 
+[XML, XML, Unknown] HardwareSettingEyePieceModel - Eye Piece Model:
 [XML, XML, Unknown] HardwareSettingEyePieceIsAvailable - Eye Piece Is Available: true
 [XML, XML, Unknown] HardwareSettingEyePieceIsBroken - Eye Piece Is Broken: false
-[XML, XML, Unknown] HardwareSettingEyePieceIsBrokenReason - Eye Piece Is Broken Reason: 
+[XML, XML, Unknown] HardwareSettingEyePieceIsBrokenReason - Eye Piece Is Broken Reason:
 [XML, XML, Unknown] HardwareSettingEyePieceMotorization - Eye Piece Motorization: None
 [XML, XML, Unknown] HardwareSettingEyePieceIsLightSource - Eye Piece Is Light Source: false
 [XML, XML, Unknown] HardwareSettingEyePieceIsLightSink - Eye Piece Is Light Sink: false

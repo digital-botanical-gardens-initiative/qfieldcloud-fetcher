@@ -25,18 +25,18 @@
 [ICC_Profile, ICC-header, Image] 4 - Profile CMM Type: Nikon Corporation
 [ICC_Profile, ICC-header, Image] 8 - Profile Version: 2.2.0
 [ICC_Profile, ICC-header, Image] 12 - Profile Class: Display Device Profile
-[ICC_Profile, ICC-header, Image] 16 - Color Space Data: RGB 
-[ICC_Profile, ICC-header, Image] 20 - Profile Connection Space: XYZ 
+[ICC_Profile, ICC-header, Image] 16 - Color Space Data: RGB
+[ICC_Profile, ICC-header, Image] 20 - Profile Connection Space: XYZ
 [ICC_Profile, ICC-header, Time] 24 - Profile Date Time: 1999:12:07 18:59:22
 [ICC_Profile, ICC-header, Image] 36 - Profile File Signature: acsp
 [ICC_Profile, ICC-header, Image] 40 - Primary Platform: Apple Computer Inc.
 [ICC_Profile, ICC-header, Image] 44 - CMM Flags: Not Embedded, Independent
 [ICC_Profile, ICC-header, Image] 48 - Device Manufacturer: none
-[ICC_Profile, ICC-header, Image] 52 - Device Model: 
+[ICC_Profile, ICC-header, Image] 52 - Device Model:
 [ICC_Profile, ICC-header, Image] 56 - Device Attributes: Reflective, Glossy, Positive, Color
 [ICC_Profile, ICC-header, Image] 64 - Rendering Intent: Perceptual
 [ICC_Profile, ICC-header, Image] 68 - Connection Space Illuminant: 0.9642 1 0.82491
-[ICC_Profile, ICC-header, Image] 80 - Profile Creator: 
+[ICC_Profile, ICC-header, Image] 80 - Profile Creator:
 [ICC_Profile, ICC-header, Image] 84 - Profile ID: 0
 [ICC_Profile, ICC_Profile, Image] desc - Profile Description: Nikon Adobe RGB 4.0.0.3000
 [ICC_Profile, ICC_Profile, Image] rXYZ - Red Matrix Column: 0.60976 0.31113 0.01947

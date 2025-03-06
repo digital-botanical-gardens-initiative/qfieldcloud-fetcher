@@ -51,10 +51,10 @@
 [Real, Real-CONT, Author] 3 - Author: Phil Harvey
 [Real, Real-CONT, Author] 5 - Copyright: Copyright 2006 Phil Harvey
 [Real, Real-CONT, Video] 7 - Comment: A comment
-[Real, Real-RJMD, Video] Album/Name - Album Name: The Real album name                                                     
-[Real, Real-RJMD, Video] Statistics/CDInfo Source - Statistics CD Info Source: 
-[Real, Real-RJMD, Video] Track/Category - Track Category: The Real track category                                                      
-[Real, Real-RJMD, Video] Track/Comments - Track Comments: The Real track comments                                                 
+[Real, Real-RJMD, Video] Album/Name - Album Name: The Real album name
+[Real, Real-RJMD, Video] Statistics/CDInfo Source - Statistics CD Info Source:
+[Real, Real-RJMD, Video] Track/Category - Track Category: The Real track category
+[Real, Real-RJMD, Video] Track/Comments - Track Comments: The Real track comments
 [Real, Real-RJMD, Video] Track/Comments/DataSize - Track Comments Data Size: 4294967295
 [Real, Real-RJMD, Video] Track/Comments/MimeType - Track Comments Mime Type: text/plain
 [Real, Real-RJMD, Video] Track/Lyrics/DataSize - Track Lyrics Data Size: 1224736768

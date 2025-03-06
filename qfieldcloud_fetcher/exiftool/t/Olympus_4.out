@@ -16,7 +16,7 @@
 [File, File, Image] BitsPerSample - Bits Per Sample: 8
 [File, File, Image] ColorComponents - Color Components: 3
 [File, File, Image] YCbCrSubSampling - Y Cb Cr Sub Sampling: YCbCr4:2:0 (2 2)
-[EXIF, IFD0, Image] 270 - Image Description: OLYMPUS DIGITAL CAMERA         
+[EXIF, IFD0, Image] 270 - Image Description: OLYMPUS DIGITAL CAMERA
 [EXIF, IFD0, Camera] 271 - Make: OLYMPUS CORPORATION
 [EXIF, IFD0, Camera] 272 - Camera Model Name: E-1
 [EXIF, IFD0, Image] 274 - Orientation: Horizontal (normal)
@@ -40,7 +40,7 @@
 [EXIF, ExifIFD, Camera] 37384 - Light Source: Unknown
 [EXIF, ExifIFD, Camera] 37385 - Flash: No Flash
 [EXIF, ExifIFD, Camera] 37386 - Focal Length: 20.0 mm
-[EXIF, ExifIFD, Image] 37510 - User Comment: 
+[EXIF, ExifIFD, Image] 37510 - User Comment:
 [EXIF, ExifIFD, Image] 40960 - Flashpix Version: 0100
 [EXIF, ExifIFD, Image] 40961 - Color Space: sRGB
 [EXIF, ExifIFD, Image] 40962 - Exif Image Width: 2560
@@ -72,7 +72,7 @@
 [MakerNotes, Olympus, Camera] 517 - Focal Plane Diagonal: 21.6 mm
 [MakerNotes, Olympus, Camera] 518 - Lens Distortion Params: 0 0 0 0 0 0
 [MakerNotes, Olympus, Camera] 519 - Camera Type: E-1
-[MakerNotes, Olympus, Camera] 521 - Camera ID: OLYMPUS DIGITAL CAMERA         
+[MakerNotes, Olympus, Camera] 521 - Camera ID: OLYMPUS DIGITAL CAMERA
 [MakerNotes, Olympus, Camera] 4111 - Sharpness: Hard
 [MakerNotes, Olympus, Camera] 4113 - Color Matrix: 356 -34 -66 -22 308 -30 6 -126 376
 [MakerNotes, Olympus, Camera] 4114 - Black Level: 69 69 69 68
@@ -88,7 +88,7 @@
 [MakerNotes, Olympus, Camera] 0 - Equipment Version: 010
 [MakerNotes, Olympus, Camera] 256 - Camera Type 2: E-1
 [MakerNotes, Olympus, Camera] 257 - Serial Number: 143008611
-[MakerNotes, Olympus, Camera] 258 - Internal Serial Number: 4001310004375102               
+[MakerNotes, Olympus, Camera] 258 - Internal Serial Number: 4001310004375102
 [MakerNotes, Olympus, Camera] 259 - Focal Plane Diagonal: 21.6 mm
 [MakerNotes, Olympus, Camera] 260 - Body Firmware Version: 1.300
 [MakerNotes, Olympus, Camera] 513 - Lens Type: Olympus Zuiko Digital 14-54mm F2.8-3.5
@@ -100,12 +100,12 @@
 [MakerNotes, Olympus, Camera] 522 - Max Aperture: 2.8
 [MakerNotes, Olympus, Camera] 523 - Lens Properties: 0xc043
 [MakerNotes, Olympus, Camera] 769 - Extender: None
-[MakerNotes, Olympus, Camera] 770 - Extender Serial Number: 
+[MakerNotes, Olympus, Camera] 770 - Extender Serial Number:
 [MakerNotes, Olympus, Camera] 772 - Extender Firmware Version: 0
 [MakerNotes, Olympus, Camera] 4096 - Flash Type: None
 [MakerNotes, Olympus, Camera] 4097 - Flash Model: None
 [MakerNotes, Olympus, Camera] 4098 - Flash Firmware Version: 0
-[MakerNotes, Olympus, Camera] 4099 - Flash Serial Number: 
+[MakerNotes, Olympus, Camera] 4099 - Flash Serial Number:
 [MakerNotes, Olympus, Camera] 0 - Camera Settings Version: 010
 [MakerNotes, Olympus, Camera] 256 - Preview Image Valid: Yes
 [MakerNotes, Olympus, Camera] 257 - Preview Image Start: 2568

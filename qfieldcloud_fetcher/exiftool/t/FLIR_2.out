@@ -53,7 +53,7 @@
 [MakerNotes, FLIR, Camera] 1 - Image Temperature Max: 308
 [MakerNotes, FLIR, Camera] 2 - Image Temperature Min: 281
 [MakerNotes, FLIR, Camera] 3 - Emissivity: 0.80
-[APP1, FLIR, Image] 4 - Creator Software: 
+[APP1, FLIR, Image] 4 - Creator Software:
 [APP1, FLIR, Image] 0 - Palette Colors: 224
 [APP1, FLIR, Image] 6 - Above Color: 170 128 128
 [APP1, FLIR, Image] 9 - Below Color: 50 128 128
@@ -94,12 +94,12 @@
 [APP1, FLIR, Camera] 260 - Camera Serial Number: 470023842
 [APP1, FLIR, Camera] 276 - Camera Software: 8.1.1
 [APP1, FLIR, Camera] 368 - Lens Model: FOL7
-[APP1, FLIR, Camera] 400 - Lens Part Number: 
-[APP1, FLIR, Camera] 416 - Lens Serial Number: 
+[APP1, FLIR, Camera] 400 - Lens Part Number:
+[APP1, FLIR, Camera] 416 - Lens Serial Number:
 [APP1, FLIR, Camera] 436 - Field Of View: 25.0 deg
-[APP1, FLIR, Camera] 492 - Filter Model: 
-[APP1, FLIR, Camera] 508 - Filter Part Number: 
-[APP1, FLIR, Camera] 540 - Filter Serial Number: 
+[APP1, FLIR, Camera] 492 - Filter Model:
+[APP1, FLIR, Camera] 508 - Filter Part Number:
+[APP1, FLIR, Camera] 540 - Filter Serial Number:
 [APP1, FLIR, Camera] 776 - Planck O: -6646
 [APP1, FLIR, Camera] 780 - Planck R2: 0.022241818
 [APP1, FLIR, Image] 784 - Raw Value Range Min: 7630

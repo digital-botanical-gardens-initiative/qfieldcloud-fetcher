@@ -73,8 +73,8 @@ sub testCompare($$$;$)
     my ($stdfile, $testfile, $testnum, $keep) = @_;
     my $success = 0;
     my $linenum;
-    
-    my $oldSep = $/;   
+
+    my $oldSep = $/;
     $/ = "\x0a";        # set input line separator
     if (open(FILE1, $stdfile)) {
         if (open(FILE2, $testfile)) {
@@ -95,7 +95,7 @@ sub testCompare($$$;$)
                     if ($line1 =~ /Warning: IPTCDigest is not current/ and
                         not eval 'require Digest::MD5')
                     {
-                        $skip = 2; 
+                        $skip = 2;
                         next;
                     } elsif ($line2 =~ /Warning: IPTCDigest is not current/ and
                         not eval 'require Digest::MD5')
@@ -128,7 +128,7 @@ sub testCompare($$$;$)
         close(FILE1);
     }
     $/ = $oldSep;       # restore input line separator
-    
+
     # erase .failed file if test was successful
     $success and not $keep and unlink $testfile;
 
@@ -322,11 +322,11 @@ sub check($$$;$$$)
     my $testfile = "t/${testname}_$testnum.failed";
     my $stdfile = "t/${testname}_$stdnum.out";
     open(FILE, ">$testfile") or return 0;
-    
+
     # use one type of linefeed so this test works across platforms
     my $oldSep = $\;
     $\ = "\x0a";        # set output line separator
-    
+
     # get a list of found tags
     my @tags;
     if ($exifTool) {
@@ -356,7 +356,7 @@ sub check($$$;$$$)
         }
     }
     close(FILE);
-    
+
     $\ = $oldSep;       # restore output line separator
 #
 # Compare the output file to the output from the standard test (TESTNAME_#.out)

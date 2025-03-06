@@ -16,7 +16,7 @@
 [File, File, Image] BitsPerSample - Bits Per Sample: 8
 [File, File, Image] ColorComponents - Color Components: 3
 [File, File, Image] YCbCrSubSampling - Y Cb Cr Sub Sampling: YCbCr4:2:0 (2 2)
-[EXIF, IFD0, Image] 270 - Image Description:            
+[EXIF, IFD0, Image] 270 - Image Description:
 [EXIF, IFD0, Camera] 271 - Make: Rollei
 [EXIF, IFD0, Camera] 272 - Camera Model Name: dk4010
 [EXIF, IFD0, Image] 274 - Orientation: Horizontal (normal)
@@ -42,7 +42,7 @@
 [EXIF, ExifIFD, Camera] 37383 - Metering Mode: Multi-segment
 [EXIF, ExifIFD, Camera] 37385 - Flash: Off, Did not fire
 [EXIF, ExifIFD, Camera] 37386 - Focal Length: 200.0 mm
-[EXIF, ExifIFD, Image] 37510 - User Comment: 
+[EXIF, ExifIFD, Image] 37510 - User Comment:
 [EXIF, ExifIFD, Time] 37520 - Sub Sec Time: 331
 [EXIF, ExifIFD, Time] 37521 - Sub Sec Time Original: 331
 [EXIF, ExifIFD, Time] 37522 - Sub Sec Time Digitized: 331

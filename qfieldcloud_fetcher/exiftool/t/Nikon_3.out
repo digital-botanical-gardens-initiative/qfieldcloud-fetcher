@@ -16,7 +16,7 @@
 [File, File, Image] BitsPerSample - Bits Per Sample: 8
 [File, File, Image] ColorComponents - Color Components: 3
 [File, File, Image] YCbCrSubSampling - Y Cb Cr Sub Sampling: YCbCr4:2:0 (2 2)
-[EXIF, IFD0, Image] 270 - Image Description:           
+[EXIF, IFD0, Image] 270 - Image Description:
 [EXIF, IFD0, Camera] 271 - Make: NIKON
 [EXIF, IFD0, Camera] 272 - Camera Model Name: E775
 [EXIF, IFD0, Image] 274 - Orientation: Horizontal (normal)
@@ -41,7 +41,7 @@
 [EXIF, ExifIFD, Camera] 37384 - Light Source: Unknown
 [EXIF, ExifIFD, Camera] 37385 - Flash: No Flash
 [EXIF, ExifIFD, Camera] 37386 - Focal Length: 8.6 mm
-[EXIF, ExifIFD, Image] 37510 - User Comment: 
+[EXIF, ExifIFD, Image] 37510 - User Comment:
 [EXIF, ExifIFD, Image] 40960 - Flashpix Version: 0100
 [EXIF, ExifIFD, Image] 40961 - Color Space: sRGB
 [EXIF, ExifIFD, Image] 40962 - Exif Image Width: 1600
@@ -64,7 +64,7 @@
 [MakerNotes, Nikon, Camera] 5 - White Balance: Auto
 [MakerNotes, Nikon, Camera] 6 - Sharpness: Auto
 [MakerNotes, Nikon, Camera] 7 - Focus Mode: AF-C
-[MakerNotes, Nikon, Camera] 8 - Flash Setting: 
+[MakerNotes, Nikon, Camera] 8 - Flash Setting:
 [MakerNotes, Nikon, Camera] 10 - Nikon 0x000a: 8.832
 [MakerNotes, Nikon, Camera] 15 - ISO Selection: Auto
 [MakerNotes, Nikon, Camera] 128 - Image Adjustment: Yes, lots of it
@@ -74,7 +74,7 @@
 [MakerNotes, Nikon, Camera] 0 - AF Area Mode: Single Area
 [MakerNotes, Nikon, Camera] 1 - AF Point: Center
 [MakerNotes, Nikon, Camera] 2 - AF Points In Focus: (none)
-[MakerNotes, Nikon, Camera] 143 - Scene Mode: 
+[MakerNotes, Nikon, Camera] 143 - Scene Mode:
 [MakerNotes, Nikon, Camera] 16 - Data Dump: (Binary data 122 bytes)
 [PrintIM, PrintIM, Printing] PrintIMVersion - PrintIM Version: 0100
 [PrintIM, PrintIM, Printing] 1 - Print IM 0x0001: 0x00160016

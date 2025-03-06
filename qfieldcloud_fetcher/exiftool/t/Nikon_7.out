@@ -67,7 +67,7 @@
 [EXIF, ExifIFD, Camera] 37384 - Light Source: Unknown
 [EXIF, ExifIFD, Camera] 37385 - Flash: No Flash
 [EXIF, ExifIFD, Camera] 37386 - Focal Length: 18.0 mm
-[EXIF, ExifIFD, Image] 37510 - User Comment: 
+[EXIF, ExifIFD, Image] 37510 - User Comment:
 [EXIF, ExifIFD, Time] 37520 - Sub Sec Time: 00
 [EXIF, ExifIFD, Time] 37521 - Sub Sec Time Original: 00
 [EXIF, ExifIFD, Time] 37522 - Sub Sec Time Digitized: 00
@@ -145,7 +145,7 @@
 [MakerNotes, Nikon, Camera] 167 - Shutter Count: 3619
 [MakerNotes, Nikon, Camera] 169 - Image Optimization: Custom
 [MakerNotes, Nikon, Camera] 170 - Saturation: Normal
-[MakerNotes, Nikon, Camera] 171 - Vari Program: 
+[MakerNotes, Nikon, Camera] 171 - Vari Program:
 [MakerNotes, NikonCapture, Image] 1990472192 - Unsharp Mask: Off
 [MakerNotes, NikonCapture, Image] 0 - Unsharp Count: 1
 [MakerNotes, NikonCapture, Image] 19 - Unsharp 1 Color: RGB
@@ -213,7 +213,7 @@
 [MakerNotes, Nikon, Camera] 1 - IFD0 Offset: 8
 [MakerNotes, Nikon, Camera] 2 - Preview IFD Offset: 11362
 [MakerNotes, Nikon, Camera] 3 - Sub IFD Offset: 1440
-[MakerNotes, NikonScan, Image] 2 - Film Type: POSITIVE       
+[MakerNotes, NikonScan, Image] 2 - Film Type: POSITIVE
 [MakerNotes, NikonScan, Image] 65 - Bit Depth: 8
 [MakerNotes, NikonScan, Image] 80 - Master Gain: 0.00
 [MakerNotes, NikonScan, Image] 81 - Color Gain: 0.00 0.00 0.00
@@ -223,18 +223,18 @@
 [ICC_Profile, ICC-header, Image] 4 - Profile CMM Type: Nikon Corporation
 [ICC_Profile, ICC-header, Image] 8 - Profile Version: 2.2.0
 [ICC_Profile, ICC-header, Image] 12 - Profile Class: Display Device Profile
-[ICC_Profile, ICC-header, Image] 16 - Color Space Data: RGB 
-[ICC_Profile, ICC-header, Image] 20 - Profile Connection Space: XYZ 
+[ICC_Profile, ICC-header, Image] 16 - Color Space Data: RGB
+[ICC_Profile, ICC-header, Image] 20 - Profile Connection Space: XYZ
 [ICC_Profile, ICC-header, Time] 24 - Profile Date Time: 1999:12:07 18:59:22
 [ICC_Profile, ICC-header, Image] 36 - Profile File Signature: acsp
 [ICC_Profile, ICC-header, Image] 40 - Primary Platform: Apple Computer Inc.
 [ICC_Profile, ICC-header, Image] 44 - CMM Flags: Not Embedded, Independent
 [ICC_Profile, ICC-header, Image] 48 - Device Manufacturer: none
-[ICC_Profile, ICC-header, Image] 52 - Device Model: 
+[ICC_Profile, ICC-header, Image] 52 - Device Model:
 [ICC_Profile, ICC-header, Image] 56 - Device Attributes: Reflective, Glossy, Positive, Color
 [ICC_Profile, ICC-header, Image] 64 - Rendering Intent: Perceptual
 [ICC_Profile, ICC-header, Image] 68 - Connection Space Illuminant: 0.9642 1 0.82491
-[ICC_Profile, ICC-header, Image] 80 - Profile Creator: 
+[ICC_Profile, ICC-header, Image] 80 - Profile Creator:
 [ICC_Profile, ICC-header, Image] 84 - Profile ID: 0
 [ICC_Profile, ICC_Profile, Image] desc - Profile Description: Nikon Adobe RGB 4.0.0.3000
 [ICC_Profile, ICC_Profile, Image] rXYZ - Red Matrix Column: 0.60976 0.31113 0.01947

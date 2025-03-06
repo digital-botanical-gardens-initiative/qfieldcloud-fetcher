@@ -1433,7 +1433,7 @@ Dec. 8, 2021 - Version 12.37
     "." separator
   - Improved warning when incorrectly using "<" instead of "=" to assign a tag
     value
-  - Shortened a few of the new obscenely-long XMP-crs tag names 
+  - Shortened a few of the new obscenely-long XMP-crs tag names
   - Avoid writing XMP-dwc:EventID and XMP-tiff:NativeDigest
   - Avoid printing same structure twice in -j and -X output when -l is used
   - Fixed typo in a QuickTime tag name (thanks Hubert)
@@ -2792,7 +2792,7 @@ Mar. 14, 2019 - Version 11.32
   - Decode streamed metadata from DuDuBell M1 and VSYS M6L dashcam videos
   - Attempt to improve Nikon lens identification
   - API Changes:
-      - Added new single-argument version of ShiftTime() 
+      - Added new single-argument version of ShiftTime()
 
 Mar. 7, 2019 - Version 11.31
 
@@ -4547,7 +4547,7 @@ Feb. 7, 2015 - Version 9.83
   - Decode a number of new Sony tags (thanks Jos Roost)
   - Decode a couple more Nikon ShootingMode bits (thanks Leegong)
   - Updated to Nov 2014 XMP specification
-  - Patched incompatibility between Windows Unicode update and Perl 5.005 
+  - Patched incompatibility between Windows Unicode update and Perl 5.005
 
 Jan. 15, 2015 - Version 9.82
 
@@ -5497,7 +5497,7 @@ Jan. 27, 2013 - Version 9.15
   - Fixed bug which could cause "Can't call method GetMarkerPointers" runtime
     warning when writing certain types of corrupted images
   - Fixed problem copying PrevewImage from some corrupted files
-  - Fixed problem identifying a Sigma lens for Nikon at some focal lengths 
+  - Fixed problem identifying a Sigma lens for Nikon at some focal lengths
   - API Changes:
       - Added AddUserDefinedTags() method
       - Added formatting feature for tag values in SetNewValuesFromFile()
@@ -6612,7 +6612,7 @@ Oct. 7, 2010 - Version 8.34
   - Decode a number of new Canon 60D MakerNotes tags (thanks Bogdan for
     LensSerialNumber)
   - Decode FrameCount from MakerNotes in Nikon MOV videos
-  - Decode Ambience and some video tags from Canon 
+  - Decode Ambience and some video tags from Canon
   - Decode more Canon EOS 1D Mark IV CameraInfo tags
   - Updated decoding of Pentax HighISONoiseReduction for newer models
   - Changed description of Canon SerialNumber tags
@@ -7116,7 +7116,7 @@ Nov. 20, 2009 - Version 8.00 (production release)
     duration when multiple video streams exist
   - Enhanced -ee option to extract information from embedded MPF images
   - Improved Nikon LensID conversion to recognize user-defined lenses
-  - Improved decoding of a few Olympus tags (ArtFilter, FaceDetect and 
+  - Improved decoding of a few Olympus tags (ArtFilter, FaceDetect and
     FocusProcess)
   - Improved handling of warnings when processing corrupted ZIP files
   - Improved recognition of Canon teleconverters in Composite LensID tag
@@ -11445,7 +11445,7 @@ Nov. 26, 2003 - Version 1.40
 
 Nov. 25, 2003 - Version 1.30
 
-  - Added experimental Canon RAW (CRW) file support 
+  - Added experimental Canon RAW (CRW) file support
 
 Nov. 22, 2003 - Version 1.20
 
@@ -11469,4 +11469,3 @@ Nov. 19, 2003 - Version 1.00
 
   - Initial release (extracts information from JPEG and GIF images, with Canon,
     FujiFilm and Pentax makernote support)
-

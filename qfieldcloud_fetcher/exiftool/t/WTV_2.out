@@ -12,11 +12,11 @@
 [WTV, WTV, Video] WM/MediaClassPrimaryID - Media Class Primary ID: bd3098dbb33aab4f8a371a995f7ff74b
 [WTV, WTV, Video] WM/MediaClassSecondaryID - Media Class Secondary ID: 8a257fbaf762a947b21f4651c42a000e
 [WTV, WTV, Video] Title - Title: Stargate SG-1
-[WTV, WTV, Video] WM/SubTitle - Subtitle: 
-[WTV, WTV, Video] WM/SubTitleDescription - Subtitle Description: Company Of Thieves: A power struggle in the deadly Lucian Alliance's ranks spells danger for SG-1. With Carter, Vala and Daniel held captive, Mitchell may be their only hope... (S10, ep 9) [S] 
+[WTV, WTV, Video] WM/SubTitle - Subtitle:
+[WTV, WTV, Video] WM/SubTitleDescription - Subtitle Description: Company Of Thieves: A power struggle in the deadly Lucian Alliance's ranks spells danger for SG-1. With Carter, Vala and Daniel held captive, Mitchell may be their only hope... (S10, ep 9) [S]
 [WTV, WTV, Video] WM/Genre - Genre: Shows;Other Shows
 [WTV, WTV, Time] WM/OriginalReleaseTime - Original Release Time: 0
-[WTV, WTV, Video] WM/Language - Language: 
+[WTV, WTV, Video] WM/Language - Language:
 [WTV, WTV, Video] WM/MediaCredits - Media Credits: ;;;
 [WTV, WTV, Video] WM/MediaStationCallSign - Media Station Call Sign: Pick
 [WTV, WTV, Video] WM/MediaStationName - Media Station Name: Pick
@@ -36,11 +36,11 @@
 [WTV, WTV, Video] WM/MediaIsFinale - Media Is Finale: No
 [WTV, WTV, Video] WM/MediaIsSAP - Media Is SAP: No
 [WTV, WTV, Video] WM/MediaIsSport - Media Is Sport: No
-[WTV, WTV, Video] WM/ParentalRating - Parental Rating: 
-[WTV, WTV, Video] WM/ParentalRatingReason - Parental Rating Reason: 
+[WTV, WTV, Video] WM/ParentalRating - Parental Rating:
+[WTV, WTV, Video] WM/ParentalRatingReason - Parental Rating Reason:
 [WTV, WTV, Video] WM/Provider - Provider: MediaCenterDefault
-[WTV, WTV, Video] WM/ProviderCopyright - Provider Copyright: 
-[WTV, WTV, Video] WM/ProviderRating - Provider Rating: 
+[WTV, WTV, Video] WM/ProviderCopyright - Provider Copyright:
+[WTV, WTV, Video] WM/ProviderRating - Provider Rating:
 [WTV, WTV, Video] WM/VideoClosedCaptioning - Video Closed Captioning: No
 [WTV, WTV, Time] WM/WMRVEncodeTime - Encode Time: 2018:05:25 18:44:43Z
 [WTV, WTV, Video] WM/WMRVSeriesUID - Series UID: !GenericSeries!Stargate SG-1
@@ -53,8 +53,8 @@
 [WTV, WTV, Video] WM/WMRVOriginalSoftPostPadding - Original Soft Post Padding: 180
 [WTV, WTV, Video] WM/WMRVHardPrePadding - Hard Pre Padding: -2674
 [WTV, WTV, Video] WM/WMRVHardPostPadding - Hard Post Padding: 0
-[WTV, WTV, Video] WM/WMRVBrandingName - Branding Name: 
-[WTV, WTV, Video] WM/WMRVBrandingImageID - Branding Image ID: 
+[WTV, WTV, Video] WM/WMRVBrandingName - Branding Name:
+[WTV, WTV, Video] WM/WMRVBrandingImageID - Branding Image ID:
 [WTV, WTV, Video] WM/WMRVATSCContent - ATSC Content: No
 [WTV, WTV, Video] WM/WMRVDTVContent - DTV Content: Yes
 [WTV, WTV, Video] WM/WMRVHDContent - HD Content: No

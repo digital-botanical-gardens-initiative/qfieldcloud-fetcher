@@ -149,7 +149,7 @@ ShutterSpeedValue: 0
 SlowShutter: None
 TargetAperture: 14
 ThumbnailImageValidArea: 0 159 7 112
-UserComment: 
+UserComment:
 ValidAFPoints: 7
 WB_RGGBBlackLevels: 124 123 124 123
 WB_RGGBLevels: 1719 832 831 990

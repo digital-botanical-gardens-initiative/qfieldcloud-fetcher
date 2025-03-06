@@ -92,8 +92,8 @@
 [ICC_Profile, ICC-header, Image] 4 - Profile CMM Type: Linotronic
 [ICC_Profile, ICC-header, Image] 8 - Profile Version: 2.1.0
 [ICC_Profile, ICC-header, Image] 12 - Profile Class: Display Device Profile
-[ICC_Profile, ICC-header, Image] 16 - Color Space Data: RGB 
-[ICC_Profile, ICC-header, Image] 20 - Profile Connection Space: XYZ 
+[ICC_Profile, ICC-header, Image] 16 - Color Space Data: RGB
+[ICC_Profile, ICC-header, Image] 20 - Profile Connection Space: XYZ
 [ICC_Profile, ICC-header, Time] 24 - Profile Date Time: 1998:02:09 06:49:00
 [ICC_Profile, ICC-header, Image] 36 - Profile File Signature: acsp
 [ICC_Profile, ICC-header, Image] 40 - Primary Platform: Microsoft Corporation

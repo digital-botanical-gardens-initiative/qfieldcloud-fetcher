@@ -34,7 +34,7 @@
 [XML, XML-Composite, Unknown] Composite:ShutterSpeed - Shutter Speed: 0.00469483568075117
 [XML, XML-Composite, Unknown] Composite:FocalLength35efl - Focal Length 35efl: 8.6 mm
 [XML, XML-Composite, Unknown] Composite:LightValue - Light Value: 14.2
-[EXIF, IFD0, Unknown] IFD0:ImageDescription - Image Description:           
+[EXIF, IFD0, Unknown] IFD0:ImageDescription - Image Description:
 [EXIF, IFD0, Unknown] IFD0:Make - Make: NIKON
 [EXIF, IFD0, Unknown] IFD0:Model - Model: E775
 [EXIF, IFD0, Unknown] IFD0:Orientation - Orientation: Horizontal (normal)
@@ -59,7 +59,7 @@
 [EXIF, ExifIFD, Unknown] ExifIFD:LightSource - Light Source: Unknown
 [EXIF, ExifIFD, Unknown] ExifIFD:Flash - Flash: No Flash
 [EXIF, ExifIFD, Unknown] ExifIFD:FocalLength - Focal Length: 8.6 mm
-[EXIF, ExifIFD, Unknown] ExifIFD:UserComment - User Comment: 
+[EXIF, ExifIFD, Unknown] ExifIFD:UserComment - User Comment:
 [EXIF, ExifIFD, Unknown] ExifIFD:FlashpixVersion - Flashpix Version: 0100
 [EXIF, ExifIFD, Unknown] ExifIFD:ColorSpace - Color Space: sRGB
 [EXIF, ExifIFD, Unknown] ExifIFD:ExifImageWidth - Exif Image Width: 1600
@@ -82,7 +82,7 @@
 [MakerNotes, Nikon, Unknown] Nikon:WhiteBalance - White Balance: Auto
 [MakerNotes, Nikon, Unknown] Nikon:Sharpness - Sharpness: Auto
 [MakerNotes, Nikon, Unknown] Nikon:FocusMode - Focus Mode: AF-C
-[MakerNotes, Nikon, Unknown] Nikon:FlashSetting - Flash Setting: 
+[MakerNotes, Nikon, Unknown] Nikon:FlashSetting - Flash Setting:
 [MakerNotes, Nikon, Unknown] Nikon:ISOSelection - ISO Selection: Auto
 [MakerNotes, Nikon, Unknown] Nikon:ImageAdjustment - Image Adjustment: Normal
 [MakerNotes, Nikon, Unknown] Nikon:AuxiliaryLens - Auxiliary Lens: Off
@@ -91,7 +91,7 @@
 [MakerNotes, Nikon, Unknown] Nikon:AFAreaMode - AF Area Mode: Single Area
 [MakerNotes, Nikon, Unknown] Nikon:AFPoint - AF Point: Center
 [MakerNotes, Nikon, Unknown] Nikon:AFPointsInFocus - AF Points In Focus: (none)
-[MakerNotes, Nikon, Unknown] Nikon:SceneMode - Scene Mode: 
+[MakerNotes, Nikon, Unknown] Nikon:SceneMode - Scene Mode:
 [MakerNotes, Nikon, Unknown] Nikon:DataDump - Data Dump: (Binary data 122 bytes, use -b option to extract)
 [PrintIM, PrintIM, Unknown] PrintIM:PrintIMVersion - Print IM Version: 0100
 [Composite, Composite, Image] Exif-Aperture - Aperture: 9.4

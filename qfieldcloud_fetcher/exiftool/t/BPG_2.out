@@ -39,7 +39,7 @@
 [EXIF, ExifIFD, Image] 37380 - Exposure Compensation: 0
 [EXIF, ExifIFD, Camera] 37385 - Flash: On, Fired
 [EXIF, ExifIFD, Camera] 37386 - Focal Length: 55.0 mm
-[EXIF, ExifIFD, Image] 37510 - User Comment: 
+[EXIF, ExifIFD, Image] 37510 - User Comment:
 [EXIF, ExifIFD, Image] 40960 - Flashpix Version: 0100
 [EXIF, ExifIFD, Image] 40961 - Color Space: sRGB
 [EXIF, ExifIFD, Image] 40962 - Exif Image Width: 2048
@@ -57,14 +57,14 @@
 [ICC_Profile, ICC-header, Image] 4 - Profile CMM Type: Adobe Systems Inc.
 [ICC_Profile, ICC-header, Image] 8 - Profile Version: 2.1.0
 [ICC_Profile, ICC-header, Image] 12 - Profile Class: Display Device Profile
-[ICC_Profile, ICC-header, Image] 16 - Color Space Data: RGB 
-[ICC_Profile, ICC-header, Image] 20 - Profile Connection Space: XYZ 
+[ICC_Profile, ICC-header, Image] 16 - Color Space Data: RGB
+[ICC_Profile, ICC-header, Image] 20 - Profile Connection Space: XYZ
 [ICC_Profile, ICC-header, Time] 24 - Profile Date Time: 1999:06:03 00:00:00
 [ICC_Profile, ICC-header, Image] 36 - Profile File Signature: acsp
 [ICC_Profile, ICC-header, Image] 40 - Primary Platform: Apple Computer Inc.
 [ICC_Profile, ICC-header, Image] 44 - CMM Flags: Not Embedded, Independent
 [ICC_Profile, ICC-header, Image] 48 - Device Manufacturer: none
-[ICC_Profile, ICC-header, Image] 52 - Device Model: 
+[ICC_Profile, ICC-header, Image] 52 - Device Model:
 [ICC_Profile, ICC-header, Image] 56 - Device Attributes: Reflective, Glossy, Positive, Color
 [ICC_Profile, ICC-header, Image] 64 - Rendering Intent: Perceptual
 [ICC_Profile, ICC-header, Image] 68 - Connection Space Illuminant: 0.9642 1 0.82491

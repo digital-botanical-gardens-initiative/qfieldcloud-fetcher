@@ -23,11 +23,11 @@
 [FLIR, FLIR, Camera] 216 - Camera Temperature Range Min: -20.0 C
 [FLIR, FLIR, Camera] 220 - Camera Temperature Range Max: 120.0 C
 [FLIR, FLIR, Camera] 224 - Lens Model: FOL18
-[FLIR, FLIR, Camera] 256 - Lens Part Number: 
-[FLIR, FLIR, Camera] 288 - Lens Serial Number: 
-[FLIR, FLIR, Camera] 320 - Filter Model: 
-[FLIR, FLIR, Camera] 336 - Filter Part Number: 
-[FLIR, FLIR, Camera] 384 - Filter Serial Number: 
+[FLIR, FLIR, Camera] 256 - Lens Part Number:
+[FLIR, FLIR, Camera] 288 - Lens Serial Number:
+[FLIR, FLIR, Camera] 320 - Filter Model:
+[FLIR, FLIR, Camera] 336 - Filter Part Number:
+[FLIR, FLIR, Camera] 384 - Filter Serial Number:
 [FLIR, FLIR, Image] 480 - Emissivity: 0.95
 [FLIR, FLIR, Image] 484 - Object Distance: 1.00 m
 [FLIR, FLIR, Image] 488 - Reflected Apparent Temperature: 20.0 C

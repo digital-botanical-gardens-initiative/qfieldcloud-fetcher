@@ -9,7 +9,7 @@
 [EXIF, GPS, Time] 29 - GPS Date Stamp: 2003:05:24
 [IPTC, IPTC, Location] 90 - City: Boise
 [IPTC, IPTC, Location] 95 - Province-State: Idaho
-[IPTC, IPTC, Location] 100 - Country-Primary Location Code: US 
+[IPTC, IPTC, Location] 100 - Country-Primary Location Code: US
 [IPTC, IPTC, Location] 101 - Country-Primary Location Name: United States
 [IPTC, IPTC, Other] 0 - Application Record Version: 4
 [XMP, XMP-x, Document] xmptk - XMP Toolkit: Image::ExifTool 12.79

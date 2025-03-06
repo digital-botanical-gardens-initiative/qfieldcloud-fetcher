@@ -23,17 +23,17 @@
 [EXIF, ExifIFD, Camera] 37384 - Light Source: Unknown
 [EXIF, IFD0, Image] 274 - Orientation: Horizontal (normal)
 [EXIF, IFD0, Time] 306 - Modify Date: 2023:02:08 12:24:35
-[EXIF, GPS, Location] 2 - GPS Latitude: 
+[EXIF, GPS, Location] 2 - GPS Latitude:
 [EXIF, GPS, Location] 6 - GPS Altitude: undef
 [EXIF, GPS, Location] 1 - GPS Latitude Ref: Unknown ()
 [EXIF, GPS, Location] 13 - GPS Speed: undef
-[EXIF, GPS, Location] 27 - GPS Processing Method: 
+[EXIF, GPS, Location] 27 - GPS Processing Method:
 [EXIF, GPS, Location] 5 - GPS Altitude Ref: Above Sea Level
 [EXIF, GPS, Location] 12 - GPS Speed Ref: Unknown ()
 [EXIF, GPS, Location] 3 - GPS Longitude Ref: Unknown ()
 [EXIF, GPS, Time] 7 - GPS Time Stamp: 00:00:00
-[EXIF, GPS, Location] 4 - GPS Longitude: 
-[EXIF, GPS, Time] 29 - GPS Date Stamp: 
+[EXIF, GPS, Location] 4 - GPS Longitude:
+[EXIF, GPS, Time] 29 - GPS Date Stamp:
 [APP2, InfiRay, Image] 0 - IJPEG Version: 0 2 0 1
 [APP2, InfiRay, Image] 12 - IJPEG Org Type: 4
 [APP2, InfiRay, Image] 13 - IJPEG Disp Type: 1
@@ -122,5 +122,5 @@
 [Composite, Composite, Image] Exif-ImageSize - Image Size: 8x8
 [Composite, Composite, Image] Exif-Megapixels - Megapixels: 0.000064
 [Composite, Composite, Time] GPS-GPSDateTime - GPS Date/Time:  00:00:00Z
-[Composite, Composite, Location] GPS-GPSLatitude - GPS Latitude: 
-[Composite, Composite, Location] GPS-GPSLongitude - GPS Longitude: 
+[Composite, Composite, Location] GPS-GPSLatitude - GPS Latitude:
+[Composite, Composite, Location] GPS-GPSLongitude - GPS Longitude:

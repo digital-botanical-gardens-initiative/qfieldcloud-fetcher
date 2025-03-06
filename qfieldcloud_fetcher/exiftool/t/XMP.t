@@ -383,7 +383,7 @@ my $testnum = 1;
     my $info = $exifTool->ImageInfo($testfile,'XMP:*');
     notOK() unless check($exifTool, $info, $testname, $testnum) and $ok;
     print "ok $testnum\n";
-    
+
     # try again when title already exists
     ++$testnum;
     my $testfile2 = "t/${testname}_${testnum}_failed.jpg";

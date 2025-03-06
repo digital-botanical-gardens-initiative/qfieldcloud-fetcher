@@ -37,7 +37,7 @@
   | | | TimeZoneInfo = 0
   | | 6)  OriginalFileName = CRW_1602.CRW
   | | 7)  ThumbnailFileName = CRW_1602.THM
-  | | 8)  UserComment = 
+  | | 8)  UserComment =
   | | 9)  MeasuredInfo (SubDirectory) -->
   | | + [CIFF directory with 1 entries]
   | | | 0)  MeasuredEV = -0.375

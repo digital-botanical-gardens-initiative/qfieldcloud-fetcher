@@ -153,7 +153,7 @@ my $testnum = 1;
     @groups and $not = 1;
     notOK() if $not;
     print "ok $testnum\n";
-    
+
     ++$testnum;
     my $info = $exifTool->GetInfo({Group0 => 'EXIF'});
     @groups = $exifTool->GetGroups($info,0);
@@ -163,7 +163,7 @@ my $testnum = 1;
     ++$testnum;
     my $testfile = "t/ExifTool_$testnum";
     open(TESTFILE,">$testfile.failed");
-    my $oldSep = $/;   
+    my $oldSep = $/;
     $/ = "\x0a";        # set input line separator
     $exifTool->ExtractInfo('t/images/Canon.jpg');
     my $family = '1:2';
@@ -175,7 +175,7 @@ my $testnum = 1;
         my $info = $exifTool->GetInfo({"Group$family" => $group});
         foreach (sort $exifTool->GetTagList($info)) {
             print TESTFILE "$_ : $$info{$_}\n";
-        } 
+        }
     }
     $/ = $oldSep;       # restore input line separator
     close(TESTFILE);
@@ -235,7 +235,7 @@ my $testnum = 1;
     my $str = $exifTool->InsertTagValues('${ifd0:model;tr/i/_/} - $1ciff:3main:model', \@foundTags);
     my $testfile = "t/ExifTool_$testnum";
     open(TESTFILE,">$testfile.failed");
-    my $oldSep = $/;   
+    my $oldSep = $/;
     $/ = "\x0a";        # set input line separator
     print TESTFILE $str, "\n";
     $/ = $oldSep;       # restore input line separator

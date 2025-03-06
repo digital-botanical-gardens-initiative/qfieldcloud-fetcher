@@ -5,12 +5,12 @@ BlueTRC: (Binary data 14 bytes)
 CMMFlags: Not Embedded, Independent
 City: Kingston
 ColorResolutionDepth: 8
-ColorSpaceData: RGB 
+ColorSpaceData: RGB
 Comment: a new comment
 ConnectionSpaceIlluminant: 0.9642 1 0.82491
 DeviceAttributes: Reflective, Glossy, Positive, Color
 DeviceManufacturer: none
-DeviceModel: 
+DeviceModel:
 ExifToolVersion: 12.42
 FileSize: 4.6 kB
 FileType: GIF
@@ -29,9 +29,9 @@ PixelAspectRatio: 1
 PrimaryPlatform: Apple Computer Inc.
 ProfileCMMType: Nikon Corporation
 ProfileClass: Display Device Profile
-ProfileConnectionSpace: XYZ 
+ProfileConnectionSpace: XYZ
 ProfileCopyright: Nikon Inc. & Nikon Corporation 2001
-ProfileCreator: 
+ProfileCreator:
 ProfileDateTime: 1999:12:07 18:59:22
 ProfileDescription: Nikon Adobe RGB 4.0.0.3000
 ProfileFileSignature: acsp

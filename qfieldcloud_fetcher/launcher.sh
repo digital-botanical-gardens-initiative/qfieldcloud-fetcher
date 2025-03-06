@@ -76,3 +76,6 @@ run_script "pictures_renamer"
 
 # Run pictures resizer
 run_script "pictures_resizer"
+
+# Run pictures metadata editor
+run_script "pictures_metadata_editor"

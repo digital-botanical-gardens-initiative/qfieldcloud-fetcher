@@ -33,7 +33,7 @@ my $testnum = 1;
     $exifTool->SetNewValuesFromFile('t/images/XMP.jpg');
     $exifTool->SetNewValue('PNG:Comment');  # and delete a tag
     $exifTool->SetNewValue('PixelsPerUnitX', 1234);
-    my $image;  
+    my $image;
     my $rtnVal = $exifTool->WriteInfo('t/images/PNG.png', \$image);
     # must ignore FileSize because size is variable (depends on Zlib availability)
     my $info = $exifTool->ImageInfo(\$image, '-filesize');
@@ -78,7 +78,7 @@ my $testnum = 1;
 {
     ++$testnum;
     my $exifTool = Image::ExifTool->new;
-    my $image;  
+    my $image;
     # delete all XMP then copy back again (should move to before IDAT)
     $exifTool->SetNewValue();
     my $txtfile = "t/${testname}_${testnum}.failed";

@@ -33,7 +33,7 @@
 [RIFF, RIFF, Video] 10 - Quality: 10000
 [RIFF, RIFF, Video] 11 - Sample Size: Variable
 [RIFF, RIFF, Video] 0 - Stream Type: Audio
-[RIFF, RIFF, Video] 1 - Audio Codec: 
+[RIFF, RIFF, Video] 1 - Audio Codec:
 [RIFF, RIFF, Video] 5 - Audio Sample Rate: 32000
 [RIFF, RIFF, Video] 8 - Audio Sample Count: 800000
 [RIFF, RIFF, Video] 10 - Quality: 10000
@@ -45,7 +45,7 @@
 [RIFF, RIFF, Audio] 7 - Bits Per Sample: 16
 [RIFF, RIFF, Video] 0 - Total Frame Count: 600
 [RIFF, RIFF, Time] IDIT - Date/Time Original: 2009:10:27 12:14:00
-[RIFF, RIFF, Audio] ISFT - Software: PENTAX K-x                             
+[RIFF, RIFF, Audio] ISFT - Software: PENTAX K-x
 [MakerNotes, Pentax, Camera] 0 - Pentax Version: 5.1.0.0
 [MakerNotes, Pentax, Camera] 1 - Pentax Model Type: 0
 [MakerNotes, Pentax, Camera] 5 - Pentax Model ID: K-x
@@ -123,9 +123,9 @@
 [MakerNotes, Pentax, Image] 16 - WB Shift AB: 0
 [MakerNotes, Pentax, Image] 17 - WB Shift GM: 0
 [MakerNotes, Pentax, Camera] 553 - Serial Number: 3430417
-[MakerNotes, Pentax, Author] 558 - Artist: 
-[MakerNotes, Pentax, Author] 559 - Copyright: 
-[MakerNotes, Pentax, Camera] 560 - Firmware Version: K-x Ver 1.00           
+[MakerNotes, Pentax, Author] 558 - Artist:
+[MakerNotes, Pentax, Author] 559 - Copyright:
+[MakerNotes, Pentax, Camera] 560 - Firmware Version: K-x Ver 1.00
 [Composite, Composite, Image] Exif-ImageSize - Image Size: 1280x720
 [Composite, Composite, Image] Exif-Megapixels - Megapixels: 0.922
 [Composite, Composite, Other] RIFF-Duration - Duration: 25.00 s

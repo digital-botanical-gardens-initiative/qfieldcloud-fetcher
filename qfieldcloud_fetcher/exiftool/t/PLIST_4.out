@@ -18,9 +18,9 @@
 [PLIST, PLIST, Document] slowMotion/regions/timeRange/duration/value - Slow Motion Regions Duration Value: 29382500000
 [PLIST, PLIST, Document] slowMotion/regions/timeRange/duration/timescale - Slow Motion Regions Duration Time Scale: 1000000000
 [PLIST, PLIST, Document] slowMotion/regions/timeRange/duration/epoch - Slow Motion Regions Duration Epoch: 0
-[PLIST, PLIST, Document] slowMotion/regions - Slow Motion Regions: 
+[PLIST, PLIST, Document] slowMotion/regions - Slow Motion Regions:
 [PLIST, PLIST, Document] slowMotion/rate - Slow Motion Rate: 0.125
-[PLIST, XML, Document] adjustmentEditorBundleID - Adjustment Editor Bundle ID: 
+[PLIST, XML, Document] adjustmentEditorBundleID - Adjustment Editor Bundle ID:
 [PLIST, XML, Document] adjustmentFormatIdentifier - Adjustment Format Identifier: com.apple.video.slomo
 [PLIST, XML, Document] adjustmentFormatVersion - Adjustment Format Version: 1.1
 [PLIST, XML, Document] adjustmentRenderTypes - Adjustment Render Types: 0

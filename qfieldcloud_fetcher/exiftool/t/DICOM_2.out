@@ -28,24 +28,24 @@
 [DICOM, DICOM, Image] 0008,0031 - Series Time: 14:34:14
 [DICOM, DICOM, Image] 0008,0032 - Acquisition Time: 14:34:15
 [DICOM, DICOM, Image] 0008,0033 - Content Time: 14:30:22
-[DICOM, DICOM, Image] 0008,0050 - Accession Number: 
+[DICOM, DICOM, Image] 0008,0050 - Accession Number:
 [DICOM, DICOM, Image] 0008,0060 - Modality: MR
 [DICOM, DICOM, Image] 0008,0070 - Manufacturer: GE Medical Systems
-[DICOM, DICOM, Image] 0008,0080 - Institution Name: 
-[DICOM, DICOM, Image] 0008,0090 - Referring Physician Name: 
+[DICOM, DICOM, Image] 0008,0080 - Institution Name:
+[DICOM, DICOM, Image] 0008,0090 - Referring Physician Name:
 [DICOM, DICOM, Image] 0008,1010 - Station Name: MRS1
 [DICOM, DICOM, Image] 0008,1030 - Study Description: BRAIN
 [DICOM, DICOM, Image] 0008,103E - Series Description: FSE PD AXIAL OBL
-[DICOM, DICOM, Image] 0008,1050 - Performing Physician Name: 
+[DICOM, DICOM, Image] 0008,1050 - Performing Physician Name:
 [DICOM, DICOM, Image] 0008,1070 - Operators Name: EC
 [DICOM, DICOM, Image] 0008,1090 - Manufacturers Model Name: SIGNA
-[DICOM, DICOM, Image] 0010,0010 - Patient Name: 
+[DICOM, DICOM, Image] 0010,0010 - Patient Name:
 [DICOM, DICOM, Image] 0010,0020 - Patient ID: 123456
-[DICOM, DICOM, Image] 0010,0030 - Patient Birth Date: 
+[DICOM, DICOM, Image] 0010,0030 - Patient Birth Date:
 [DICOM, DICOM, Image] 0010,0040 - Patient Sex: F
 [DICOM, DICOM, Image] 0010,1010 - Patient Age: 028Y
 [DICOM, DICOM, Image] 0010,1030 - Patient Weight: 61.2350
-[DICOM, DICOM, Image] 0010,21B0 - Additional Patient History: 
+[DICOM, DICOM, Image] 0010,21B0 - Additional Patient History:
 [DICOM, DICOM, Image] 0018,0020 - Scanning Sequence: SE
 [DICOM, DICOM, Image] 0018,0021 - Sequence Variant: SK
 [DICOM, DICOM, Image] 0018,0022 - Scan Options: SP

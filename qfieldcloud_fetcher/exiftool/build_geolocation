@@ -915,7 +915,7 @@ if ($noLang) {
             foreach (sort keys %{$featureLang{$lng}}) {
                 my $ftype = $featureLang{$lng}{$_};
                 $ftype =~ s/'/\\'/g;
-                print OUT "\t$_ => '$ftype',\n" 
+                print OUT "\t$_ => '$ftype',\n"
             }
         }
         print OUT ");\n\n1; #end\n";

@@ -38,7 +38,7 @@
 [ASF, ASF, Other] AudioCodecName - Audio Codec Name: Windows Media Audio 9.1
 [ASF, ASF, Other] AudioCodecDescription - Audio Codec Description:  20 kbps, 22 kHz, stereo 1-pass CBR
 [ASF, ASF, Other] VideoCodecName - Video Codec Name: Windows Media Video 9 Image v2
-[ASF, ASF, Other] VideoCodecDescription - Video Codec Description: 
+[ASF, ASF, Other] VideoCodecDescription - Video Codec Description:
 [ASF, ASF, Video] 0 - Stream Type: Audio
 [ASF, ASF, Video] 16 - Error Correction Type: Audio Spread
 [ASF, ASF, Video] 32 - Time Offset: 0 s

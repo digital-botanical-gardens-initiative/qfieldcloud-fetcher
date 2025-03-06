@@ -52,7 +52,7 @@ WriteMakefile(
          AUTHOR        => 'Phil Harvey (philharvey66 at gmail.com)',
         ) : ()),
     (($ExtUtils::MakeMaker::VERSION gt '6.30') ?
-        (LICENSE => 'perl') : ()),    
+        (LICENSE => 'perl') : ()),
     (($ExtUtils::MakeMaker::VERSION ge '6.47') ?
-        (MIN_PERL_VERSION => '5.004') : ()),    
+        (MIN_PERL_VERSION => '5.004') : ()),
 );

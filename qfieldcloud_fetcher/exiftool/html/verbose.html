@@ -1,42 +1,63 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
-  <title>ExifTool Verbose Option</title>
-<link rel=stylesheet type='text/css' href='style.css' title='Style'>
-<style type="text/css">
-<!--
-pre { padding: 0; margin: 0px 2px }
--->
-</style>
-</head>
-<body>
-<h2 class='up'>ExifTool Verbose Option</h2>
+  <head>
+    <title>ExifTool Verbose Option</title>
+    <link rel="stylesheet" type="text/css" href="style.css" title="Style" />
+    <style type="text/css">
+      <!--
+      pre { padding: 0; margin: 0px 2px }
+      -->
+    </style>
+  </head>
+  <body>
+    <h2 class="up">ExifTool Verbose Option</h2>
 
-<p>With the Verbose option enabled, ExifTool prints a verbose log to the console as
-it extracts the meta information from a file, or writes information to a file.</p>
+    <p>
+      With the Verbose option enabled, ExifTool prints a verbose log to the
+      console as it extracts the meta information from a file, or writes
+      information to a file.
+    </p>
 
-<p>The -v option of the exiftool application allows control of the Verbose
-setting.  A number between 0 and 5 may be specified with the -v option to set a
-specific Verbose level.  For example, -v2 sets Verbose = 2.  Without a number,
--v increments the current Verbose level by one. Multiple -v options are allowed,
-so the following two examples give the same result:</p>
+    <p>
+      The -v option of the exiftool application allows control of the Verbose
+      setting. A number between 0 and 5 may be specified with the -v option to
+      set a specific Verbose level. For example, -v2 sets Verbose = 2. Without a
+      number, -v increments the current Verbose level by one. Multiple -v
+      options are allowed, so the following two examples give the same result:
+    </p>
 
-<blockquote><table class='box' width='100%'><tr><td><pre>
+    <blockquote>
+      <table class="box" width="100%">
+        <tr>
+          <td>
+            <pre>
 exiftool -v -v -v t/images/Canon.jpg
 
 exiftool -v3 t/images/Canon.jpg
-</pre></td></tr></table></blockquote>
+</pre
+            >
+          </td>
+        </tr>
+      </table>
+    </blockquote>
 
-<p>Below are example outputs for different Verbose settings when extracting
-information.</p>
+    <p>
+      Below are example outputs for different Verbose settings when extracting
+      information.
+    </p>
 
-<h3>Verbose = 1</h3>
-<p>Prints tag names and extracted values.  These are the raw values straight
-from the file, before any conversions are applied.  Also printed are details of
-the file and directory structure:</p>
+    <h3>Verbose = 1</h3>
+    <p>
+      Prints tag names and extracted values. These are the raw values straight
+      from the file, before any conversions are applied. Also printed are
+      details of the file and directory structure:
+    </p>
 
-<blockquote><table class='box' width='100%'><tr><td><pre>
+    <blockquote>
+      <table class="box" width="100%">
+        <tr>
+          <td>
+            <pre>
   ExifToolVersion = 10.00
   FileName = Canon.jpg
   Directory = t/images
@@ -67,13 +88,24 @@ JPEG APP1 (2442 bytes):
   | | 3)  ExifVersion = 0221
   | | 4)  DateTimeOriginal = 2003:12:04 06:46:52
   [etc...]
-</pre></td></tr></table></blockquote>
+</pre
+            >
+          </td>
+        </tr>
+      </table>
+    </blockquote>
 
-<h3>Verbose = 2</h3>
-<p>Prints all of the information from Verbose = 1, plus additional information
-about the tag ID, data size and format:</p>
+    <h3>Verbose = 2</h3>
+    <p>
+      Prints all of the information from Verbose = 1, plus additional
+      information about the tag ID, data size and format:
+    </p>
 
-<blockquote><table class='box' width='100%'><tr><td><pre>
+    <blockquote>
+      <table class="box" width="100%">
+        <tr>
+          <td>
+            <pre>
   ExifToolVersion = 10.00
   FileName = Canon.jpg
   Directory = t/images
@@ -118,16 +150,27 @@ JPEG APP1 (2442 bytes):
   | | 4)  DateTimeOriginal = 2003:12:04 06:46:52
   | |     - Tag 0x9003 (20 bytes, string[20])
   [etc...]
-</pre></td></tr></table></blockquote>
+</pre
+            >
+          </td>
+        </tr>
+      </table>
+    </blockquote>
 
-<h3>Verbose = 3</h3>
-<p>Adds a hex dump of the binary data associated with each tag.  The hex offsets
-are relative to the start of the file, unlike the default HtmlDump output where
-offsets are relative to the start of the TIFF header (the native base for
-TIFF/EXIF offsets).  If the data is very long, only the first few lines of the
-dump are printed:</p>
+    <h3>Verbose = 3</h3>
+    <p>
+      Adds a hex dump of the binary data associated with each tag. The hex
+      offsets are relative to the start of the file, unlike the default HtmlDump
+      output where offsets are relative to the start of the TIFF header (the
+      native base for TIFF/EXIF offsets). If the data is very long, only the
+      first few lines of the dump are printed:
+    </p>
 
-<blockquote><table class='box' width='100%'><tr><td><pre>
+    <blockquote>
+      <table class="box" width="100%">
+        <tr>
+          <td>
+            <pre>
   ExifToolVersion = 10.00
   FileName = Canon.jpg
   Directory = t/images
@@ -197,15 +240,22 @@ JPEG APP1 (2442 bytes):
   | |         0252: 32 30 30 33 3a 31 32 3a 30 34 20 30 36 3a 34 36 [2003:12:04 06:46]
   | |         0262: 3a 35 32 00                                     [:52.]
   [etc...]
-</pre></td></tr></table></blockquote>
+</pre
+            >
+          </td>
+        </tr>
+      </table>
+    </blockquote>
 
-<h3>Verbose = 4 and Verbose = 5</h3>
-<p>These Verbose levels give similar output to Verbose = 3, except that with level
-4 there is no limit on the length of data dumps of tag values, and with level 5
-the limit is also removed for dumps of JPEG segments.  Note that the output may
-be very long at these levels.</p>
+    <h3>Verbose = 4 and Verbose = 5</h3>
+    <p>
+      These Verbose levels give similar output to Verbose = 3, except that with
+      level 4 there is no limit on the length of data dumps of tag values, and
+      with level 5 the limit is also removed for dumps of JPEG segments. Note
+      that the output may be very long at these levels.
+    </p>
 
-<hr>
-<p class='lf'><a href="index.html">&lt;-- Back to ExifTool home page</a></p>
-</body>
+    <hr />
+    <p class="lf"><a href="index.html">&lt;-- Back to ExifTool home page</a></p>
+  </body>
 </html>

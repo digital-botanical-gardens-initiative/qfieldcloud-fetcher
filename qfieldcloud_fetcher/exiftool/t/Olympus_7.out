@@ -12,11 +12,11 @@
 JPEG APP1 (7080 bytes):
   ExifByteOrder = II
   + [IFD0 directory with 12 entries]
-  | 0)  ImageDescription = OLYMPUS DIGITAL CAMERA         
+  | 0)  ImageDescription = OLYMPUS DIGITAL CAMERA
   |     - Tag 0x010e (32 bytes, string[32])
-  | 1)  Make = OLYMPUS IMAGING CORP.  
+  | 1)  Make = OLYMPUS IMAGING CORP.
   |     - Tag 0x010f (24 bytes, string[24])
-  | 2)  Model = u760,S760       
+  | 2)  Model = u760,S760
   |     - Tag 0x0110 (17 bytes, string[17])
   | 3)  Orientation = 1
   |     - Tag 0x0112 (2 bytes, int16u[1])
@@ -26,7 +26,7 @@ JPEG APP1 (7080 bytes):
   |     - Tag 0x011b (8 bytes, rational64u[1])
   | 6)  ResolutionUnit = 2
   |     - Tag 0x0128 (2 bytes, int16u[1])
-  | 7)  Software = Version 1.0                    
+  | 7)  Software = Version 1.0
   |     - Tag 0x0131 (32 bytes, string[32])
   | 8)  ModifyDate = 2007:02:16 15:09:13
   |     - Tag 0x0132 (20 bytes, string[20])
@@ -82,7 +82,7 @@ JPEG APP1 (7080 bytes):
   | | |     - Tag 0x0206 (12 bytes, int16s[6])
   | | | 7)  CameraType = D4328
   | | |     - Tag 0x0207 (6 bytes, string[6])
-  | | | 8)  CameraID = OLYMPUS DIGITAL CAMERA         
+  | | | 8)  CameraID = OLYMPUS DIGITAL CAMERA
   | | |     - Tag 0x0209 (32 bytes, undef[32] read as string[32])
   | | | 9)  EquipmentIFD (SubDirectory) -->
   | | |     - Tag 0x2010 (4 bytes, ifd[1])
@@ -91,9 +91,9 @@ JPEG APP1 (7080 bytes):
   | | | |     - Tag 0x0000 (4 bytes, undef[4])
   | | | | 1)  CameraType2 = D4328
   | | | |     - Tag 0x0100 (6 bytes, string[6])
-  | | | | 2)  SerialNumber = C90500055                      
+  | | | | 2)  SerialNumber = C90500055
   | | | |     - Tag 0x0101 (32 bytes, string[32])
-  | | | | 3)  InternalSerialNumber = 0171612001128001               
+  | | | | 3)  InternalSerialNumber = 0171612001128001
   | | | |     - Tag 0x0102 (32 bytes, string[32])
   | | | | 4)  FocalPlaneDiagonal = 7.58 (758/100)
   | | | |     - Tag 0x0103 (8 bytes, rational64u[1])
