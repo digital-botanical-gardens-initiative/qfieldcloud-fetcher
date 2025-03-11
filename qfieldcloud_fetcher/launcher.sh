@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 # Add a comment
 
 # To obtain the actual path to repo folder
@@ -46,7 +45,7 @@ run_script() {
     # Redirect all output to the log file
     exec &>> "$LOGS_PATH/$script_name.log"
     echo "Running $script_name"
-    poetry run python3 "${scripts_folder}${script_name}.py"
+    $POETRY_PATH run python3 "${scripts_folder}${script_name}.py"
     if [ $? -ne 0 ]; then
         echo "$script_name failed"
         exit 1
