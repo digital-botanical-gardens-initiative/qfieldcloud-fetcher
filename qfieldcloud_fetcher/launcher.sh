@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# Add a comment
-
 # To obtain the actual path to repo folder
 p=$(dirname $(dirname $(realpath $0)))
 
