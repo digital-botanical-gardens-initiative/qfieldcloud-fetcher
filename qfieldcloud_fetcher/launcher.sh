@@ -3,6 +3,9 @@
 # To obtain the actual path to repo folder
 p=$(dirname $(dirname $(realpath $0)))
 
+# Go to repository
+cd "{$p}"
+
 # .env path
 env_path="${p}/.env"
 
