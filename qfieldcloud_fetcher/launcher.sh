@@ -4,7 +4,7 @@
 p=$(dirname $(dirname $(realpath $0)))
 
 # Go to repository
-cd "{$p}"
+cd $p
 
 # .env path
 env_path="${p}/.env"
