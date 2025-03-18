@@ -64,7 +64,8 @@ for root, _dirs, files in os.walk(inat_jpg_path):
             with open(csv_filename_simon) as f:
                 reader = csv.DictReader(f)
                 for row in reader:
-                    print(f"'{row["sample_id"]}'")
+                    id = row["sample_id"]
+                    print(f"'{id}'")
                     # Match the corresponding data
                     if "sample_id" in row and row["sample_id"] and row["sample_id"].replace(" ", "") == unique_id:
                         print("It's a match Simon!")
