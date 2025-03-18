@@ -52,7 +52,6 @@ for root, _dirs, files in os.walk(inat_jpg_path):
                 continue
 
             unique_prefixed = "emi_external_id:" + unique_id
-            print(unique_prefixed)
 
             # Get corresponding CSV file
             csv_filename_simon = "/media/data/qfieldcloud_data/data/formatted_csv/jbuf/simon_rerat_EPSG:4326.csv"
@@ -83,6 +82,7 @@ for root, _dirs, files in os.walk(inat_jpg_path):
                                         formatted_date = datetime.strptime(date, "%Y%m%d%H%M%S")
                                         collector = row["collector_fullname"]
                                         collector_prefix = "emi_collector:" + collector
+                                        print(collector_prefix)
                                         inat_upload = row["inat_upload"]
                                         is_wild = row["is_wild"]
                                         is_wild_prefix = {"emi_is_wild:": is_wild}
