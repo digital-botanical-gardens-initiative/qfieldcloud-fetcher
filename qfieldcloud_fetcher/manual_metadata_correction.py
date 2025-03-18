@@ -109,6 +109,8 @@ for root, _dirs, files in os.walk(inat_jpg_path):
                             inat_prefix = "emi_collector_inat:" + inat
                             lon = row["longitude"]
                             lat = row["latitude"]
+                    else:
+                        print(f"test: {row}")
 
             # Write metadata using exiftool
             command = f'./exiftool/exiftool -Subject={unique_prefixed} -Subject="{collector_prefix}" -Subject={orcid_prefix} -Subject={inat_prefix} -EXIF:GPSLongitude*={lat} -EXIF:GPSLatitude*={lon} -EXIF:DateTimeOriginal="{formatted_date}" {picture_path} -overwrite_original'
