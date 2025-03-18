@@ -51,8 +51,6 @@ for root, _dirs, files in os.walk(inat_jpg_path):
                 print("No unique identifier detected in {file}, skipping.")
                 continue
 
-            print(f"'{unique_id}'")
-
             unique_prefixed = "emi_external_id:" + unique_id
 
             # Get corresponding CSV file
@@ -73,50 +71,53 @@ for root, _dirs, files in os.walk(inat_jpg_path):
                         print(f"date simon: {date}")
                         # Check if a date exists. If not, skip the picture
                         if date == "":
-                            with open(csv_filename_jade) as f:
-                                reader = csv.DictReader(f)
-                                for row in reader:
-                                    id = row["sample_id"]
-                                    print(f"'jade: {id}'")
-                                    # Match the corresponding data
-                                    if "sample_id" in row and row["sample_id"] and row["sample_id"].replace(" ", "") == unique_id:
-                                        print("It's a match Jade!")
-                                        date = row["date"]
-                                        print(f"date jade: {date}")
-                                        # Check if a date exists. If not, skip the picture
-                                        if date == "":
-                                            print(f"No data found for {unique_id}")
-                                            continue
+                            print(f"No data found for {unique_id}")
+                            continue
 
-                                        # Get and format data
-                                        formatted_date = datetime.strptime(date, "%Y%m%d%H%M%S")
-                                        collector = row["collector_fullname"]
-                                        collector_prefix = "emi_collector:" + collector
-                                        print(f"jade: {collector_prefix}")
-                                        inat_upload = row["inat_upload"]
-                                        is_wild = row["is_wild"]
-                                        is_wild_prefix = {"emi_is_wild:": is_wild}
-                                        orcid = row["collector_orcid"]
-                                        orcid_prefix = "emi_collector_orcid:" + orcid
-                                        inat = row["collector_inat"]
-                                        inat_prefix = "emi_collector_inat:" + inat
-                                        lon = row["longitude"]
-                                        lat = row["latitude"]
-                        else:
-                            # Get and format data
-                            formatted_date = datetime.strptime(date, "%Y%m%d%H%M%S")
-                            collector = row["collector_fullname"]
-                            collector_prefix = "emi_collector:" + collector
-                            print(f"simon: {collector_prefix}")
-                            inat_upload = row["inat_upload"]
-                            is_wild = row["is_wild"]
-                            is_wild_prefix = {"emi_is_wild:": is_wild}
-                            orcid = row["collector_orcid"]
-                            orcid_prefix = "emi_collector_orcid:" + orcid
-                            inat = row["collector_inat"]
-                            inat_prefix = "emi_collector_inat:" + inat
-                            lon = row["longitude"]
-                            lat = row["latitude"]
+                        # Get and format data
+                        formatted_date = datetime.strptime(date, "%Y%m%d%H%M%S")
+                        collector = row["collector_fullname"]
+                        collector_prefix = "emi_collector:" + collector
+                        print(f"simon: {collector_prefix}")
+                        inat_upload = row["inat_upload"]
+                        is_wild = row["is_wild"]
+                        is_wild_prefix = {"emi_is_wild:": is_wild}
+                        orcid = row["collector_orcid"]
+                        orcid_prefix = "emi_collector_orcid:" + orcid
+                        inat = row["collector_inat"]
+                        inat_prefix = "emi_collector_inat:" + inat
+                        lon = row["longitude"]
+                        lat = row["latitude"]
+
+            with open(csv_filename_jade) as f:
+                reader = csv.DictReader(f)
+                for row in reader:
+                    id = row["sample_id"]
+                    print(f"'jade: {id}'")
+                    # Match the corresponding data
+                    if "sample_id" in row and row["sample_id"] and row["sample_id"].replace(" ", "") == unique_id:
+                        print("It's a match Jade!")
+                        date = row["date"]
+                        print(f"date jade: {date}")
+                        # Check if a date exists. If not, skip the picture
+                        if date == "":
+                            print(f"No data found for {unique_id}")
+                            continue
+
+                        # Get and format data
+                        formatted_date = datetime.strptime(date, "%Y%m%d%H%M%S")
+                        collector = row["collector_fullname"]
+                        collector_prefix = "emi_collector:" + collector
+                        print(f"jade: {collector_prefix}")
+                        inat_upload = row["inat_upload"]
+                        is_wild = row["is_wild"]
+                        is_wild_prefix = {"emi_is_wild:": is_wild}
+                        orcid = row["collector_orcid"]
+                        orcid_prefix = "emi_collector_orcid:" + orcid
+                        inat = row["collector_inat"]
+                        inat_prefix = "emi_collector_inat:" + inat
+                        lon = row["longitude"]
+                        lat = row["latitude"]
 
             # Write metadata using exiftool
             command = f'./exiftool/exiftool -Subject={unique_prefixed} -Subject="{collector_prefix}" -Subject={orcid_prefix} -Subject={inat_prefix} -EXIF:GPSLongitude*={lat} -EXIF:GPSLatitude*={lon} -EXIF:DateTimeOriginal="{formatted_date}" {picture_path} -overwrite_original'
