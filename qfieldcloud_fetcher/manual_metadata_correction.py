@@ -51,6 +51,8 @@ for root, _dirs, files in os.walk(inat_jpg_path):
                 print("No unique identifier detected in {file}, skipping.")
                 continue
 
+            print(unique_id)
+
             unique_prefixed = "emi_external_id:" + unique_id
 
             # Get corresponding CSV file
