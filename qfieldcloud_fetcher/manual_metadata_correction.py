@@ -52,6 +52,7 @@ for root, _dirs, files in os.walk(inat_jpg_path):
                 continue
 
             unique_prefixed = "emi_external_id:" + unique_id
+            print(unique_prefixed)
 
             # Get corresponding CSV file
             csv_filename_simon = "/media/data/qfieldcloud_data/data/formatted_csv/jbuf/simon_rerat_EPSG:4326.csv"
