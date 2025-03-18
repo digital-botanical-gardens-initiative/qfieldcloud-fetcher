@@ -62,13 +62,9 @@ for root, _dirs, files in os.walk(inat_jpg_path):
             with open(csv_filename_simon) as f:
                 reader = csv.DictReader(f)
                 for row in reader:
-                    id = row["sample_id"]
-                    print(f"'simon: {id}'")
                     # Match the corresponding data
                     if "sample_id" in row and row["sample_id"] and row["sample_id"].replace(" ", "") == unique_id:
-                        print("It's a match Simon!")
                         date = row["date"]
-                        print(f"date simon: {date}")
                         # Check if a date exists. If not, skip the picture
                         if date == "":
                             print(f"No data found for {unique_id}")
@@ -78,7 +74,6 @@ for root, _dirs, files in os.walk(inat_jpg_path):
                         formatted_date = datetime.strptime(date, "%Y%m%d%H%M%S")
                         collector = row["collector_fullname"]
                         collector_prefix = "emi_collector:" + collector
-                        print(f"simon: {collector_prefix}")
                         inat_upload = row["inat_upload"]
                         is_wild = row["is_wild"]
                         is_wild_prefix = {"emi_is_wild:": is_wild}
@@ -92,13 +87,9 @@ for root, _dirs, files in os.walk(inat_jpg_path):
             with open(csv_filename_jade) as f:
                 reader = csv.DictReader(f)
                 for row in reader:
-                    id = row["sample_id"]
-                    print(f"'jade: {id}'")
                     # Match the corresponding data
                     if "sample_id" in row and row["sample_id"] and row["sample_id"].replace(" ", "") == unique_id:
-                        print("It's a match Jade!")
                         date = row["date"]
-                        print(f"date jade: {date}")
                         # Check if a date exists. If not, skip the picture
                         if date == "":
                             print(f"No data found for {unique_id}")
@@ -108,7 +99,6 @@ for root, _dirs, files in os.walk(inat_jpg_path):
                         formatted_date = datetime.strptime(date, "%Y%m%d%H%M%S")
                         collector = row["collector_fullname"]
                         collector_prefix = "emi_collector:" + collector
-                        print(f"jade: {collector_prefix}")
                         inat_upload = row["inat_upload"]
                         is_wild = row["is_wild"]
                         is_wild_prefix = {"emi_is_wild:": is_wild}
