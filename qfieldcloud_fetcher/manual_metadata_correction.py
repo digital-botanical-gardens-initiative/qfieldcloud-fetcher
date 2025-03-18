@@ -92,20 +92,20 @@ for root, _dirs, files in os.walk(inat_jpg_path):
                                         inat_prefix = "emi_collector_inat:" + inat
                                         lon = row["longitude"]
                                         lat = row["latitude"]
-
-                        # Get and format data
-                        formatted_date = datetime.strptime(date, "%Y%m%d%H%M%S")
-                        collector = row["collector_fullname"]
-                        collector_prefix = "emi_collector:" + collector
-                        inat_upload = row["inat_upload"]
-                        is_wild = row["is_wild"]
-                        is_wild_prefix = {"emi_is_wild:": is_wild}
-                        orcid = row["collector_orcid"]
-                        orcid_prefix = "emi_collector_orcid:" + orcid
-                        inat = row["collector_inat"]
-                        inat_prefix = "emi_collector_inat:" + inat
-                        lon = row["longitude"]
-                        lat = row["latitude"]
+                        else:
+                            # Get and format data
+                            formatted_date = datetime.strptime(date, "%Y%m%d%H%M%S")
+                            collector = row["collector_fullname"]
+                            collector_prefix = "emi_collector:" + collector
+                            inat_upload = row["inat_upload"]
+                            is_wild = row["is_wild"]
+                            is_wild_prefix = {"emi_is_wild:": is_wild}
+                            orcid = row["collector_orcid"]
+                            orcid_prefix = "emi_collector_orcid:" + orcid
+                            inat = row["collector_inat"]
+                            inat_prefix = "emi_collector_inat:" + inat
+                            lon = row["longitude"]
+                            lat = row["latitude"]
             
             print(collector_prefix)
 
