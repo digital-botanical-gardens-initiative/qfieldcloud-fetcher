@@ -62,7 +62,6 @@ for root, _dirs, files in os.walk(inat_jpg_path):
             with open(csv_filename_simon) as f:
                 reader = csv.DictReader(f)
                 for row in reader:
-                    print(row)
                     # Match the corresponding data
                     if "sample_id" in row and row["sample_id"] and row["sample_id"] == unique_id:
                         date = row["date"]
