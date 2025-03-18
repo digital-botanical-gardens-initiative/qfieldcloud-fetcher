@@ -62,6 +62,7 @@ for root, _dirs, files in os.walk(inat_jpg_path):
             with open(csv_filename_simon) as f:
                 reader = csv.DictReader(f)
                 for row in reader:
+                    print(row)
                     # Match the corresponding data
                     if "sample_id" in row and row["sample_id"] and row["sample_id"] == unique_id:
                         date = row["date"]
@@ -82,7 +83,6 @@ for root, _dirs, files in os.walk(inat_jpg_path):
                                         formatted_date = datetime.strptime(date, "%Y%m%d%H%M%S")
                                         collector = row["collector_fullname"]
                                         collector_prefix = "emi_collector:" + collector
-                                        print(collector_prefix)
                                         inat_upload = row["inat_upload"]
                                         is_wild = row["is_wild"]
                                         is_wild_prefix = {"emi_is_wild:": is_wild}
@@ -106,6 +106,8 @@ for root, _dirs, files in os.walk(inat_jpg_path):
                         inat_prefix = "emi_collector_inat:" + inat
                         lon = row["longitude"]
                         lat = row["latitude"]
+            
+            print(collector_prefix)
 
             # Write metadata using exiftool
             command = f'./exiftool/exiftool -Subject={unique_prefixed} -Subject="{collector_prefix}" -Subject={orcid_prefix} -Subject={inat_prefix} -EXIF:GPSLongitude*={lat} -EXIF:GPSLatitude*={lon} -EXIF:DateTimeOriginal="{formatted_date}" {picture_path} -overwrite_original'
