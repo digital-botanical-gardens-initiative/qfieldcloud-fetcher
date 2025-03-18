@@ -65,7 +65,7 @@ for root, _dirs, files in os.walk(inat_jpg_path):
                     # Match the corresponding data
                     if "sample_id" in row and row["sample_id"] and row["sample_id"] == unique_id:
                         date = row["date"]
-                        print(date)
+                        print(f"date simon: {date}")
                         # Check if a date exists. If not, skip the picture
                         if date == "":
                             with open(csv_filename_jade) as f:
@@ -74,6 +74,7 @@ for root, _dirs, files in os.walk(inat_jpg_path):
                                     # Match the corresponding data
                                     if "sample_id" in row and row["sample_id"] and row["sample_id"] == unique_id:
                                         date = row["date"]
+                                        print(f"date jade: {date}")
                                         # Check if a date exists. If not, skip the picture
                                         if date == "":
                                             print(f"No data found for {unique_id}")
