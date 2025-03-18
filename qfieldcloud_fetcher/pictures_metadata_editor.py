@@ -94,7 +94,7 @@ for root, _dirs, files in os.walk(in_jpg_path):
                         lat = row["latitude"]
 
             # Write metadata using exiftool
-            command = f'./exiftool/exiftool -Subject={unique_prefixed} -Subject="{collector_prefix}" -Subject={orcid_prefix} -Subject={inat_prefix} -EXIF:GPSLongitude*={lon} -EXIF:GPSLatitude*={lat} -EXIF:DateTimeOriginal="{formatted_date}" {picture_path} -overwrite_original'
+            command = f'./exiftool/exiftool -Subject={unique_prefixed} -Subject="{collector_prefix}" -Subject={orcid_prefix} -Subject={inat_prefix} -EXIF:GPSLongitude*={lat} -EXIF:GPSLatitude*={lon} -EXIF:DateTimeOriginal="{formatted_date}" {picture_path} -overwrite_original'
             try:
                 result = subprocess.run(command, shell=True, capture_output=True)  # noqa: S602
                 print(f"Medata for {file} successfully edited")
