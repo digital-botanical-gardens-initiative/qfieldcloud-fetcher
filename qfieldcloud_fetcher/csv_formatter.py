@@ -59,7 +59,7 @@ def convert_csv_coordinates(root: str, filename: str, project: str) -> None:
 
     # Apply transformation to the geometry column
     df["geometry"] = geopandas.GeoDataFrame(
-        geometry=geopandas.points_from_xy(x=df["latitude"], y=df["longitude"]), crs="EPSG:2443"
+        geometry=geopandas.points_from_xy(x=df["longitude"], y=df["latitude"]), crs="EPSG:4326"
     )
 
     # Convert nan in is_wild to 0
