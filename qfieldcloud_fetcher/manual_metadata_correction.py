@@ -64,6 +64,7 @@ for root, _dirs, files in os.walk(inat_jpg_path):
                 for row in reader:
                     # Match the corresponding data
                     if "sample_id" in row and row["sample_id"] and row["sample_id"] == unique_id:
+                        print("It's a match Simon!")
                         date = row["date"]
                         print(f"date simon: {date}")
                         # Check if a date exists. If not, skip the picture
@@ -73,6 +74,7 @@ for root, _dirs, files in os.walk(inat_jpg_path):
                                 for row in reader:
                                     # Match the corresponding data
                                     if "sample_id" in row and row["sample_id"] and row["sample_id"] == unique_id:
+                                        print("It's a match Jade!")
                                         date = row["date"]
                                         print(f"date jade: {date}")
                                         # Check if a date exists. If not, skip the picture
@@ -109,8 +111,6 @@ for root, _dirs, files in os.walk(inat_jpg_path):
                             inat_prefix = "emi_collector_inat:" + inat
                             lon = row["longitude"]
                             lat = row["latitude"]
-                    else:
-                        print(f"test: {row}")
 
             # Write metadata using exiftool
             command = f'./exiftool/exiftool -Subject={unique_prefixed} -Subject="{collector_prefix}" -Subject={orcid_prefix} -Subject={inat_prefix} -EXIF:GPSLongitude*={lat} -EXIF:GPSLatitude*={lon} -EXIF:DateTimeOriginal="{formatted_date}" {picture_path} -overwrite_original'
