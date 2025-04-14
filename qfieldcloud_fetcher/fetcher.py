@@ -148,6 +148,7 @@ for prefix, urls_jpg_by_layer in urls_jpg_by_project.items():
                 print(f"Directory {dir_name} found for project {prefix}")
             except:
                 print(f"Error: Directory {dir_name} not found for project {prefix}")
+                print(f"Skipping {url}")
                 continue
 
             # Create the full path for the downloaded file
