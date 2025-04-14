@@ -143,7 +143,10 @@ for prefix, urls_jpg_by_layer in urls_jpg_by_project.items():
             dir_name = url.split("/")[-2]
 
             # Create the directory path for the downloaded file
-            save_dir = path_jpg[prefix][dir_name]
+            try:
+                save_dir = path_jpg[prefix][dir_name]
+            except:
+                print(f"Error: Directory {dir_name} not found for project {prefix}")
 
             # Create the full path for the downloaded file
             save_path = os.path.join(save_dir, file_name)
