@@ -145,6 +145,7 @@ for prefix, urls_jpg_by_layer in urls_jpg_by_project.items():
             # Create the directory path for the downloaded file
             try:
                 save_dir = path_jpg[prefix][dir_name]
+                print(f"Directory {dir_name} found for project {prefix}")
             except:
                 print(f"Error: Directory {dir_name} not found for project {prefix}")
 
