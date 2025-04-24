@@ -2,6 +2,7 @@
 
 import os
 import re
+from urllib.parse import urlparse
 
 import requests
 from dotenv import load_dotenv
@@ -139,20 +140,20 @@ for prefix, urls_jpg_by_layer in urls_jpg_by_project.items():
         # Loop over each url in the urls list
         for url in urls_list:
             # Extract the file name and directory name from the url
-            file_name = url.split("/")[-1]
-            dir_name = url.split("/")[-2]
+            after_dcim = url.split('/DCIM/')[1]
+
+            dir_name, file_name = after_dcim.split('/', 1)
 
             # Create the directory path for the downloaded file
             try:
                 save_dir = path_jpg[prefix][dir_name]
-                print(f"Directory {dir_name} found for project {prefix}")
             except:
                 print(f"Error: Directory {dir_name} not found for project {prefix}")
                 print(f"Skipping {url}")
                 continue
 
             # Create the full path for the downloaded file
-            save_path = os.path.join(save_dir, file_name)
+            save_path = os.path.join(save_dir, file_name.replace("/", "_"))
 
             # Download the file
             response = requests.get(

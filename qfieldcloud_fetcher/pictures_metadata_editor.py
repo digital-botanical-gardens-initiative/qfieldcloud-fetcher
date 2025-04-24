@@ -70,9 +70,13 @@ for root, _dirs, files in os.walk(in_jpg_path):
             # Get picture metadata from CSV file
             with open(csv_filename) as f:
                 reader = csv.DictReader(f)
+                # Set a tracker to see if any data has been found
+                found = False
                 for row in reader:
                     # Match the corresponding data
                     if "sample_id" in row and row["sample_id"] and row["sample_id"] == unique_id:
+                        # Set tracker to true when condition is met
+                        found = True
                         date = row["date"]
                         # Check if a date exists. If not, skip the picture
                         if date == "":
@@ -92,6 +96,13 @@ for root, _dirs, files in os.walk(in_jpg_path):
                         inat_prefix = "emi_collector_inat:" + inat
                         lon = row["longitude"]
                         lat = row["latitude"]
+
+                        # Stop iterating when match is found
+                        break
+
+            if found == False:
+                print(f"No data found for {unique_id}")
+                continue
 
             # Write metadata using exiftool
             command = f'./exiftool/exiftool -Subject={unique_prefixed} -Subject="{collector_prefix}" -Subject={orcid_prefix} -Subject={inat_prefix} -EXIF:GPSLongitude*={lat} -EXIF:GPSLatitude*={lon} -EXIF:DateTimeOriginal="{formatted_date}" {picture_path} -overwrite_original'
@@ -120,4 +131,4 @@ for root, _dirs, files in os.walk(in_jpg_path):
             shutil.move(picture_path, os.path.join(nextcloud_jpg_path, file))
             print(f"{file} added to NextCloud")
         else:
-            print(f"Skipping {file} as it is not a picture.")
+            print(f"Skipping {file}, not a picture.")
