@@ -67,6 +67,7 @@ for root, _dirs, files in os.walk(inat_jpg_path):
                     # Match the corresponding data
                     if "sample_id" in row and row["sample_id"] and row["sample_id"].replace(" ", "") == unique_id:
                         found = True
+                        print("Found in simon")
                         date = row["date"]
                         # Check if a date exists. If not, skip the picture
                         if date == "":
@@ -95,10 +96,11 @@ for root, _dirs, files in os.walk(inat_jpg_path):
                 for row in reader:
                     if found == True:
                         break
-                    
+
                     # Match the corresponding data
                     if "sample_id" in row and row["sample_id"] and row["sample_id"].replace(" ", "") == unique_id:
                         found = True
+                        print("Found in jade")
                         date = row["date"]
                         # Check if a date exists. If not, skip the picture
                         if date == "":
