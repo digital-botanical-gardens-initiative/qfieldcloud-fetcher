@@ -54,53 +54,20 @@ for root, _dirs, files in os.walk(inat_jpg_path):
             unique_prefixed = "emi_external_id:" + unique_id
 
             # Get corresponding CSV file
-            csv_filename_simon = "/media/data/qfieldcloud_data/data/formatted_csv/jbuf/simon_rerat_EPSG:4326.csv"
-
-            csv_filename_jade = "/media/data/qfieldcloud_data/data/formatted_csv/jbuf/jade_dandois_EPSG:4326.csv"
+            csv_filename = (
+                "/media/data/qfieldcloud_data/data/formatted_csv/chemical_ecology/chemical_ecology_2025_EPSG:4326.csv"
+            )
 
             found = False
 
             # Get picture metadata from CSV file
-            with open(csv_filename_simon) as f:
+            with open(csv_filename) as f:
                 reader = csv.DictReader(f)
                 for row in reader:
                     # Match the corresponding data
                     if "sample_id" in row and row["sample_id"] and row["sample_id"].replace(" ", "") == unique_id:
                         found = True
                         print("Found in simon")
-                        date = row["date"]
-                        # Check if a date exists. If not, skip the picture
-                        if date == "":
-                            print(f"No data found for {unique_id}")
-                            continue
-
-                        # Get and format data
-                        formatted_date = datetime.strptime(date, "%Y%m%d%H%M%S")
-                        collector = row["collector_fullname"]
-                        collector_prefix = "emi_collector:" + collector
-                        inat_upload = row["inat_upload"]
-                        is_wild = row["is_wild"]
-                        is_wild_prefix = {"emi_is_wild:": is_wild}
-                        orcid = row["collector_orcid"]
-                        orcid_prefix = "emi_collector_orcid:" + orcid
-                        inat = row["collector_inat"]
-                        inat_prefix = "emi_collector_inat:" + inat
-                        lon = row["longitude"]
-                        lat = row["latitude"]
-
-                        # Stop iterating when match is found
-                        break
-
-            with open(csv_filename_jade) as f:
-                reader = csv.DictReader(f)
-                for row in reader:
-                    if found:
-                        break
-
-                    # Match the corresponding data
-                    if "sample_id" in row and row["sample_id"] and row["sample_id"].replace(" ", "") == unique_id:
-                        found = True
-                        print("Found in jade")
                         date = row["date"]
                         # Check if a date exists. If not, skip the picture
                         if date == "":
