@@ -90,6 +90,7 @@ for root, _dirs, files in os.walk(inat_jpg_path):
                         break
 
             if not found:
+                print(f"found: {found}")
                 print(f"No data found for {unique_id}")
                 continue
 
