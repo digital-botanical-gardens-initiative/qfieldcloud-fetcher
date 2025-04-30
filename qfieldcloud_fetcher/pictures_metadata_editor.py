@@ -80,8 +80,7 @@ for root, _dirs, files in os.walk(in_jpg_path):
                         date = row["date"]
                         # Check if a date exists. If not, skip the picture
                         if date == "":
-                            print(f"No data found for {unique_id}")
-                            continue
+                            date = datetime.now().strftime("%Y%m%d%H%M%S")
 
                         # Get and format data
                         formatted_date = datetime.strptime(date, "%Y%m%d%H%M%S")
