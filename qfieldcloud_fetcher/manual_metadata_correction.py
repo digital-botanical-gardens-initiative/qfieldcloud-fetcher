@@ -132,6 +132,7 @@ for root, _dirs, files in os.walk(inat_jpg_path):
             command = f'./exiftool/exiftool -Subject={unique_prefixed} -Subject="{collector_prefix}" -Subject={orcid_prefix} -Subject={inat_prefix} -EXIF:GPSLongitude*={lat} -EXIF:GPSLatitude*={lon} -EXIF:DateTimeOriginal="{formatted_date}" {picture_path} -overwrite_original'
             try:
                 result = subprocess.run(command, shell=True, capture_output=True)  # noqa: S602
+                print(result)
                 print(f"Medata for {file} successfully edited")
             except subprocess.CalledProcessError as e:
                 print(f"Error adding metadata to {file}: {e.stderr}")
