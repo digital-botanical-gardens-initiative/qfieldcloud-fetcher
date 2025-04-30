@@ -55,7 +55,7 @@ for root, _dirs, files in os.walk(inat_jpg_path):
 
             # Get corresponding CSV file
             csv_filename = (
-                "/media/data/qfieldcloud_data/data/formatted_csv/chemical_ecology/chemical_ecology_EPSG:4326.csv"
+                "/media/data/qfieldcloud_data/data/formatted_csv/chemical_ecology/chemical_ecology_2025_EPSG:4326.csv"
             )
 
             found = False
