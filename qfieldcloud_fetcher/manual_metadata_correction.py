@@ -58,12 +58,15 @@ for root, _dirs, files in os.walk(inat_jpg_path):
 
             csv_filename_jade = "/media/data/qfieldcloud_data/data/formatted_csv/jbuf/jade_dandois_EPSG:4326.csv"
 
+            found = False
+
             # Get picture metadata from CSV file
             with open(csv_filename_simon) as f:
                 reader = csv.DictReader(f)
                 for row in reader:
                     # Match the corresponding data
                     if "sample_id" in row and row["sample_id"] and row["sample_id"].replace(" ", "") == unique_id:
+                        found = True
                         date = row["date"]
                         # Check if a date exists. If not, skip the picture
                         if date == "":
@@ -83,12 +86,19 @@ for root, _dirs, files in os.walk(inat_jpg_path):
                         inat_prefix = "emi_collector_inat:" + inat
                         lon = row["longitude"]
                         lat = row["latitude"]
+                        
+                        # Stop iterating when match is found
+                        break
 
             with open(csv_filename_jade) as f:
                 reader = csv.DictReader(f)
                 for row in reader:
+                    if found == True:
+                        break
+                    
                     # Match the corresponding data
                     if "sample_id" in row and row["sample_id"] and row["sample_id"].replace(" ", "") == unique_id:
+                        found = True
                         date = row["date"]
                         # Check if a date exists. If not, skip the picture
                         if date == "":
@@ -108,6 +118,13 @@ for root, _dirs, files in os.walk(inat_jpg_path):
                         inat_prefix = "emi_collector_inat:" + inat
                         lon = row["longitude"]
                         lat = row["latitude"]
+
+                        # Stop iterating when match is found
+                        break
+
+            if found == False:
+                print(f"No data found for {unique_id}")
+                continue
 
             # Write metadata using exiftool
             command = f'./exiftool/exiftool -Subject={unique_prefixed} -Subject="{collector_prefix}" -Subject={orcid_prefix} -Subject={inat_prefix} -EXIF:GPSLongitude*={lat} -EXIF:GPSLatitude*={lon} -EXIF:DateTimeOriginal="{formatted_date}" {picture_path} -overwrite_original'
