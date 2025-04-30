@@ -100,7 +100,7 @@ for root, _dirs, files in os.walk(in_jpg_path):
                         # Stop iterating when match is found
                         break
 
-            if found == False:
+            if not found:
                 print(f"No data found for {unique_id}")
                 continue
 

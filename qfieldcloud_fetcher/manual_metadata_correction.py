@@ -87,14 +87,14 @@ for root, _dirs, files in os.walk(inat_jpg_path):
                         inat_prefix = "emi_collector_inat:" + inat
                         lon = row["longitude"]
                         lat = row["latitude"]
-                        
+
                         # Stop iterating when match is found
                         break
 
             with open(csv_filename_jade) as f:
                 reader = csv.DictReader(f)
                 for row in reader:
-                    if found == True:
+                    if found:
                         break
 
                     # Match the corresponding data
@@ -124,7 +124,7 @@ for root, _dirs, files in os.walk(inat_jpg_path):
                         # Stop iterating when match is found
                         break
 
-            if found == False:
+            if not found:
                 print(f"No data found for {unique_id}")
                 continue
 
