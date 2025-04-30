@@ -54,7 +54,9 @@ for root, _dirs, files in os.walk(inat_jpg_path):
             unique_prefixed = "emi_external_id:" + unique_id
 
             # Get corresponding CSV file
-            csv_filename = "/media/data/qfieldcloud_data/data/formatted_csv/jbuf/simon_rerat_EPSG:4326.csv"
+            csv_filename = (
+                "/media/data/qfieldcloud_data/data/formatted_csv/chemical_ecology/chemical_ecology_EPSG:4326.csv"
+            )
 
             found = False
 
