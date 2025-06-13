@@ -64,11 +64,11 @@ def convert_csv_coordinates(root: str, filename: str, project: str) -> None:
 
     # Convert nan in is_wild to 0
     if "is_wild" in df.columns:
-        df["is_wild"] = df["is_wild"].fillna(0).astype(int)
+        df["is_wild"] = df["is_wild"].fillna(0).astype(bool)
 
     # Convert nan in inat_upload to 1
     if "inat_upload" in df.columns:
-        df["inat_upload"] = df["inat_upload"].fillna(1).astype(int)
+        df["inat_upload"] = df["inat_upload"].fillna(1).astype(bool)
 
     # Attribute sample_id to observations
     # Fill NA in 'sample_id' with a pattern based on 'latitude' and 'longitude'
