@@ -12,4 +12,4 @@ source "${env_path}"
 exec &>> "$LOGS_PATH/update_nextcloud.log"
 echo "Running update_nextcloud.sh"
 
-docker exec -u www-data -it 707c618b01c0 php occ files:scan --all
+docker exec -u www-data -it 2fffa94f2016 php occ files:scan --all
