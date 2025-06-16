@@ -90,10 +90,10 @@ for dirs in os.walk(in_jpg_path):
             value = str(int(value)) if isinstance(value, float) else str(value)
 
             inat = value
-            inat_prefixed = f"emi_collector_inat:{orcid}"
+            inat_prefixed = f"emi_collector_inat:{inat}"
         else:
             inat = ""
-            inat_prefixed = f"emi_collector_inat:{orcid}"
+            inat_prefixed = f"emi_collector_inat:{inat}"
 
         lon = row["longitude"]
         lat = row["latitude"]
