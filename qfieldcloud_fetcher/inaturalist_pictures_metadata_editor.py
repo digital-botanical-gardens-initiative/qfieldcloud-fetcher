@@ -4,11 +4,12 @@
 #!/usr/bin/env python3
 
 import os
+import subprocess
+from datetime import datetime
 
+import pandas as pd
 import requests
 from dotenv import load_dotenv
-import pandas as pd
-from datetime import datetime
 
 # Loads environment variables
 load_dotenv()
@@ -56,9 +57,9 @@ for dirs in os.walk(in_jpg_path):
         if row.empty:
             print(f"No data found for folder {folder}, skipping.")
             continue
-    
+
         unique_prefixed = "emi_external_id:" + row["sample_id"]
-        
+
         date = str(int(row["date"]))
         if date == "":
             date = str(datetime.now().strftime("%Y%m%d%H%M%S"))
@@ -68,7 +69,7 @@ for dirs in os.walk(in_jpg_path):
         collector_prefixed = "emi_collector:" + collector
         is_wild = bool(row["is_wild"])
         is_wild_prefixed = {"emi_is_wild:": is_wild}
-        if not row["collector_orcid"].isnull():
+        if not row["collector_orcid"].isna():
             orcid = str(int(row["collector_orcid"]))
             orcid_prefixed = "emi_collector_orcid:" + orcid
         inat = row["collector_inat"]
@@ -80,26 +81,23 @@ for dirs in os.walk(in_jpg_path):
             if not file.lower().endswith(".jpg"):
                 print(f"Skipping {file}, not a picture.")
                 continue
-            
+
             picture_path = os.path.join(root, file)
 
             # Write metadata using exiftool
             command = (
-                f'./exiftool/exiftool -Subject={unique_prefixed} '
+                f"./exiftool/exiftool -Subject={unique_prefixed} "
                 f'-Subject="{collector_prefixed}" '
-                f'-Subject={orcid_prefixed} '
-                f'-Subject={inat_prefixed} '
-                f'-EXIF:GPSLongitude*={lat} '
-                f'-EXIF:GPSLatitude*={lon} '
+                f"-Subject={orcid_prefixed} "
+                f"-Subject={inat_prefixed} "
+                f"-EXIF:GPSLongitude*={lat} "
+                f"-EXIF:GPSLatitude*={lon} "
                 f'-EXIF:DateTimeOriginal="{formatted_date}" '
-                f'{picture_path} -overwrite_original'
+                f"{picture_path} -overwrite_original"
             )
             try:
-                result = os.system(command)
-                if result != 0:
-                    print(f"Error adding metadata to {file}")
-                    continue
-                print(f"Metadata for {file} successfully edited")
-            except Exception as e:
-                print(f"Error adding metadata to {file}: {e}")
+                result = subprocess.run(command, shell=True, capture_output=True)  # noqa: S602
+                print(f"Medata for {file} successfully edited")
+            except subprocess.CalledProcessError as e:
+                print(f"Error adding metadata to {file}: {e.stderr}")
                 continue
