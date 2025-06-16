@@ -7,6 +7,7 @@ import os
 
 import requests
 from dotenv import load_dotenv
+import pandas as pd
 
 # Loads environment variables
 load_dotenv()
@@ -32,11 +33,26 @@ project_names = [item[column] for item in data]
 # Aggregate patterns and also include observation pattern
 pattern = "(" + "|".join(project_names) + ")_[0-9]{6}|[0-9]{14}|obs_[0-9]6,20}_[0-9]{6,20}"
 
+dfs = []
+
+# Get common dataframe
+for root, _dirs, files in os.walk(out_csv_path):
+    for filename in files:
+        file = root + "/" + filename
+        df = pd.read_csv(file)
+        dfs.append(df)
+
+# Concatenate, automatically aligning columns
+df = pd.concat(dfs, ignore_index=True, sort=False)
+
 # Loop over pictures
 for dirs in os.walk(in_jpg_path):
     for folder in dirs[1]:
         root = os.path.join(in_jpg_path, folder)
         print(f"Processing folder: {root}")
+        row = df[df["sample_id"] == folder].iloc[0]
+        print(row)
+
     # for file in files:
     #     if file.lower().endswith(".jpg"):
     #         # Get layer
