@@ -59,9 +59,9 @@ for dirs in os.walk(in_jpg_path):
     
         unique_prefixed = "emi_external_id:" + row["sample_id"]
         
-        date = row["date"]
+        date = str(int(row["date"]))
         if date == "":
-            date = datetime.now().strftime("%Y%m%d%H%M%S")
+            date = str(datetime.now().strftime("%Y%m%d%H%M%S"))
         formatted_date = datetime.strptime(date, "%Y%m%d%H%M%S")
 
         collector = row["collector_fullname"]
