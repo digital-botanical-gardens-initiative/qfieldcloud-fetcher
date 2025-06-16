@@ -54,7 +54,7 @@ for dirs in os.walk(in_jpg_path):
         print(f"Processing folder: {root}")
         try:
             row = df[df["sample_id"] == folder].iloc[0]
-        except Exception as e:
+        except Exception:
             print(f"{folder} has no associated metadata, skipping.")
             continue
 
