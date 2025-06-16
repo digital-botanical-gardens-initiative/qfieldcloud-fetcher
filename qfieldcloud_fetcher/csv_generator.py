@@ -37,10 +37,7 @@ for subfolder in os.listdir(in_gpkg_path):
         # Read the gpkg file with geopandas and concatenate all layers into one dataframe
         print(f"Converting {gpkg_name} to csv file")
         gdf = gpd.read_file(gpkg_path, layer=0)
-        if hasattr(gdf, 'geometry') and gdf.geometry.name in gdf.columns:
-            suffix = gdf.crs
-        else:
-            suffix = "None"
+        suffix = gdf.crs if hasattr(gdf, "geometry") and gdf.geometry.name in gdf.columns else "None"
 
         df = pd.concat([gdf], ignore_index=True)
 

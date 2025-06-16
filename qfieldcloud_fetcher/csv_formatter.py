@@ -67,8 +67,8 @@ def convert_csv_coordinates(root: str, filename: str, project: str) -> None:
         df["is_wild"] = (
             df["no_name_on_list"]
             .fillna(0)
-            .astype(bool)   # convert everything to boolean first
-            .astype(int)    # then to 0 or 1
+            .astype(bool)  # convert everything to boolean first
+            .astype(int)  # then to 0 or 1
         )
 
     # Convert nan in inat_upload to 1
@@ -76,8 +76,8 @@ def convert_csv_coordinates(root: str, filename: str, project: str) -> None:
         df["inat_upload"] = (
             df["no_name_on_list"]
             .fillna(0)
-            .astype(bool)   # convert everything to boolean first
-            .astype(int)    # then to 0 or 1
+            .astype(bool)  # convert everything to boolean first
+            .astype(int)  # then to 0 or 1
         )
 
     # Convert nan in no_name_on_list to 0
@@ -85,11 +85,9 @@ def convert_csv_coordinates(root: str, filename: str, project: str) -> None:
         df["no_name_on_list"] = (
             df["no_name_on_list"]
             .fillna(0)
-            .astype(bool)   # convert everything to boolean first
-            .astype(int)    # then to 0 or 1
+            .astype(bool)  # convert everything to boolean first
+            .astype(int)  # then to 0 or 1
         )
-
-
 
     # Attribute sample_id to observations
     # Fill NA in 'sample_id' with a pattern based on 'latitude' and 'longitude'
