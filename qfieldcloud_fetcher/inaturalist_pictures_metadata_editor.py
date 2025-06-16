@@ -68,7 +68,7 @@ for dirs in os.walk(in_jpg_path):
         collector_prefixed = "emi_collector:" + collector
         is_wild = bool(row["is_wild"])
         is_wild_prefixed = {"emi_is_wild:": is_wild}
-        orcid = row["collector_orcid"]
+        orcid = str(int(row["collector_orcid"]))
         orcid_prefixed = "emi_collector_orcid:" + orcid
         inat = row["collector_inat"]
         inat_prefixed = "emi_collector_inat:" + inat
