@@ -55,7 +55,7 @@ for dirs in os.walk(in_jpg_path):
         try:
             row = df[df["sample_id"] == folder].iloc[0]
         except Exception as e:
-            print(f'Failed to process {folder} with data {df[df["sample_id"] == folder]}. Error: {e}')
+            print(f"{folder} has no associated metadata, skipping.")
             continue
 
         if row.empty:
