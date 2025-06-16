@@ -52,7 +52,11 @@ for dirs in os.walk(in_jpg_path):
     for folder in dirs[1]:
         root = os.path.join(in_jpg_path, folder)
         print(f"Processing folder: {root}")
-        row = df[df["sample_id"] == folder].iloc[0]
+        try:
+            row = df[df["sample_id"] == folder].iloc[0]
+        except Exception as e:
+            print(f"Failed to process {folder} with data {df[df["sample_id"] == folder]}. Error: {e}")
+            continue
 
         if row.empty:
             print(f"No data found for folder {folder}, skipping.")
@@ -84,8 +88,18 @@ for dirs in os.walk(in_jpg_path):
             orcid = ""
             orcid_prefixed = f"emi_collector_orcid:{orcid}"
 
-        inat = str(row["collector_inat"])
-        inat_prefixed = "emi_collector_inat:" + inat
+        value = row["collector_inat"]
+        if pd.notna(value):  # check for not NaN (pd.notna works with pandas/numpy)
+            if isinstance(value, float):
+                value = str(int(value))
+            else:
+                value = str(value)
+            
+            inat = value
+            inat_prefixed = f"emi_collector_orcid:{orcid}"
+        else:
+            inat = ""
+            inat_prefixed = f"emi_collector_orcid:{orcid}"
 
         lon = row["longitude"]
         lat = row["latitude"]
