@@ -84,7 +84,7 @@ for dirs in os.walk(in_jpg_path):
             orcid = ""
             orcid_prefixed = f"emi_collector_orcid:{orcid}"
 
-        inat = row["collector_inat"]
+        inat = str(row["collector_inat"])
         inat_prefixed = "emi_collector_inat:" + inat
 
         lon = row["longitude"]
