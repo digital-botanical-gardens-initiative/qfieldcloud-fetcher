@@ -67,13 +67,26 @@ for dirs in os.walk(in_jpg_path):
 
         collector = row["collector_fullname"]
         collector_prefixed = "emi_collector:" + collector
+
         is_wild = bool(row["is_wild"])
         is_wild_prefixed = {"emi_is_wild:": is_wild}
-        if not row["collector_orcid"].isna():
-            orcid = str(int(row["collector_orcid"]))
-            orcid_prefixed = "emi_collector_orcid:" + orcid
+
+        value = row["collector_orcid"]
+        if pd.notna(value):  # check for not NaN (pd.notna works with pandas/numpy)
+            if isinstance(value, float):
+                value = str(int(value))
+            else:
+                value = str(value)
+            
+            orcid = value
+            orcid_prefixed = f"emi_collector_orcid:{orcid}"
+        else:
+            orcid = ""
+            orcid_prefixed = f"emi_collector_orcid:{orcid}"
+
         inat = row["collector_inat"]
         inat_prefixed = "emi_collector_inat:" + inat
+
         lon = row["longitude"]
         lat = row["latitude"]
 
