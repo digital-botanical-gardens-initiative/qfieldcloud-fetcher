@@ -33,8 +33,10 @@ project_names = [item[column] for item in data]
 pattern = "(" + "|".join(project_names) + ")_[0-9]{6}|[0-9]{14}|obs_[0-9]6,20}_[0-9]{6,20}"
 
 # Loop over pictures
-for folder in os.walk(in_jpg_path):
-    print(folder)
+for dirs in os.walk(in_jpg_path):
+    for folder in dirs[1]:
+        root = os.path.join(in_jpg_path, folder)
+        print(f"Processing folder: {root}")
     # for file in files:
     #     if file.lower().endswith(".jpg"):
     #         # Get layer
