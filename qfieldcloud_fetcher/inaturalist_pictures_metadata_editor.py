@@ -55,7 +55,7 @@ for dirs in os.walk(in_jpg_path):
         try:
             row = df[df["sample_id"] == folder].iloc[0]
         except Exception as e:
-            print(f"Failed to process {folder} with data {df[df["sample_id"] == folder]}. Error: {e}")
+            print(f'Failed to process {folder} with data {df[df["sample_id"] == folder]}. Error: {e}')
             continue
 
         if row.empty:
@@ -77,11 +77,8 @@ for dirs in os.walk(in_jpg_path):
 
         value = row["collector_orcid"]
         if pd.notna(value):  # check for not NaN (pd.notna works with pandas/numpy)
-            if isinstance(value, float):
-                value = str(int(value))
-            else:
-                value = str(value)
-            
+            value = str(int(value)) if isinstance(value, float) else str(value)
+
             orcid = value
             orcid_prefixed = f"emi_collector_orcid:{orcid}"
         else:
@@ -90,11 +87,8 @@ for dirs in os.walk(in_jpg_path):
 
         value = row["collector_inat"]
         if pd.notna(value):  # check for not NaN (pd.notna works with pandas/numpy)
-            if isinstance(value, float):
-                value = str(int(value))
-            else:
-                value = str(value)
-            
+            value = str(int(value)) if isinstance(value, float) else str(value)
+
             inat = value
             inat_prefixed = f"emi_collector_orcid:{orcid}"
         else:
