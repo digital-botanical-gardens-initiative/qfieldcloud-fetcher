@@ -68,11 +68,10 @@ scripts_folder="${p}/qfieldcloud_fetcher"
 
 # --- helper to run a python script with per-script log + pipeline echo ---
 run_script() {
-  local script_basename="$1"   # without .py
-  local logfile="${LOGS_PATH}/${script_basename}.log"
-  echo "--- $(date -Is) :: running ${script_basename}.py ---"
-  # mirror to per-script log *and* to pipeline log
-  if ! ${POETRY_PATH} run python3 "${scripts_folder}/${script_basename}.py" |& tee -a "$logfile"; then
+  local script_basename="$1"; shift
+  local logfile="$LOGS_PATH/${script_basename}.log"
+  echo "--- $(date -Is) :: running ${script_basename}.py $* ---"
+  if ! ${POETRY_PATH} run python3 "${scripts_folder}/${script_basename}.py" "$@" |& tee -a "$logfile"; then
     echo "!!! ${script_basename} failed — see $logfile"
     STATUS="failed"
     record_status "failed" "script_failed:${script_basename}"
@@ -114,7 +113,7 @@ run_script "csv_generator"
 run_script "csv_formatter"
 run_script "fields_creator"
 run_script "db_updater"
-run_script "directus_link_maker"
+run_script "directus_link_maker" --dry-run
 run_script "pictures_renamer"
 run_script "pictures_resizer"
 run_script "pictures_metadata_editor"
