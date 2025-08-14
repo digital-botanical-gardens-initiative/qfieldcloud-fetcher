@@ -65,7 +65,7 @@ def convert_csv_coordinates(root: str, filename: str, project: str) -> None:
     # Convert nan in is_wild to 0
     if "is_wild" in df.columns:
         df["is_wild"] = (
-            df["no_name_on_list"]
+            df["is_wild"]
             .fillna(0)
             .astype(bool)  # convert everything to boolean first
             .astype(int)  # then to 0 or 1
@@ -74,7 +74,7 @@ def convert_csv_coordinates(root: str, filename: str, project: str) -> None:
     # Convert nan in inat_upload to 1
     if "inat_upload" in df.columns:
         df["inat_upload"] = (
-            df["no_name_on_list"]
+            df["inat_upload"]
             .fillna(0)
             .astype(bool)  # convert everything to boolean first
             .astype(int)  # then to 0 or 1
