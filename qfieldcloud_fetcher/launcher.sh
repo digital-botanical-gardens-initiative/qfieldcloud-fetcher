@@ -82,7 +82,7 @@ run_script() {
 }
 
 # --- 1) Fetcher FIRST (improved) ---
-run_script "fetcher_improved"
+run_script "fetcher"
 
 # read fetcher summary (if jq is available)
 SUMMARY_JSON="${DATA_PATH}/last_fetch_summary.json"
