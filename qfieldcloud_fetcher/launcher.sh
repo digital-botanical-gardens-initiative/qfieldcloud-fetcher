@@ -113,7 +113,7 @@ run_script "csv_generator"
 run_script "csv_formatter"
 run_script "fields_creator"
 run_script "db_updater"
-run_script "directus_link_maker" --dry-run
+run_script "directus_link_maker"
 run_script "pictures_renamer"
 run_script "pictures_resizer"
 run_script "pictures_metadata_editor"
