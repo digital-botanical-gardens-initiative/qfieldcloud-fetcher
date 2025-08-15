@@ -116,7 +116,7 @@ for root, _dirs, files in os.walk(in_jpg_path):
             if inat_upload == "1":
                 # Add if sample is wild or not in folder path
                 folder = os.path.join(inat_jpg_path, unique_id)
-                inat_folder = "wild_" + folder if is_wild == "1" else folder
+                inat_folder = os.path.join(inat_jpg_path, "wild", unique_id) if is_wild == "1" else folder
                 # Move file to new folder
                 os.makedirs(inat_folder, exist_ok=True)
                 shutil.copy(picture_path, os.path.join(inat_folder, file))
