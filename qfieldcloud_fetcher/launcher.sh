@@ -9,6 +9,16 @@ cd "$p"
 source "$p/.env"
 mkdir -p "${DATA_PATH}" "${LOGS_PATH}"
 
+# Cross-platform ISO 8601 timestamp (UTC) — works on macOS & Linux
+iso_ts() {
+  if command -v gdate >/dev/null 2>&1; then
+    gdate -Is
+  else
+    # BSD date: YYYY-MM-DDTHH:MM:SS+HHMM -> insert colon in offset
+    date -u +"%Y-%m-%dT%H:%M:%S%z" | sed -E 's/([+-][0-9]{2})([0-9]{2})$/\1:\2/'
+  fi
+}
+
 # --- pipeline logging setup ---
 RUN_ID="$(date '+%Y%m%d-%H%M%S')"
 PIPELINE_LOG="${LOGS_PATH}/pipeline_${RUN_ID}.log"
@@ -17,7 +27,7 @@ ln -sf "$(basename "$PIPELINE_LOG")" "${LOGS_PATH}/pipeline_latest.log"
 # redirect *everything* from this script to the pipeline log (and stdout)
 exec > >(stdbuf -oL -eL tee -a "$PIPELINE_LOG") 2>&1
 
-START_TS="$(date -Is)"
+START_TS="$(iso_ts)"
 STATUS="started"
 PROJECTS_SELECTED=""
 DOWNLOADED_FILES=0
@@ -27,7 +37,7 @@ record_status() {
   local final_status="$1"
   local reason="${2:-}"
   local end_ts
-  end_ts="$(date -Is)"
+  end_ts="$(iso_ts)"
   # append one JSON object per run (easy to grep/parse later)
   printf '{"run_id":"%s","start":"%s","end":"%s","status":"%s","reason":"%s","projects_selected":"%s","downloaded_files":%s,"had_changes":%s}\n' \
     "$RUN_ID" "$START_TS" "$end_ts" "$final_status" "$reason" \
@@ -36,7 +46,7 @@ record_status() {
 }
 
 on_err() {
-  echo "!! $(date -Is) pipeline failed (line $BASH_LINENO)"
+  echo "!! $(iso_ts) pipeline failed (line $BASH_LINENO)"
   record_status "failed" "error"
 }
 trap on_err ERR
@@ -50,7 +60,7 @@ on_exit() {
 }
 trap on_exit EXIT
 
-echo "=== $(date -Is) :: pipeline start (RUN_ID=${RUN_ID}) ==="
+echo "=== $(iso_ts) :: pipeline start (RUN_ID=${RUN_ID}) ==="
 echo "Repo: $p"
 echo "DATA_PATH: ${DATA_PATH}"
 echo "LOGS_PATH: ${LOGS_PATH}"
@@ -70,18 +80,18 @@ scripts_folder="${p}/qfieldcloud_fetcher"
 run_script() {
   local script_basename="$1"; shift
   local logfile="$LOGS_PATH/${script_basename}.log"
-  echo "--- $(date -Is) :: running ${script_basename}.py $* ---"
-  if ! ${POETRY_PATH} run python3 "${scripts_folder}/${script_basename}.py" "$@" |& tee -a "$logfile"; then
+  echo "--- $(iso_ts) :: running ${script_basename}.py $* ---"
+  if ! { ${POETRY_PATH} run python3 "${scripts_folder}/${script_basename}.py" "$@" 2>&1 | tee -a "$logfile"; }; then
     echo "!!! ${script_basename} failed — see $logfile"
     STATUS="failed"
     record_status "failed" "script_failed:${script_basename}"
     exit 1
   fi
-  echo "--- $(date -Is) :: finished ${script_basename}.py ---"
+  echo "--- $(iso_ts) :: finished ${script_basename}.py ---"
 }
 
 # --- 1) Fetcher FIRST (improved) ---
-run_script "fetcher"
+run_script fetcher --project "kew-botanical-gardens"
 
 # read fetcher summary (if jq is available)
 SUMMARY_JSON="${DATA_PATH}/last_fetch_summary.json"
@@ -123,8 +133,8 @@ run_script "pictures_resizer"
 run_script "pictures_metadata_editor"
 
 # NEW: safe cleanup (remove DCIM + raw only for fully processed photos)
-run_script "pictures_finalize"
+run_script "pictures_finalizer"
 
 STATUS="ok"
 record_status "ok" "completed"
-echo "=== $(date -Is) :: pipeline completed successfully (RUN_ID=${RUN_ID}) ==="
+echo "=== $(iso_ts) :: pipeline completed successfully (RUN_ID=${RUN_ID}) ==="
