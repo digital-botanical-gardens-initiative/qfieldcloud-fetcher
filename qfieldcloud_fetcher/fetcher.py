@@ -21,7 +21,7 @@ from qfieldcloud_sdk import sdk  # type: ignore[import-untyped]
 # ---------------------------
 def parse_args():
     p = argparse.ArgumentParser(
-        description="Fetch QFieldCloud projects. In incremental mode, if any GPKG changes in a project, re-download the whole project. Always starts with a fresh local dir."
+        description="Fetch QFieldCloud projects. In incremental mode, if any GPKG changes in a project, re-download the whole project. Starts with a clean per-project dir."
     )
     p.add_argument(
         "--mode",
@@ -34,16 +34,44 @@ def parse_args():
         default=None,
         help="Path to JSON state file (defaults to DATA_PATH/state.json).",
     )
+    p.add_argument(
+        "--project",
+        default=None,
+        help="Restrict download to a single project by *name* (overrides mode/state).",
+    )
+    p.add_argument(
+        "--interactive",
+        action="store_true",
+        help="Preview and choose next action from a menu (never used in cron).",
+    )
+    p.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Show what would be done without downloading or deleting anything.",
+    )
+    p.add_argument(
+        "--manifest-file",
+        default=None,
+        help="Path to queued deletes manifest (defaults to DATA_PATH/pending_remote_deletes.json).",
+    )
+    p.add_argument(
+        "--clean-pictures",
+        action="store_true",
+        help="Also wipe local pictures for selected projects before fetching.",
+    )
     return p.parse_args()
+
 
 def utcnow_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
+
 
 def load_state(path: str) -> Dict[str, Any]:
     if not path or not os.path.exists(path):
         return {"last_pull": None, "files": {}}
     with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
+
 
 def save_state(state: Dict[str, Any], path: str) -> None:
     if not path:
@@ -53,6 +81,7 @@ def save_state(state: Dict[str, Any], path: str) -> None:
     with open(tmp, "w", encoding="utf-8") as f:
         json.dump(state, f, indent=2, sort_keys=True)
     os.replace(tmp, path)
+
 
 # ---------------------------
 # HTTP session & downloader
@@ -74,7 +103,9 @@ def make_session() -> requests.Session:
     s.mount("http://", adapter)
     return s
 
+
 SESSION = make_session()
+
 
 def file_md5(path: str, chunk_size: int = 4 * 1024 * 1024) -> str:
     h = hashlib.md5()
@@ -85,6 +116,7 @@ def file_md5(path: str, chunk_size: int = 4 * 1024 * 1024) -> str:
                 break
             h.update(b)
     return h.hexdigest()
+
 
 def download_with_retries(
     url: str, dest_path: str, auth_header: str, expected_md5: Optional[str], max_attempts: int = 6
@@ -143,20 +175,23 @@ def download_with_retries(
             print(f"Downloaded {url}")
             return True
 
-        except (requests.exceptions.ChunkedEncodingError,
-                requests.exceptions.ReadTimeout,
-                requests.exceptions.ConnectTimeout,
-                requests.exceptions.ConnectionError,
-                IOError) as e:
+        except (
+            requests.exceptions.ChunkedEncodingError,
+            requests.exceptions.ReadTimeout,
+            requests.exceptions.ConnectTimeout,
+            requests.exceptions.ConnectionError,
+            IOError,
+        ) as e:
             if attempt >= max_attempts:
                 print(f"ERROR: {e} (giving up) for {url}")
                 with suppress(Exception):
                     os.remove(tmp_path)
                 return False
-            sleep = min(30, 1.2 ** attempt)
+            sleep = min(30, 1.2**attempt)
             print(f"Warn: {e} — retry {attempt}/{max_attempts} in {sleep:.1f}s for {url}")
             time.sleep(sleep)
     return False
+
 
 # ---------------------------
 # QFieldCloud helpers
@@ -172,12 +207,111 @@ def extract_md5_and_version(file_entry: dict) -> Tuple[Optional[str], Optional[s
         return latest.get("md5sum"), latest.get("version_id")
     return file_entry.get("md5sum"), file_entry.get("version_id")
 
+
 def url_project_id(file_url: str) -> Optional[str]:
     try:
         parts = file_url.split("/api/v1/files/", 1)[1].split("/", 1)
         return parts[0]
     except Exception:
         return None
+
+
+def count_jpgs(by_layer: Dict[str, list[str]]) -> int:
+    return sum(len(v) for v in by_layer.values())
+
+
+def build_preview(
+    proj_id_to_name: Dict[str, str],
+    gpkg_urls_by_project: Dict[str, list[str]],
+    gpkg_md5_by_url: Dict[str, str],
+    jpg_urls_by_project: Dict[str, Dict[str, list[str]]],
+    prev_gpkg_by_project: Dict[str, Dict[str, str]],
+) -> Dict[str, Dict[str, Any]]:
+    """
+    Returns per-project info:
+    - name
+    - num_gpkg, num_jpg
+    - changed (bool) based on GPKG md5 vs state
+    - changed_gpkgs (list of filenames)
+    - reason ('changed', 'new', 'unchanged')
+    """
+    preview: Dict[str, Dict[str, Any]] = {}
+    for pid, urls in gpkg_urls_by_project.items():
+        prev = prev_gpkg_by_project.get(pid, {})
+        current = {u: gpkg_md5_by_url.get(u, "") for u in urls}
+        changed = False
+        changed_list: list[str] = []
+
+        if set(current.keys()) != set(prev.keys()):
+            changed = True
+            changed_list = [os.path.basename(u) for u in set(current.keys()).symmetric_difference(prev.keys())]
+        else:
+            for u, md5 in current.items():
+                if not md5 or prev.get(u, "") != md5:
+                    changed = True
+                    changed_list.append(os.path.basename(u))
+
+        reason = "changed" if changed else ("new" if not prev else "unchanged")
+        preview[pid] = {
+            "name": proj_id_to_name[pid],
+            "num_gpkg": len(urls),
+            "num_jpg": count_jpgs(jpg_urls_by_project.get(pid, {})),
+            "changed": changed,
+            "changed_gpkgs": sorted(changed_list),
+            "reason": reason,
+        }
+    return preview
+
+
+def print_preview(preview: Dict[str, Dict[str, Any]], last_pull: Optional[str]) -> None:
+    if last_pull:
+        print(f"Last pull (state): {last_pull}")
+    print("Projects overview:")
+    rows = sorted(preview.values(), key=lambda x: x["name"].lower())
+    for i, info in enumerate(rows, 1):
+        mark = "★" if info["changed"] else " "
+        cg = f" [{', '.join(info['changed_gpkgs'])}]" if info["changed_gpkgs"] else ""
+        print(
+            f"{i:2d}. {mark} {info['name']:<30} "
+            f"GPKG: {info['num_gpkg']:>3}  JPG: {info['num_jpg']:>4}  status: {info['reason']}{cg}"
+        )
+    print("Legend: ★ = changed (based on GPKG MD5 vs state)")
+
+
+# ---------------------------
+# Manifest helpers (queue only; no deletion here)
+# ---------------------------
+def manifest_path_for(args, data_path: str) -> str:
+    return args.manifest_file or os.path.join(data_path, "pending_remote_deletes.json")
+
+
+def load_manifest(path: str) -> list[dict]:
+    if not os.path.exists(path):
+        return []
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def save_manifest(entries: list[dict], path: str) -> None:
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    tmp = path + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
+        json.dump(entries, f, indent=2, sort_keys=True)
+    os.replace(tmp, path)
+
+
+def append_manifest(path: str, entry: dict) -> None:
+    entries = load_manifest(path)
+    keep: list[dict] = []
+    seen: set[tuple[str, str]] = set()
+    for e in entries + [entry]:
+        k = (str(e.get("project_id")), str(e.get("remote_name")))
+        if k in seen:
+            continue
+        seen.add(k)
+        keep.append(e)
+    save_manifest(keep, path)
+
 
 # ---------------------------
 # Main logic
@@ -197,10 +331,10 @@ def main():
     api_base = f"{instance}/api/v1/"
     files_base = f"{instance}/api/v1/files/"
     in_gpkg_path = os.path.join(data_path, "in", "gpkg")
-    in_jpg_path  = os.path.join(data_path, "in", "pictures")
+    in_jpg_path = os.path.join(data_path, "in", "pictures")
 
     # ✳️ marker & summary
-    marker_path  = os.path.join(data_path, ".qfc_changed")
+    marker_path = os.path.join(data_path, ".qfc_changed")
     summary_path = os.path.join(data_path, "last_fetch_summary.json")
 
     state_path = args.state_file or os.path.join(data_path, "state.json")
@@ -243,7 +377,7 @@ def main():
         by_layer: Dict[str, list[str]] = {}
         for f in project_files:
             fname = f.get("name", "")
-            if fname.endswith(".jpg"):
+            if fname.lower().endswith(".jpg"):
                 file_url = f"{files_base}{proj_id}/{fname}"
                 if "/DCIM/" in file_url:
                     after_dcim = file_url.split("/DCIM/", 1)[1]
@@ -255,7 +389,7 @@ def main():
                 meta_by_url[file_url] = {"md5": md5, "version_id": vid, "size": f.get("size"), "name": fname}
         jpg_urls_by_project[proj_id] = by_layer
 
-    # Detect changed projects (compare GPKGs only)
+    # Detect previous md5 snapshot per project (GPKGs only)
     prev_gpkg_by_project: Dict[str, Dict[str, str]] = {}
     for url, info in state_files.items():
         if not url.endswith(".gpkg"):
@@ -265,35 +399,138 @@ def main():
             continue
         prev_gpkg_by_project.setdefault(pid, {})[url] = (info.get("md5") or "")
 
-    changed_projects: set[str] = set()
-    for pid, urls in gpkg_urls_by_project.items():
-        current = {u: gpkg_md5_by_url.get(u, "") for u in urls}
-        prev = prev_gpkg_by_project.get(pid, {})
-        if set(current.keys()) != set(prev.keys()):
-            changed_projects.add(pid)
-            continue
-        for u, md5 in current.items():
-            if not md5 or prev.get(u, "") != md5:
-                changed_projects.add(pid)
-                break
+    # Build preview (name, counts, changed flags)
+    preview = build_preview(
+        proj_id_to_name,
+        gpkg_urls_by_project,
+        gpkg_md5_by_url,
+        jpg_urls_by_project,
+        prev_gpkg_by_project,
+    )
 
-    if args.mode == "all":
-        projects_to_fetch = list(gpkg_urls_by_project.keys())
-    else:
-        if not state_files:  # first run
+    # Show preview always (useful in logs)
+    print_preview(preview, state.get("last_pull"))
+
+    # Compute default selection (non-interactive path)
+    def default_selection() -> list[str]:
+        if args.project:
+            for pid, name in proj_id_to_name.items():
+                if name == args.project:
+                    return [pid]
+            raise SystemExit(f"Error: No project found with name '{args.project}'")
+        if args.mode == "all" or not state_files:
+            return list(gpkg_urls_by_project.keys())
+        return [pid for pid, info in preview.items() if info["changed"]]
+
+    projects_to_fetch: list[str]
+
+    if args.interactive:
+        print("\nChoose next action:")
+        print("  [A] Update all 'changed' projects")
+        print("  [L] Update ALL projects (ignore state)")
+        print("  [S] Select projects by number (comma separated)")
+        print("  [P] Update a project by exact name")
+        print("  [N] Do nothing and exit")
+        choice = input("> ").strip().lower()
+
+        if choice == "n":
+            print("No action selected. Exiting.")
+            summary = {"mode": args.mode, "had_changes": False, "projects_selected": [], "downloaded_files": 0}
+            with open(summary_path, "w", encoding="utf-8") as f:
+                json.dump(summary, f, indent=2)
+            return
+
+        elif choice == "l":
             projects_to_fetch = list(gpkg_urls_by_project.keys())
+
+        elif choice == "a":
+            projects_to_fetch = [pid for pid, info in preview.items() if info["changed"]]
+            if not projects_to_fetch:
+                print("No changed projects. Nothing to do.")
+                summary = {"mode": args.mode, "had_changes": False, "projects_selected": [], "downloaded_files": 0}
+                with open(summary_path, "w", encoding="utf-8") as f:
+                    json.dump(summary, f, indent=2)
+                return
+
+        elif choice == "s":
+            rows = sorted(((info["name"], pid) for pid, info in preview.items()), key=lambda x: x[0].lower())
+            idx_map = {i + 1: pid for i, (_, pid) in enumerate(rows)}
+            sel = input("Enter numbers (e.g. 1,3,5): ").strip()
+            picks: list[str] = []
+            if sel:
+                for token in sel.replace(" ", "").split(","):
+                    if token.isdigit() and (pid := idx_map.get(int(token))):
+                        picks.append(pid)
+            projects_to_fetch = picks
+            if not projects_to_fetch:
+                print("No valid selection. Exiting.")
+                summary = {"mode": args.mode, "had_changes": False, "projects_selected": [], "downloaded_files": 0}
+                with open(summary_path, "w", encoding="utf-8") as f:
+                    json.dump(summary, f, indent=2)
+                return
+
+        elif choice == "p":
+            name = input("Exact project name: ").strip()
+            match_pid = None
+            for pid, n in proj_id_to_name.items():
+                if n == name:
+                    match_pid = pid
+                    break
+            if not match_pid:
+                raise SystemExit(f"Error: No project found with name '{name}'")
+            projects_to_fetch = [match_pid]
+
         else:
-            projects_to_fetch = list(changed_projects)
+            print("Unrecognized choice. Exiting.")
+            summary = {"mode": args.mode, "had_changes": False, "projects_selected": [], "downloaded_files": 0}
+            with open(summary_path, "w", encoding="utf-8") as f:
+                json.dump(summary, f, indent=2)
+            return
+    else:
+        projects_to_fetch = default_selection()
 
-    # Always start with clean local
-    for base in (in_gpkg_path, in_jpg_path):
+    # Show the plan that will be executed
+    if projects_to_fetch:
+        print("\nPlan:")
+        for pid in projects_to_fetch:
+            info = preview[pid]
+            tag = "(changed)" if info["changed"] else "(forced)"
+            print(f" - {info['name']} {tag}: GPKG={info['num_gpkg']}, JPG={info['num_jpg']}")
+    else:
+        print("\nPlan: nothing to do.")
+
+    if args.dry_run:
+        print("\n--dry-run: exiting before any download.")
+        summary = {
+            "mode": args.mode,
+            "had_changes": False,
+            "projects_selected": [preview[pid]["name"] for pid in projects_to_fetch],
+            "downloaded_files": 0,
+        }
+        with open(summary_path, "w", encoding="utf-8") as f:
+            json.dump(summary, f, indent=2)
+        return
+
+    # Prepare base dirs (do not wipe pictures root by default)
+    os.makedirs(in_gpkg_path, exist_ok=True)
+    os.makedirs(in_jpg_path, exist_ok=True)
+
+    # Clean only the selected projects' subdirs
+    for pid in projects_to_fetch:
+        pname = proj_id_to_name[pid]
+        gpkg_dir = os.path.join(in_gpkg_path, pname)
         with suppress(FileNotFoundError):
-            shutil.rmtree(base)
-        os.makedirs(base, exist_ok=True)
+            shutil.rmtree(gpkg_dir)
+        os.makedirs(gpkg_dir, exist_ok=True)
 
-    # No changes → fresh dirs, clear marker, update state snapshot, exit 0
+        jpg_dir = os.path.join(in_jpg_path, pname)
+        if args.clean_pictures:
+            with suppress(FileNotFoundError):
+                shutil.rmtree(jpg_dir)
+        os.makedirs(jpg_dir, exist_ok=True)
+
     if not projects_to_fetch:
-        print("No project changed. Local directories are empty (fresh start).")
+        print("No project selected/changed. Nothing to fetch.")
         with suppress(FileNotFoundError):
             os.remove(marker_path)
         new_state_files: Dict[str, Dict[str, Any]] = {}
@@ -321,6 +558,7 @@ def main():
     all_ok = True
     downloaded_files = 0
     new_state_files: Dict[str, Dict[str, Any]] = {}
+    manifest = manifest_path_for(args, data_path)
 
     for pid in projects_to_fetch:
         pname = proj_id_to_name[pid]
@@ -334,25 +572,24 @@ def main():
             filename = os.path.basename(file_url)
             dest = os.path.join(gpkg_dir, filename)
             remote_md5 = gpkg_md5_by_url.get(file_url)
-            ok = download_with_retries(file_url, dest, f"Token {auth_token}", remote_md5)
+            ok = download_with_retries(file_url, dest, auth_header, remote_md5)
             if ok:
                 downloaded_files += 1
                 new_state_files[file_url] = {"md5": (remote_md5 or file_md5(dest)), "downloaded_at": utcnow_iso()}
             else:
                 all_ok = False
 
-        # Prepare layer subdirs by GPKG stems (nice organization)
+        # Prepare layer subdirs by GPKG stems
         stems = [os.path.splitext(os.path.basename(u))[0] for u in gpkg_urls_by_project.get(pid, [])]
         layer_dirs = {s: os.path.join(jpg_base, s) for s in stems}
         for d in layer_dirs.values():
             os.makedirs(d, exist_ok=True)
 
-        # JPGs (download all), then delete on server
+        # JPGs (download all) — queue remote delete for finalizer (no deletion here)
         for layer_name, urls in jpg_urls_by_project.get(pid, {}).items():
             save_dir = layer_dirs.get(layer_name) or os.path.join(jpg_base, layer_name)
             os.makedirs(save_dir, exist_ok=True)
             for file_url in urls:
-                # local name
                 if "/DCIM/" in file_url:
                     after_dcim = file_url.split("/DCIM/", 1)[1]
                     _dir_name, file_name = after_dcim.split("/", 1)
@@ -362,16 +599,21 @@ def main():
 
                 meta = meta_by_url.get(file_url, {})
                 remote_md5 = meta.get("md5")
-                ok = download_with_retries(file_url, dest, f"Token {auth_token}", remote_md5)
+                ok = download_with_retries(file_url, dest, auth_header, remote_md5)
                 if ok:
                     downloaded_files += 1
-                    # delete on server
-                    try:
-                        # safer: use the exact name/path from metadata if present
-                        name_in_project = meta.get("name") or os.path.join("DCIM", layer_name, file_name)
-                        client.delete_files(project_id=pid, glob_patterns=[name_in_project])
-                    except Exception as e:
-                        print(f"Warning: couldn't delete remote {meta.get('name')} in project {pid}: {e}")
+                    name_in_project = meta.get("name") or os.path.join("DCIM", layer_name, file_name)
+                    append_manifest(
+                        manifest,
+                        {
+                            "project_id": pid,
+                            "project_name": pname,
+                            "remote_name": name_in_project,
+                            "remote_md5": remote_md5,
+                            "local_path": dest,
+                            "queued_at": utcnow_iso(),
+                        },
+                    )
                 else:
                     all_ok = False
 
@@ -393,6 +635,7 @@ def main():
         "had_changes": had_changes,
         "projects_selected": [proj_id_to_name[p] for p in projects_to_fetch],
         "downloaded_files": downloaded_files,
+        "manifest": manifest,
     }
     with open(summary_path, "w", encoding="utf-8") as f:
         json.dump(summary, f, indent=2)
@@ -410,6 +653,7 @@ def main():
 
     print(f"Done. Mode={args.mode}. Refreshed projects: {', '.join(summary['projects_selected'])}")
     print(f"Summary: {summary_path}  Marker: {marker_path}")
+    print(f"Queued remote deletions manifest: {manifest} (final cleanup happens in pictures_finalize.py)")
 
 if __name__ == "__main__":
     main()

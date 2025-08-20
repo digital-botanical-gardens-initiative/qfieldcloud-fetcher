@@ -109,6 +109,10 @@ fi
 rm -rf "${DATA_PATH}/raw_csv" "${DATA_PATH}/formatted_csv"
 
 # --- 3) Downstream steps (only if changes) ---
+# after you confirmed HAD_CHANGES and before renamer/resizer:
+run_script "stage_to_nextcloud_raw"
+
+# ... your existing steps ...
 run_script "csv_generator"
 run_script "csv_formatter"
 run_script "fields_creator"
@@ -117,6 +121,9 @@ run_script "directus_link_maker"
 run_script "pictures_renamer"
 run_script "pictures_resizer"
 run_script "pictures_metadata_editor"
+
+# NEW: safe cleanup (remove DCIM + raw only for fully processed photos)
+run_script "pictures_finalize"
 
 STATUS="ok"
 record_status "ok" "completed"
