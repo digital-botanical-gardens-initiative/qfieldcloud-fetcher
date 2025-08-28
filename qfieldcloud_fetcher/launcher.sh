@@ -91,7 +91,7 @@ run_script() {
 }
 
 # --- 1) Fetcher FIRST (improved) ---
-run_script fetcher --project "kew-botanical-gardens"
+run_script fetcher --project "jbp"
 
 # read fetcher summary (if jq is available)
 SUMMARY_JSON="${DATA_PATH}/last_fetch_summary.json"
