@@ -1,4 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
+if [[ -z "${BASH_VERSION:-}" ]]; then
+  exec /usr/bin/env bash "$0" "$@"
+fi
 set -Eeuo pipefail
 
 # --- resolve repo root ---
@@ -9,6 +12,23 @@ cd "$p"
 source "$p/.env"
 mkdir -p "${DATA_PATH}" "${LOGS_PATH}"
 
+# Default fetcher behavior (interactive or dry-run)
+FETCHER_DEFAULT_MODE="${FETCHER_DEFAULT_MODE:-interactive}"
+case "${FETCHER_DEFAULT_MODE}" in
+  interactive) FETCHER_DEFAULT_FLAG="--interactive" ;;
+  dry-run) FETCHER_DEFAULT_FLAG="--dry-run" ;;
+  *)
+    echo "Warning: unknown FETCHER_DEFAULT_MODE='${FETCHER_DEFAULT_MODE}', defaulting to interactive"
+    FETCHER_DEFAULT_FLAG="--interactive"
+    ;;
+esac
+
+# Optional downstream project filter (single project by exact name)
+PIPELINE_PROJECT="${PIPELINE_PROJECT:-}"
+PROJECT_FILTER_ARGS=()
+if [[ -n "${PIPELINE_PROJECT}" ]]; then
+  PROJECT_FILTER_ARGS=(--project "${PIPELINE_PROJECT}")
+fi
 # Cross-platform ISO 8601 timestamp (UTC) — works on macOS & Linux
 iso_ts() {
   if command -v gdate >/dev/null 2>&1; then
@@ -91,7 +111,7 @@ run_script() {
 }
 
 # --- 1) Fetcher FIRST (improved) ---
-run_script fetcher --project "jbc"
+run_script fetcher "${FETCHER_DEFAULT_FLAG}"
 
 # read fetcher summary (if jq is available)
 SUMMARY_JSON="${DATA_PATH}/last_fetch_summary.json"
@@ -120,20 +140,20 @@ rm -rf "${DATA_PATH}/raw_csv" "${DATA_PATH}/formatted_csv"
 
 # --- 3) Downstream steps (only if changes) ---
 # after you confirmed HAD_CHANGES and before renamer/resizer:
-run_script "stage_to_nextcloud_raw"
+run_script "stage_to_nextcloud_raw" "${PROJECT_FILTER_ARGS[@]}"
 
 # ... your existing steps ...
-run_script "csv_generator"
-run_script "csv_formatter"
-run_script "fields_creator"
-run_script "db_updater"
-run_script "directus_link_maker"
-run_script "pictures_renamer"
-run_script "pictures_resizer"
-run_script "pictures_metadata_editor"
+run_script "csv_generator" "${PROJECT_FILTER_ARGS[@]}"
+run_script "csv_formatter" "${PROJECT_FILTER_ARGS[@]}"
+run_script "fields_creator" "${PROJECT_FILTER_ARGS[@]}"
+run_script "db_updater" "${PROJECT_FILTER_ARGS[@]}"
+run_script "directus_link_maker" "${PROJECT_FILTER_ARGS[@]}"
+run_script "pictures_renamer" "${PROJECT_FILTER_ARGS[@]}"
+run_script "pictures_resizer" "${PROJECT_FILTER_ARGS[@]}"
+run_script "pictures_metadata_editor" "${PROJECT_FILTER_ARGS[@]}"
 
 # NEW: safe cleanup (remove DCIM + raw only for fully processed photos)
-run_script "pictures_finalizer"
+run_script "pictures_finalizer" "${PROJECT_FILTER_ARGS[@]}"
 
 STATUS="ok"
 record_status "ok" "completed"

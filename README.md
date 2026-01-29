@@ -88,6 +88,59 @@ For example to run the fetcher every 2 hours:
 0 */2 * * * /path/to/fetcher/launcher.sh
 ```
 
+## Fetcher default mode
+
+By default the launcher runs the fetcher in interactive mode so you can choose projects before downloading.
+You can change this by setting `FETCHER_DEFAULT_MODE` in your `.env`:
+
+```sh
+# .env
+FETCHER_DEFAULT_MODE=interactive  # or: dry-run
+```
+
+When set to `dry-run`, the launcher will show the plan and exit before downloading.
+
+## Pipeline project filter
+
+If you want the downstream steps (CSV generation, Directus updates, picture processing, etc.) to run
+only for a single project, set `PIPELINE_PROJECT` in your `.env`:
+
+```sh
+# .env
+PIPELINE_PROJECT=jbb
+```
+
+The launcher will pass `--project jbb` to all downstream scripts.
+
+## Fetcher usage (CLI)
+
+You can run the fetcher directly when you want precise control over what happens.
+The main arguments are:
+
+- `--interactive`: Show a menu to select projects (recommended for manual runs).
+- `--dry-run`: Preview what would be downloaded without doing any downloads.
+- `--project <name>`: Fetch a single project by its exact name.
+- `--mode <incremental|all>`: `incremental` (default) fetches only changed projects; `all` ignores the state and fetches everything.
+- `--state-file <path>`: Override the state file location (defaults to `DATA_PATH/state.json`).
+- `--manifest-file <path>`: Override the queued deletes manifest (defaults to `DATA_PATH/pending_remote_deletes.json`).
+- `--clean-pictures`: Also wipe local pictures for selected projects before fetching.
+
+Examples:
+
+```sh
+# Interactive menu
+poetry run python3 qfieldcloud_fetcher/fetcher.py --interactive
+
+# Dry-run only
+poetry run python3 qfieldcloud_fetcher/fetcher.py --dry-run
+
+# Fetch a specific project (exact name match)
+poetry run python3 qfieldcloud_fetcher/fetcher.py --project jbb
+
+# Fetch all projects regardless of state
+poetry run python3 qfieldcloud_fetcher/fetcher.py --mode all
+```
+
 ## Contributing
 
 If you would like to contribute to this project or report issues, please follow our contribution guidelines.

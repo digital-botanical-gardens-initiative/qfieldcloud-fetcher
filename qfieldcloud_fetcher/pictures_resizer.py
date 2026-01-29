@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import argparse
 import os
 import shutil
 import tempfile
@@ -127,13 +128,36 @@ def compress_image(root: str, filename: str, layer: str, project: str) -> None:
         print(f"⚠️ {dest_path} could not reach ≤ {MAX_SIZE} bytes; kept best effort ({final_size} bytes).")
 
 
-if __name__ == "__main__":
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Compress renamed pictures for downstream use.")
+    parser.add_argument("--project", default=None, help="Only process a single project folder by name.")
+    parser.add_argument("--progress-every", type=int, default=100, help="Print progress every N files.")
+    return parser.parse_args()
+
+
+def main() -> None:
+    args = parse_args()
+    if args.project:
+        print(f"Filtering to project: {args.project}")
+
+    processed = 0
     for root, _dirs, files in os.walk(in_jpg_path):
+        # Get layer
+        layer = os.path.basename(root)
+        # Get project
+        project = os.path.basename(os.path.dirname(root))
+        if args.project and project != args.project:
+            continue
         for filename in files:
-            # Get layer
-            layer = os.path.basename(root)
-            # Get project
-            project = os.path.basename(os.path.dirname(root))
             # Your pipeline only targets JPG-named files; HEIF wrongly named as .jpg will still be handled
             if filename.lower().endswith(".jpg"):
                 compress_image(root, filename, layer, project)
+                processed += 1
+                if args.progress_every > 0 and processed % args.progress_every == 0:
+                    print(f"Compression progress: processed={processed}")
+
+    print(f"Compression complete: processed={processed}")
+
+
+if __name__ == "__main__":
+    main()

@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import argparse
 import os, json
 from pathlib import Path
 from datetime import datetime
@@ -20,7 +21,17 @@ def save_json_atomic(obj, path):
         json.dump(obj, f, indent=2, sort_keys=True)
     tmp.replace(p)
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Finalize remote deletes and raw cleanup.")
+    parser.add_argument("--project", default=None, help="Only process a single project by name.")
+    return parser.parse_args()
+
+
 def main():
+    args = parse_args()
+    if args.project:
+        print(f"Filtering to project: {args.project}")
+
     load_dotenv()
     instance = os.getenv("QFIELDCLOUD_INSTANCE")
     username = os.getenv("QFIELDCLOUD_USERNAME")
@@ -48,6 +59,8 @@ def main():
         proj_id = e.get("project_id")
         proj_name = e.get("project_name")
         remote_name = e.get("remote_name")  # DCIM/layer/IMG_123.jpg
+        if args.project and proj_name != args.project:
+            keep.append(e); kept += 1; continue
 
         try:
             after = remote_name.split("DCIM/", 1)[1]

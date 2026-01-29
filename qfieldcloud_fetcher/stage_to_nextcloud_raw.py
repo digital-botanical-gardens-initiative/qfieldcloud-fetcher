@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import argparse
 import os
 import json
 import hashlib
@@ -32,7 +33,18 @@ def save_json_atomic(obj, path):
         json.dump(obj, f, indent=2, sort_keys=True)
     tmp.replace(p)
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Stage pictures to NextCloud raw folder.")
+    parser.add_argument("--project", default=None, help="Only process a single project folder by name.")
+    parser.add_argument("--progress-every", type=int, default=100, help="Print progress every N files.")
+    return parser.parse_args()
+
+
 def main():
+    args = parse_args()
+    if args.project:
+        print(f"Filtering to project: {args.project}")
+
     load_dotenv()
     data_path = os.getenv("DATA_PATH")
     nextcloud_root = os.getenv("NEXTCLOUD_FOLDER")
@@ -50,7 +62,7 @@ def main():
     # map local_path -> manifest entry (to attach remote_name/project_id)
     local_to_remote = {os.path.abspath(e.get("local_path","")): e for e in manifest if e.get("local_path")}
 
-    copied = skipped = errors = 0
+    copied = skipped = errors = processed = 0
     for file in Path(in_jpg_path).rglob("*.jpg"):
         file = file.resolve()
         try:
@@ -58,10 +70,15 @@ def main():
             project = file.parent.parent.name
         except Exception:
             layer, project = "unknown", "unknown"
+        if args.project and project != args.project:
+            continue
 
         rel = f"{project}/{layer}/{file.name}"
         dest = Path(raw_root)/project/layer/file.name
         dest.parent.mkdir(parents=True, exist_ok=True)
+        processed += 1
+        if args.progress_every > 0 and processed % args.progress_every == 0:
+            print(f"Staging progress: processed={processed}, copied={copied}, skipped={skipped}, errors={errors}")
 
         # skip if same size exists; still record
         if dest.exists() and dest.stat().st_size == file.stat().st_size:

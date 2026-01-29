@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import argparse
 import os
 
 import geopandas  # type: ignore[import-untyped]
@@ -122,11 +123,31 @@ def convert_csv_coordinates(root: str, filename: str, project: str) -> None:
     print(f"{output_file_name} added to NextCloud")
 
 
-# Iterate over all CSV files in the input folder and its subdirectories
-for root, _dirs, files in os.walk(in_csv_path):
-    for filename in files:
-        if filename.endswith(".csv"):
-            # Get project
-            project = os.path.basename(root)
-            # Convert the CSV file and save the result in the output folder
-            convert_csv_coordinates(root, filename, project)
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Convert raw CSV files to EPSG:4326 and stage to NextCloud.")
+    parser.add_argument("--project", default=None, help="Only process a single project folder by name.")
+    return parser.parse_args()
+
+
+def main() -> None:
+    args = parse_args()
+    if args.project:
+        print(f"Filtering to project: {args.project}")
+
+    processed = 0
+    # Iterate over all CSV files in the input folder and its subdirectories
+    for root, _dirs, files in os.walk(in_csv_path):
+        project = os.path.basename(root)
+        if args.project and project != args.project:
+            continue
+        for filename in files:
+            if filename.endswith(".csv"):
+                # Convert the CSV file and save the result in the output folder
+                convert_csv_coordinates(root, filename, project)
+                processed += 1
+
+    print(f"CSV formatting complete: processed={processed}")
+
+
+if __name__ == "__main__":
+    main()

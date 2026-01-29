@@ -55,9 +55,12 @@ def main(argv: List[str]) -> int:
     parser.add_argument("--dry-run", action="store_true", help="Preview updates without applying them.")
     parser.add_argument("--summary-file", default=None, help="Path to write a JSON summary.")
     parser.add_argument("--batch-size", type=int, default=100, help="Batch size for API updates and lookups.")
+    parser.add_argument("--project", default=None, help="Ignored (not applicable for linking).")
     args = parser.parse_args(argv)
 
     load_dotenv()
+    if args.project:
+        print(f"Ignoring --project={args.project} (linking is not project-scoped)")
 
     base = os.getenv("DIRECTUS_INSTANCE")  # e.g. https://emi-collection.unifr.ch/directus
     email = os.getenv("DIRECTUS_USERNAME")
