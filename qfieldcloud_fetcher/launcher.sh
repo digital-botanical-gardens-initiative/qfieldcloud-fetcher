@@ -29,6 +29,20 @@ PROJECT_FILTER_ARGS=()
 if [[ -n "${PIPELINE_PROJECT}" ]]; then
   PROJECT_FILTER_ARGS=(--project "${PIPELINE_PROJECT}")
 fi
+
+# Optional finalizer remote delete
+FINALIZER_ENABLE_REMOTE_DELETE="${ENABLE_REMOTE_DELETE:-}"
+FINALIZER_ENABLE_ARGS=()
+if [[ "${FINALIZER_ENABLE_REMOTE_DELETE}" =~ ^(1|true|yes|on)$ ]]; then
+  FINALIZER_ENABLE_ARGS=(--enable-remote-delete)
+fi
+
+# Optional finalizer force delete
+FINALIZER_FORCE_DELETE="${FORCE_REMOTE_DELETE:-}"
+FINALIZER_FORCE_ARGS=()
+if [[ "${FINALIZER_FORCE_DELETE}" =~ ^(1|true|yes|on)$ ]]; then
+  FINALIZER_FORCE_ARGS=(--force-remote-delete)
+fi
 # Cross-platform ISO 8601 timestamp (UTC) — works on macOS & Linux
 iso_ts() {
   if command -v gdate >/dev/null 2>&1; then
@@ -152,8 +166,8 @@ run_script "pictures_renamer" "${PROJECT_FILTER_ARGS[@]}"
 run_script "pictures_resizer" "${PROJECT_FILTER_ARGS[@]}"
 run_script "pictures_metadata_editor" "${PROJECT_FILTER_ARGS[@]}"
 
-# NEW: safe cleanup (remove DCIM + raw only for fully processed photos)
-run_script "pictures_finalizer" "${PROJECT_FILTER_ARGS[@]}"
+# Optional cleanup: delete remote DCIM photos and matching raw files only when explicitly enabled
+run_script "pictures_finalizer" "${PROJECT_FILTER_ARGS[@]}" "${FINALIZER_ENABLE_ARGS[@]}" "${FINALIZER_FORCE_ARGS[@]}"
 
 STATUS="ok"
 record_status "ok" "completed"

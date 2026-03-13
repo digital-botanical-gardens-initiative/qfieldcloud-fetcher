@@ -8,6 +8,8 @@ from datetime import datetime
 from pathlib import Path
 from dotenv import load_dotenv
 
+from qfieldcloud_fetcher.fs_utils import require_directory_access
+
 def md5sum(path, chunk=4*1024*1024):
     h = hashlib.md5()
     with open(path, 'rb') as f:
@@ -55,6 +57,9 @@ def main():
     raw_root = os.path.join(nextcloud_root, "pictures_raw")
     manifest_path = os.path.join(data_path, "pending_remote_deletes.json")  # from fetcher
     stage_log_path = os.path.join(data_path, "pictures_stage_log.json")
+
+    stage_target = Path(raw_root) / args.project if args.project else Path(raw_root)
+    require_directory_access(stage_target, "stage pictures into the Nextcloud raw folder")
 
     manifest = load_json(manifest_path, [])
     stage_log = load_json(stage_log_path, {})

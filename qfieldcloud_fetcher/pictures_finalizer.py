@@ -24,6 +24,16 @@ def save_json_atomic(obj, path):
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Finalize remote deletes and raw cleanup.")
     parser.add_argument("--project", default=None, help="Only process a single project by name.")
+    parser.add_argument(
+        "--enable-remote-delete",
+        action="store_true",
+        help="Actually delete processed pictures from QFieldCloud and remove their raw staged copies.",
+    )
+    parser.add_argument(
+        "--force-remote-delete",
+        action="store_true",
+        help="Delete remote pictures even if processed_ok/raw checks are not satisfied. Implies --enable-remote-delete.",
+    )
     return parser.parse_args()
 
 
@@ -38,6 +48,14 @@ def main():
     password = os.getenv("QFIELDCLOUD_PASSWORD")
     data_path = os.getenv("DATA_PATH")
     nextcloud_root = os.getenv("NEXTCLOUD_FOLDER")
+    enable_env = os.getenv("ENABLE_REMOTE_DELETE", "").strip().lower() in {"1", "true", "yes", "on"}
+    force_env = os.getenv("FORCE_REMOTE_DELETE", "").strip().lower() in {"1", "true", "yes", "on"}
+    remote_delete_enabled = bool(args.enable_remote_delete or args.force_remote_delete or enable_env or force_env)
+    force_remote = bool(args.force_remote_delete or force_env)
+    if remote_delete_enabled:
+        print("Remote delete enabled (ENABLE_REMOTE_DELETE/--enable-remote-delete).")
+    if force_remote:
+        print("Force remote delete enabled (FORCE_REMOTE_DELETE/--force-remote-delete).")
     if not all([instance, username, password, data_path, nextcloud_root]):
         raise SystemExit("Missing env vars: QFIELDCLOUD_INSTANCE, QFIELDCLOUD_USERNAME, QFIELDCLOUD_PASSWORD, DATA_PATH, NEXTCLOUD_FOLDER")
 
@@ -46,6 +64,18 @@ def main():
 
     manifest = load_json(manifest_path, [])
     processed_ok = load_json(processed_ok_path, {})
+
+    if not remote_delete_enabled:
+        pending = 0
+        for entry in manifest:
+            if args.project and entry.get("project_name") != args.project:
+                continue
+            pending += 1
+        print(
+            "Remote cleanup disabled; leaving QFieldCloud photos and staged raw files untouched. "
+            f"Pending manifest entries for this run scope: {pending}"
+        )
+        return
 
     client = sdk.Client(url=f"{instance}/api/v1/")
     token = client.login(username=username, password=password).get("token")
@@ -77,7 +107,7 @@ def main():
         raw_path = Path(nextcloud_root) / "pictures_raw" / proj_name / layer / original
         raw_exists = raw_path.exists()
 
-        if is_processed and raw_exists:
+        if (is_processed and raw_exists) or force_remote:
             try:
                 client.delete_files(project_id=proj_id, glob_patterns=[remote_name])
                 deleted_remote += 1
@@ -85,11 +115,12 @@ def main():
                 print(f"Warning: remote delete failed for {remote_name} in project {proj_id}: {ex}")
                 keep.append(e); kept += 1; continue
 
-            try:
-                raw_path.unlink(missing_ok=True)
-                removed_raw += 1
-            except Exception as ex:
-                print(f"Warning: couldn't remove raw {raw_path}: {ex}")
+            if raw_exists:
+                try:
+                    raw_path.unlink(missing_ok=True)
+                    removed_raw += 1
+                except Exception as ex:
+                    print(f"Warning: couldn't remove raw {raw_path}: {ex}")
 
         else:
             keep.append(e); kept += 1

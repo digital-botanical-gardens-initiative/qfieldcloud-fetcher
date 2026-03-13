@@ -8,6 +8,7 @@ import sys
 import time
 from contextlib import suppress
 from datetime import datetime, timezone
+from pathlib import Path
 from typing import Any, Dict, Optional, Tuple
 
 import requests
@@ -15,6 +16,8 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 from dotenv import load_dotenv
 from qfieldcloud_sdk import sdk  # type: ignore[import-untyped]
+
+from qfieldcloud_fetcher.fs_utils import require_directory_access, require_replaceable_tree
 
 # ---------------------------
 # CLI & state
@@ -519,14 +522,27 @@ def main():
     for pid in projects_to_fetch:
         pname = proj_id_to_name[pid]
         gpkg_dir = os.path.join(in_gpkg_path, pname)
+        require_replaceable_tree(
+            Path(gpkg_dir),
+            f"replace local GPKG directory for project '{pname}'",
+        )
         with suppress(FileNotFoundError):
             shutil.rmtree(gpkg_dir)
         os.makedirs(gpkg_dir, exist_ok=True)
 
         jpg_dir = os.path.join(in_jpg_path, pname)
         if args.clean_pictures:
+            require_replaceable_tree(
+                Path(jpg_dir),
+                f"replace local picture directory for project '{pname}'",
+            )
             with suppress(FileNotFoundError):
                 shutil.rmtree(jpg_dir)
+        else:
+            require_directory_access(
+                Path(jpg_dir),
+                f"prepare local picture directory for project '{pname}'",
+            )
         os.makedirs(jpg_dir, exist_ok=True)
 
     if not projects_to_fetch:
