@@ -33,6 +33,11 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Create new observations from formatted CSVs in Directus.")
     parser.add_argument("--project", default=None, help="Only process a single project folder by name.")
     parser.add_argument("--progress-every", type=int, default=100, help="Print progress every N rows.")
+    parser.add_argument(
+        "--allow-existing-sample-id-overwrite",
+        action="store_true",
+        help="Update an existing Directus record when sample_id already exists. Intended for testing only.",
+    )
     return parser.parse_args()
 
 
@@ -133,8 +138,8 @@ def find_existing_sample_ids(
     headers: dict[str, str],
     directus_api: str,
     sample_codes: list[str],
-) -> list[dict[str, typing.Any]]:
-    collisions: list[dict[str, typing.Any]] = []
+) -> dict[str, dict[str, typing.Any]]:
+    collisions: dict[str, dict[str, typing.Any]] = {}
     for sample_code in sample_codes:
         params = {
             "filter[sample_id][_eq]": sample_code,
@@ -146,7 +151,7 @@ def find_existing_sample_ids(
             raise SystemExit(f"Error checking existing sample_id {sample_code}: {response_get.status_code} - {response_get.text}")
         data = response_get.json().get("data", [])
         if data:
-            collisions.append(data[0])
+            collisions[sample_code] = data[0]
     return collisions
 
 
@@ -154,6 +159,8 @@ def main() -> None:
     args = parse_args()
     if args.project:
         print(f"Filtering to project: {args.project}")
+    if args.allow_existing_sample_id_overwrite:
+        print("Existing sample_id overwrite enabled for this run.")
 
     prepared = collect_observations(args)
     if not prepared:
@@ -196,8 +203,26 @@ def main() -> None:
         sample_codes=[item.sample_code for item in prepared],
     )
     if collisions:
-        print("FATAL: existing sample_id collision(s) detected in Directus. No records were written.")
-        for collision in collisions[:20]:
+        if not args.allow_existing_sample_id_overwrite:
+            print("FATAL: existing sample_id collision(s) detected in Directus. No records were written.")
+            for collision in list(collisions.values())[:20]:
+                sample_id = collision.get("sample_id")
+                query = urlencode({"filter[sample_id][_eq]": sample_id})
+                print(
+                    " - "
+                    f"sample_id={sample_id}, "
+                    f"directus_id={collision.get('id')}, "
+                    f"qfield_project={collision.get('qfield_project')}, "
+                    f"date_created={collision.get('date_created')}, "
+                    f"date_updated={collision.get('date_updated')}, "
+                    f"url={directus_api}?{query}"
+                )
+            if len(collisions) > 20:
+                print(f" ... and {len(collisions) - 20} more collision(s)")
+            raise SystemExit(1)
+
+        print("WARNING: existing sample_id collision(s) detected in Directus. Updating those records because overwrite is enabled.")
+        for collision in list(collisions.values())[:20]:
             sample_id = collision.get("sample_id")
             query = urlencode({"filter[sample_id][_eq]": sample_id})
             print(
@@ -211,10 +236,23 @@ def main() -> None:
             )
         if len(collisions) > 20:
             print(f" ... and {len(collisions) - 20} more collision(s)")
-        raise SystemExit(1)
 
     created = 0
+    updated = 0
     for item in prepared:
+        collision = collisions.get(item.sample_code)
+        if collision is not None:
+            directus_patch = f"{directus_api}{collision['id']}"
+            response_patch = session.patch(url=directus_patch, headers=headers, json=item.observation)
+            if response_patch.status_code not in (200, 204):
+                print(
+                    f"Error patching observation with id {item.sample_code}, project {item.project}, file {item.filename}: "
+                    f"{response_patch.status_code} - {response_patch.text}"
+                )
+                raise SystemExit(1)
+            updated += 1
+            continue
+
         response_post = session.post(url=directus_api, headers=headers, json=item.observation)
         if response_post.status_code not in (200, 201):
             print(
@@ -224,7 +262,7 @@ def main() -> None:
             raise SystemExit(1)
         created += 1
 
-    print(f"Import finished. New Directus records created: {created}")
+    print(f"Import finished. New Directus records created: {created}, updated: {updated}")
 
 
 if __name__ == "__main__":

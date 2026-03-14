@@ -36,6 +36,24 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def find_matching_row(project_csv_dir: str, unique_id: str) -> tuple[dict[str, str] | None, str | None]:
+    if not os.path.isdir(project_csv_dir):
+        return None, None
+
+    for entry in sorted(os.listdir(project_csv_dir)):
+        if not entry.endswith(".csv"):
+            continue
+
+        csv_path = os.path.join(project_csv_dir, entry)
+        with open(csv_path, newline="", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                if "sample_id" in row and row["sample_id"] and row["sample_id"] == unique_id:
+                    return row, csv_path
+
+    return None, None
+
+
 def main() -> None:
     args = parse_args()
     if args.project:
@@ -107,50 +125,29 @@ def main() -> None:
 
                 unique_prefixed = "emi_external_id:" + unique_id
 
-                # Get corresponding CSV file
-                csv_filename = os.path.join(
-                    out_csv_path, os.path.basename(os.path.dirname(root)), os.path.basename(root) + "_EPSG:4326.csv"
-                )
-
-                # Check if CSV file exists
-                if not os.path.isfile(csv_filename):
-                    print(f"No corresponding CSV file found for {picture_path}")
+                project_csv_dir = os.path.join(out_csv_path, project)
+                row, csv_filename = find_matching_row(project_csv_dir, unique_id)
+                if row is None or csv_filename is None:
+                    print(f"No corresponding CSV row found for {picture_path} (sample_id={unique_id})")
                     continue
 
-                # Get picture metadata from CSV file
-                found = False
-                with open(csv_filename, newline="", encoding="utf-8") as f:
-                    reader = csv.DictReader(f)
-                    for row in reader:
-                        # Match the corresponding data
-                        if "sample_id" in row and row["sample_id"] and row["sample_id"] == unique_id:
-                            found = True
-                            date = row.get("date", "")
-                            # Check if a date exists. If not, use now
-                            if date == "":
-                                date = datetime.now().strftime("%Y%m%d%H%M%S")
+                date = row.get("date", "")
+                if date == "":
+                    date = datetime.now().strftime("%Y%m%d%H%M%S")
 
-                            # Get and format data
-                            formatted_date = datetime.strptime(date, "%Y%m%d%H%M%S")
-                            collector = row.get("collector_fullname", "")
-                            collector_prefix = "emi_collector:" + collector
-                            inat_upload = row.get("inat_upload", "")
-                            is_wild = row.get("is_wild", "")
-                            # (kept, though unused)
-                            is_wild_prefix = {"emi_is_wild:": is_wild}
-                            orcid = row.get("collector_orcid", "")
-                            orcid_prefix = "emi_collector_orcid:" + orcid
-                            inat = row.get("collector_inat", "")
-                            inat_prefix = "emi_collector_inat:" + inat
-                            lon = row.get("longitude", "")
-                            lat = row.get("latitude", "")
-
-                            # Stop iterating when match is found
-                            break
-
-                if not found:
-                    print(f"No data found for {unique_id}")
-                    continue
+                formatted_date = datetime.strptime(date, "%Y%m%d%H%M%S")
+                collector = row.get("collector_fullname", "")
+                collector_prefix = "emi_collector:" + collector
+                inat_upload = row.get("inat_upload", "")
+                is_wild = row.get("is_wild", "")
+                # (kept, though unused)
+                is_wild_prefix = {"emi_is_wild:": is_wild}
+                orcid = row.get("collector_orcid", "")
+                orcid_prefix = "emi_collector_orcid:" + orcid
+                inat = row.get("collector_inat", "")
+                inat_prefix = "emi_collector_inat:" + inat
+                lon = row.get("longitude", "")
+                lat = row.get("latitude", "")
 
                 # --- ExifTool call (debug-friendly, same arguments you used) ---
                 here = os.path.dirname(os.path.abspath(__file__))

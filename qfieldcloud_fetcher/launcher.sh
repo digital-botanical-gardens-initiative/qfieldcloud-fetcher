@@ -37,6 +37,13 @@ if [[ "${FINALIZER_ENABLE_REMOTE_DELETE}" =~ ^(1|true|yes|on)$ ]]; then
   FINALIZER_ENABLE_ARGS=(--enable-remote-delete)
 fi
 
+# Optional Directus overwrite for testing
+ALLOW_EXISTING_SAMPLE_ID_OVERWRITE="${ALLOW_EXISTING_SAMPLE_ID_OVERWRITE:-}"
+DB_UPDATER_ARGS=()
+if [[ "${ALLOW_EXISTING_SAMPLE_ID_OVERWRITE}" =~ ^(1|true|yes|on)$ ]]; then
+  DB_UPDATER_ARGS=(--allow-existing-sample-id-overwrite)
+fi
+
 # Optional finalizer force delete
 FINALIZER_FORCE_DELETE="${FORCE_REMOTE_DELETE:-}"
 FINALIZER_FORCE_ARGS=()
@@ -160,7 +167,7 @@ run_script "stage_to_nextcloud_raw" "${PROJECT_FILTER_ARGS[@]}"
 run_script "csv_generator" "${PROJECT_FILTER_ARGS[@]}"
 run_script "csv_formatter" "${PROJECT_FILTER_ARGS[@]}"
 run_script "fields_creator" "${PROJECT_FILTER_ARGS[@]}"
-run_script "db_updater" "${PROJECT_FILTER_ARGS[@]}"
+run_script "db_updater" "${PROJECT_FILTER_ARGS[@]}" "${DB_UPDATER_ARGS[@]}"
 run_script "directus_link_maker" "${PROJECT_FILTER_ARGS[@]}"
 run_script "pictures_renamer" "${PROJECT_FILTER_ARGS[@]}"
 run_script "pictures_resizer" "${PROJECT_FILTER_ARGS[@]}"
