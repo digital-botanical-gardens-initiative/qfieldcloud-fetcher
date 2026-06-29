@@ -19,6 +19,9 @@ from qfieldcloud_sdk import sdk  # type: ignore[import-untyped]
 
 from qfieldcloud_fetcher.fs_utils import require_directory_access, require_replaceable_tree
 
+PLAIN_MD5_HEX_LEN = 32
+
+
 # ---------------------------
 # CLI & state
 # ---------------------------
@@ -86,6 +89,14 @@ def save_state(state: Dict[str, Any], path: str) -> None:
     os.replace(tmp, path)
 
 
+def atomic_write_text(path: str, content: str) -> None:
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    tmp = path + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
+        f.write(content)
+    os.replace(tmp, path)
+
+
 # ---------------------------
 # HTTP session & downloader
 # ---------------------------
@@ -121,15 +132,27 @@ def file_md5(path: str, chunk_size: int = 4 * 1024 * 1024) -> str:
     return h.hexdigest()
 
 
+def is_plain_md5(value: Optional[str]) -> bool:
+    if not value or len(value) != PLAIN_MD5_HEX_LEN:
+        return False
+    return all(c in "0123456789abcdefABCDEF" for c in value)
+
+
 def download_with_retries(
-    url: str, dest_path: str, auth_header: str, expected_md5: Optional[str], max_attempts: int = 6
+    url: str,
+    dest_path: str,
+    auth_header: str,
+    expected_md5: Optional[str],
+    expected_size: Optional[int] = None,
+    max_attempts: int = 6,
 ) -> bool:
     """
     Robust, resumable downloader:
     - Writes to dest_path+'.part'
     - Attempts resume with Range if partial exists
     - Retries on network/stream errors
-    - Verifies MD5 at the end (if provided)
+    - Verifies size at the end (if provided)
+    - Verifies MD5 at the end only when the server provides a plain MD5
     """
     headers_base = {"Authorization": auth_header, "Accept": "*/*"}
     tmp_path = dest_path + ".part"
@@ -169,7 +192,12 @@ def download_with_retries(
                 # ✅ finished streaming this attempt
                 break
 
-            if expected_md5:
+            if expected_size is not None:
+                local_size = os.path.getsize(tmp_path)
+                if local_size != expected_size:
+                    raise IOError(f"Size mismatch: got {local_size}, expected {expected_size}")
+
+            if is_plain_md5(expected_md5):
                 local_md5 = file_md5(tmp_path).lower()
                 if local_md5 != expected_md5.lower():
                     raise IOError(f"MD5 mismatch: got {local_md5}, expected {expected_md5}")
@@ -588,7 +616,8 @@ def main():
             filename = os.path.basename(file_url)
             dest = os.path.join(gpkg_dir, filename)
             remote_md5 = gpkg_md5_by_url.get(file_url)
-            ok = download_with_retries(file_url, dest, auth_header, remote_md5)
+            remote_size = meta_by_url.get(file_url, {}).get("size")
+            ok = download_with_retries(file_url, dest, auth_header, remote_md5, remote_size)
             if ok:
                 downloaded_files += 1
                 new_state_files[file_url] = {"md5": (remote_md5 or file_md5(dest)), "downloaded_at": utcnow_iso()}
@@ -615,7 +644,8 @@ def main():
 
                 meta = meta_by_url.get(file_url, {})
                 remote_md5 = meta.get("md5")
-                ok = download_with_retries(file_url, dest, auth_header, remote_md5)
+                remote_size = meta.get("size")
+                ok = download_with_retries(file_url, dest, auth_header, remote_md5, remote_size)
                 if ok:
                     downloaded_files += 1
                     name_in_project = meta.get("name") or os.path.join("DCIM", layer_name, file_name)
@@ -657,8 +687,7 @@ def main():
         json.dump(summary, f, indent=2)
 
     if had_changes:
-        with open(marker_path, "w", encoding="utf-8") as f:
-            f.write("changed\n")
+        atomic_write_text(marker_path, "changed\n")
     else:
         with suppress(FileNotFoundError):
             os.remove(marker_path)
