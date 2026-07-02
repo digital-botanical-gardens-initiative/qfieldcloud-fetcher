@@ -2,6 +2,7 @@
 
 import argparse
 import csv
+import shlex
 import os
 import re
 import shutil
@@ -52,6 +53,45 @@ def find_matching_row(project_csv_dir: str, unique_id: str) -> tuple[dict[str, s
                     return row, csv_path
 
     return None, None
+
+
+def build_exiftool_command(
+    exif_bin: str,
+    unique_prefixed: str,
+    collector_prefix: str,
+    orcid_prefix: str,
+    inat_prefix: str,
+    lat: str,
+    lon: str,
+    formatted_date: datetime,
+    picture_path: str,
+    *,
+    drop_ifd1_thumbnail: bool = False,
+) -> list[str]:
+    command = [
+        exif_bin,
+        f"-Subject={unique_prefixed}",
+        f"-Subject={collector_prefix}",
+        f"-Subject={orcid_prefix}",
+        f"-Subject={inat_prefix}",
+        f"-EXIF:GPSLongitude*={lat}",
+        f"-EXIF:GPSLatitude*={lon}",
+        f"-EXIF:DateTimeOriginal={formatted_date}",
+        picture_path,
+        "-overwrite_original",
+    ]
+    if drop_ifd1_thumbnail:
+        command.insert(1, "-IFD1:ThumbnailImage=")
+    return command
+
+
+def format_command_for_log(command: list[str]) -> str:
+    return " ".join(shlex.quote(part) for part in command)
+
+
+def is_thumbnail_ifd1_error(result: subprocess.CompletedProcess[str]) -> bool:
+    output = "\n".join([result.stdout, result.stderr])
+    return "Error reading ThumbnailImage data in IFD1" in output
 
 
 def main() -> None:
@@ -159,23 +199,40 @@ def main() -> None:
                 if os.path.isdir(vend_lib):
                     env["PERL5LIB"] = vend_lib + (os.pathsep + env["PERL5LIB"] if "PERL5LIB" in env else "")
 
-                # Build the exact same command you had before
-                command = (
-                    f'"{exif_bin}" '  # quote path to handle spaces
-                    f'-Subject={unique_prefixed} '
-                    f'-Subject="{collector_prefix}" '
-                    f'-Subject={orcid_prefix} '
-                    f'-Subject={inat_prefix} '
-                    f'-EXIF:GPSLongitude*={lat} '
-                    f'-EXIF:GPSLatitude*={lon} '
-                    f'-EXIF:DateTimeOriginal="{formatted_date}" '
-                    f'"{picture_path}" -overwrite_original'
+                command = build_exiftool_command(
+                    exif_bin,
+                    unique_prefixed,
+                    collector_prefix,
+                    orcid_prefix,
+                    inat_prefix,
+                    lat,
+                    lon,
+                    formatted_date,
+                    picture_path,
                 )
 
                 # Run and show full diagnostics on failure
-                result = subprocess.run(command, shell=True, capture_output=True, text=True, env=env)  # noqa: S602
+                result = subprocess.run(command, capture_output=True, text=True, env=env)
+                if result.returncode != 0 and is_thumbnail_ifd1_error(result):
+                    retry_command = build_exiftool_command(
+                        exif_bin,
+                        unique_prefixed,
+                        collector_prefix,
+                        orcid_prefix,
+                        inat_prefix,
+                        lat,
+                        lon,
+                        formatted_date,
+                        picture_path,
+                        drop_ifd1_thumbnail=True,
+                    )
+                    print(f"Retrying ExifTool for {file} without corrupt IFD1 thumbnail")
+                    result = subprocess.run(retry_command, capture_output=True, text=True, env=env)
+                    command = retry_command
+
                 if result.returncode != 0:
                     print(f"ExifTool FAILED for {file} (exit={result.returncode})")
+                    print("COMMAND:", format_command_for_log(command))
                     if result.stdout.strip():
                         print("STDOUT:", result.stdout.strip())
                     if result.stderr.strip():

@@ -247,6 +247,21 @@ def url_project_id(file_url: str) -> Optional[str]:
         return None
 
 
+def jpg_layer_and_file_name(file_name_or_url: str) -> Tuple[str, str]:
+    if "/DCIM/" in file_name_or_url:
+        after_dcim = file_name_or_url.split("/DCIM/", 1)[1]
+    elif file_name_or_url.startswith("DCIM/"):
+        after_dcim = file_name_or_url.split("DCIM/", 1)[1]
+    else:
+        return "unknown", os.path.basename(file_name_or_url)
+
+    if "/" not in after_dcim:
+        return "unknown", after_dcim
+
+    layer_name, file_name = after_dcim.split("/", 1)
+    return layer_name or "unknown", file_name
+
+
 def count_jpgs(by_layer: Dict[str, list[str]]) -> int:
     return sum(len(v) for v in by_layer.values())
 
@@ -410,11 +425,7 @@ def main():
             fname = f.get("name", "")
             if fname.lower().endswith(".jpg"):
                 file_url = f"{files_base}{proj_id}/{fname}"
-                if "/DCIM/" in file_url:
-                    after_dcim = file_url.split("/DCIM/", 1)[1]
-                    layer_name = after_dcim.split("/", 1)[0]
-                else:
-                    layer_name = "unknown"
+                layer_name, _file_name = jpg_layer_and_file_name(fname)
                 by_layer.setdefault(layer_name, []).append(file_url)
                 md5, vid = extract_md5_and_version(f)
                 meta_by_url[file_url] = {"md5": md5, "version_id": vid, "size": f.get("size"), "name": fname}
@@ -635,11 +646,7 @@ def main():
             save_dir = layer_dirs.get(layer_name) or os.path.join(jpg_base, layer_name)
             os.makedirs(save_dir, exist_ok=True)
             for file_url in urls:
-                if "/DCIM/" in file_url:
-                    after_dcim = file_url.split("/DCIM/", 1)[1]
-                    _dir_name, file_name = after_dcim.split("/", 1)
-                else:
-                    file_name = os.path.basename(file_url)
+                _remote_layer_name, file_name = jpg_layer_and_file_name(file_url)
                 dest = os.path.join(save_dir, file_name.replace("/", "_"))
 
                 meta = meta_by_url.get(file_url, {})
